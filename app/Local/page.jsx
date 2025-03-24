@@ -132,7 +132,7 @@ const Local = () => {
 
 
     const possibleMovesets = useRef([
-        'jkl', 'lk'
+        'jkl', 'lk', 'ddj'
     ])
     const keyStats = useRef({
         w: false,
@@ -159,7 +159,7 @@ const Local = () => {
         Round_Won: 0,
         health: 100,
         player: "",
-        playerImage: "",
+        playerImage: 0,
         StateImg: "",
         isOnGround: true,
         facing: 1,
@@ -191,7 +191,7 @@ const Local = () => {
         Round_Won: 0,
         health: 100,
         player: "",
-        playerImage: "",
+        playerImage: 0,
         StateImg: "",
         isOnGround: true,
         facing: -1,
@@ -323,6 +323,7 @@ const Local = () => {
             keyStats.current.d = value;
             p1Moves.current.isInitiated = true
             p1Moves.current.moves.push('d')
+            console.log(p1Moves.current.moves)
         }
         if (keyCode === 74) {  // 'j'
             keyStats.current.j = value;
@@ -388,7 +389,7 @@ const Local = () => {
     function handleP1MovesetRefresh(dt) {
         if (p1Moves.current.isInitiated) {
             p1movesTiming = p1movesTiming + dt
-            if (p1movesTiming >= 200) {
+            if (p1movesTiming >= 300) {
                 p1movesTiming = 0
                 HandleP1Moveset(dt)
                 p1Moves.current.moves = []
@@ -404,7 +405,7 @@ const Local = () => {
     function handleP2MovesetRefresh(dt) {
         if (p2Moves.current.isInitiated) {
             p2MovesTiming = p2MovesTiming + dt
-            if (p2MovesTiming >= 200) {
+            if (p2MovesTiming >= 300) {
                 p2MovesTiming = 0
                 HandleP2Moveset(dt)
                 p2Moves.current.moves = []
@@ -487,23 +488,27 @@ const Local = () => {
             switch (p1Moves.current.moves[0]) {
                 case 'j':
                     {
+                        Player1.current.StateImg = "punch"
                         console.log('j Pressed')
                         break
                     }
                 case 'k':
                     {
+                        Player1.current.StateImg = "kick"
                         console.log('k Pressed')
                         break
                     }
 
                 case 'l':
                     {
+                        Player1.current.StateImg = "projectile"
                         console.log('l Pressed')
                         break
                     }
 
                 case 'i':
                     {
+                        Player1.current.StateImg = "ultimate"
                         console.log('i Pressed')
                         break
                     }
@@ -533,23 +538,27 @@ const Local = () => {
             switch (p2Moves.current.moves[0]) {
                 case '4':
                     {
+                        Player2.current.StateImg = "punch"
                         console.log('4 Pressed')
                         break
                     }
                 case '2':
                     {
+                        Player2.current.StateImg = "kick"
                         console.log('2 Pressed')
                         break
                     }
 
                 case '6':
                     {
+                        Player2.current.StateImg = "projectile"
                         console.log('6 Pressed')
                         break
                     }
 
                 case '8':
                     {
+                        Player2.current.StateImg = "ultimate"
                         console.log('8 Pressed')
                         break
                     }
@@ -559,12 +568,12 @@ const Local = () => {
 
         }
 
-        else if (p1Moves.current.moves.length > 1) {
+        else if (p2Moves.current.moves.length > 1) {
             var move = ''
             possibleMovesets.current.map((moveSet) => {
-                if (moveSet == p1Moves.current.moves.join('')) {
-                    p1Moves.current.isInitiated = false
-                    p1Moves.current.moves = []
+                if (moveSet == p2Moves.current.moves.join('')) {
+                    p2Moves.current.isInitiated = false
+                    p2Moves.current.moves = []
                     move = moveSet
                 }
             })
@@ -632,7 +641,7 @@ const Local = () => {
             </div>
             <div className="bg-zinc-50 fixed h-[50px] w-full bottom-[0px] ">
             </div>
-            <div className="flex  bg-transparent w-[100px] h-[35px] p-auto m-auto z-100 mt-[20px] text-3xl justify-center font-extrabold">
+            <div className="flex  bg-transparent w-[100px] h-[35px] p-auto m-auto z-100 mt-[20px] text-3xl justify-center font-extrabold text-white">
                 {`${time.current}`}
             </div>
 
@@ -659,7 +668,7 @@ const Local = () => {
             </div>
             <div className="absolute z-[200] w-[10px] h-[10px] bg-red-500" style={{
                 left: `${Player1.current.Kick_1.PositionHorizontal + Player1.current.data.PositionHorizontal + 25}px`,
-                bottom: `${Player1.Kick_1.Projectile.PositionVertical + Player1.current.data.PositionVertical}px`
+                bottom: `${Player1.current.Kick_1.PositionVertical + Player1.current.data.PositionVertical}px`
             }}>
             </div>
 
@@ -686,7 +695,7 @@ const Local = () => {
             </div>
             <div className="absolute z-[200] w-[10px] h-[10px] bg-red-500" style={{
                 left: `${Player2.current.Kick_1.PositionHorizontal + Player2.current.data.PositionHorizontal + 25}px`,
-                bottom: `${Player2.Kick_1.Projectile.PositionVertical + Player2.current.data.PositionVertical}px`
+                bottom: `${Player2.current.Kick_1.PositionVertical + Player2.current.data.PositionVertical}px`
             }}>
             </div>
 
