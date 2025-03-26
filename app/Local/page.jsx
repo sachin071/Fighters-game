@@ -81,10 +81,10 @@ const Local = () => {
                 name_img: '/PlayerSelect/PlayerNames/Baba_Ramdev.png'
             },
             {
-                name: "Coming Soon",
-                showcase: "/PlayerSelect/Showcases/Unknown_Showcase.png",
-                image: "/PlayerSelect/Unknown_Player.png",
-                name_img: '/PlayerSelect/PlayerNames/Unknown_Name.png'
+                name: "Balkrishna",
+                showcase: "/PlayerSelect/Showcases/Balkrishna.png",
+                image: "/PlayerSelect/Balkrishna.png",
+                name_img: '/PlayerSelect/PlayerNames/Balkrishna.png'
             },
 
             {
@@ -168,7 +168,9 @@ const Local = () => {
             PositionHorizontal: 100,
             PositionVertical: 50,
             VelocityVertical: 0,
-            VelocityHorizontal: 0
+            VelocityHorizontal: 0,
+            width: 75,
+            height: 125
         },
         Punch_1: {
             isHitting: false,
@@ -177,6 +179,8 @@ const Local = () => {
         },
         Projectile: {
             isHitting: false,
+            isActive: false,
+            P_facing: 1,
             PositionHorizontal: 0,
             PositionVertical: 75
         },
@@ -200,7 +204,9 @@ const Local = () => {
             PositionHorizontal: 100,
             PositionVertical: 50,
             VelocityVertical: 0,
-            VelocityHorizontal: 0
+            VelocityHorizontal: 0,
+            width: 75,
+            height: 125
         },
 
         Punch_1: {
@@ -210,6 +216,8 @@ const Local = () => {
         },
         Projectile: {
             isHitting: false,
+            isActive: false,
+            P_facing: -1,
             PositionHorizontal: 0,
             PositionVertical: 75
         },
@@ -276,22 +284,22 @@ const Local = () => {
         if (keyCode === 39) {  // 'ArrowRight'
             keyStats.current.right = value;
         }
-        if (keyCode === 56) {  // 'Num8'
+        if (keyCode === 104) {  // 'Num8'
             keyStats.current.num8 = value;
             p2Moves.current.isInitiated = true
             p2Moves.current.moves.push('8')
         }
-        if (keyCode === 52) {  // 'Num4'
+        if (keyCode === 100) {  // 'Num4'
             keyStats.current.num4 = value;
             p2Moves.current.isInitiated = true
             p2Moves.current.moves.push('4')
         }
-        if (keyCode === 54) {  // 'Num6'
+        if (keyCode === 102) {  // 'Num6'
             keyStats.current.num6 = value;
             p2Moves.current.isInitiated = true
             p2Moves.current.moves.push('6')
         }
-        if (keyCode === 50) {  // 'Num2'
+        if (keyCode === 98) {  // 'Num2'
             keyStats.current.num2 = value;
             p2Moves.current.isInitiated = true
             p2Moves.current.moves.push('2')
@@ -358,16 +366,16 @@ const Local = () => {
             p2Moves.current.isInitiated = true
             p2Moves.current.moves.push('right')
         }
-        if (keyCode === 56) {  // 'Num8'
+        if (keyCode === 104) {  // 'Num8'
             keyStats.current.num8 = value;
         }
-        if (keyCode === 52) {  // 'Num4'
+        if (keyCode === 100) {  // 'Num4'
             keyStats.current.num4 = value;
         }
-        if (keyCode === 54) {  // 'Num6'
+        if (keyCode === 102) {  // 'Num6'
             keyStats.current.num6 = value;
         }
-        if (keyCode === 50) {  // 'Num2'
+        if (keyCode === 98) {  // 'Num2'
             keyStats.current.num2 = value;
         }
         if (keyCode === 27) {  // 'esc'
@@ -502,6 +510,8 @@ const Local = () => {
                 case 'l':
                     {
                         Player1.current.StateImg = "projectile"
+                        Player1.current.Projectile.isActive = true
+                        Player1.current.Projectile.P_facing = Player1.current.facing
                         console.log('l Pressed')
                         break
                     }
@@ -532,6 +542,38 @@ const Local = () => {
         }
     }
 
+    function handleP1Projectile(dt) {
+        if (Player1.current.Projectile.isActive) {
+            Player1.current.Projectile.PositionHorizontal = Player1.current.Projectile.PositionHorizontal + (Player1.current.Projectile.P_facing * 1100) * dt / 1000
+            if ((Player1.current.Projectile.PositionHorizontal < -25) || (Player1.current.Projectile.PositionHorizontal >= window.innerWidth + 25)) {
+                Player1.current.Projectile.PositionHorizontal = Player1.current.data.PositionHorizontal + 25
+                Player1.current.Projectile.PositionVertical = Player1.current.data.PositionVertical + 100
+                Player1.current.Projectile.isActive = false
+            }
+
+        }
+        else {
+            Player1.current.Projectile.PositionHorizontal = Player1.current.data.PositionHorizontal + 25
+            Player1.current.Projectile.PositionVertical = Player1.current.data.PositionVertical + 100
+        }
+    }
+
+    function handleP2Projectile(dt) {
+        if (Player2.current.Projectile.isActive) {
+            Player2.current.Projectile.PositionHorizontal = Player2.current.Projectile.PositionHorizontal + (Player2.current.Projectile.P_facing * 1100) * dt / 1000
+            if ((Player2.current.Projectile.PositionHorizontal < -25) || (Player2.current.Projectile.PositionHorizontal >= window.innerWidth + 25)) {
+                Player2.current.Projectile.PositionHorizontal = Player2.current.data.PositionHorizontal + 25
+                Player2.current.Projectile.PositionVertical = Player2.current.data.PositionVertical + 100
+                Player2.current.Projectile.isActive = false
+            }
+
+        }
+        else {
+            Player2.current.Projectile.PositionHorizontal = Player2.current.data.PositionHorizontal + 25
+            Player2.current.Projectile.PositionVertical = Player2.current.data.PositionVertical + 100
+        }
+    }
+
     function HandleP2Moveset(dt) {
 
         if (p2Moves.current.moves.length == 1) {
@@ -552,6 +594,8 @@ const Local = () => {
                 case '6':
                     {
                         Player2.current.StateImg = "projectile"
+                        Player2.current.Projectile.isActive = true
+                        Player2.current.Projectile.P_facing = Player2.current.facing
                         console.log('6 Pressed')
                         break
                     }
@@ -586,6 +630,78 @@ const Local = () => {
         console.log(move)
     }
 
+    function handleFacing() {
+        if (Player1.current.data.PositionHorizontal > Player2.current.data.PositionHorizontal) {
+            Player1.current.facing = -1
+            Player2.current.facing = 1
+        }
+        else {
+            Player1.current.facing = 1
+            Player2.current.facing = -1
+        }
+    }
+
+    // code for projectile hit check
+
+    function isP1HitWithProjectile() {
+        if (!Player2.current.Projectile.isHitting && Player2.current.Projectile.isActive) {
+            if (Player2.current.Projectile.P_facing == -1) {
+                if ((Player1.current.data.PositionHorizontal <= Player2.current.Projectile.PositionHorizontal) && ((Player1.current.data.PositionHorizontal + Player1.current.data.height + 10) >= Player2.current.Projectile.PositionHorizontal)) {
+                    if ((Player2.current.Projectile.PositionVertical >= Player1.current.data.PositionVertical) && (Player2.current.Projectile.PositionVertical <= (Player1.current.data.PositionVertical + Player1.current.data.height + 10))) {
+                        alert("Player1 is hit")
+                        Player1.current.health = Player1.current.health - 7.5
+                        Player2.current.Projectile.isHitting = true
+                        Player2.current.Projectile.isActive = false
+                    }
+                }
+            }
+            else if (Player2.current.Projectile.P_facing == 1) {
+                if ((Player1.current.data.PositionHorizontal <= (Player2.current.Projectile.PositionHorizontal + 10)) && ((Player1.current.data.PositionHorizontal + Player1.current.data.height) >= Player2.current.Projectile.PositionHorizontal)) {
+                    if ((Player2.current.Projectile.PositionVertical >= Player1.current.data.PositionVertical) && (Player2.current.Projectile.PositionVertical <= (Player1.current.data.PositionVertical + Player1.current.data.height + 10))) {
+                        alert("Player1 is hit")
+                        Player1.current.health = Player1.current.health - 7.5
+                        Player2.current.Projectile.isHitting = true
+                        Player2.current.Projectile.isActive = false
+                    }
+                }
+            }
+        }
+
+    }
+
+    function isP2HitWithProjectile() {
+        if (!Player1.current.Projectile.isHitting && Player1.current.Projectile.isActive) {
+            if (Player1.current.Projectile.P_facing == -1) {
+                if ((Player2.current.data.PositionHorizontal <= Player1.current.Projectile.PositionHorizontal) && ((Player2.current.data.PositionHorizontal + Player2.current.data.height + 10) >= Player1.current.Projectile.PositionHorizontal)) {
+                    if ((Player1.current.Projectile.PositionVertical >= Player2.current.data.PositionVertical) && (Player1.current.Projectile.PositionVertical <= (Player2.current.data.PositionVertical + Player2.current.data.height + 10))) {
+                        alert("Player2 is hit")
+                        Player2.current.health = Player2.current.health - 7.5
+                        Player1.current.Projectile.isHitting = true
+                        Player1.current.Projectile.isActive = false
+                    }
+                }
+            }
+            else if (Player1.current.Projectile.P_facing == 1) {
+                if ((Player2.current.data.PositionHorizontal <= (Player1.current.Projectile.PositionHorizontal + 10)) && ((Player2.current.data.PositionHorizontal + Player2.current.data.height) >= Player1.current.Projectile.PositionHorizontal)) {
+                    if ((Player1.current.Projectile.PositionVertical >= Player2.current.data.PositionVertical) && (Player1.current.Projectile.PositionVertical <= (Player2.current.data.PositionVertical + Player2.current.data.height + 10))) {
+                        alert("Player2 is hit")
+                        Player2.current.health = Player2.current.health - 7.5
+                        Player1.current.Projectile.isHitting = true
+                        Player1.current.Projectile.isActive = false
+                    }
+                }
+            }
+        }
+    }
+
+
+    // code for projectile hit check
+
+
+    function isClashing() {
+
+    }
+
 
 
     function GameLogic(dt) {
@@ -594,6 +710,14 @@ const Local = () => {
         handlePlayer2Movement(dt)
         handleP1MovesetRefresh(dt)
         handleP2MovesetRefresh(dt)
+        handleP1Projectile(dt)
+        handleP2Projectile(dt)
+        handleFacing()
+        isClashing()
+        isP1HitWithProjectile()  // added functions for checking projectile hit
+        isP2HitWithProjectile()
+
+
     }
 
     useEffect(() => {
@@ -610,7 +734,13 @@ const Local = () => {
             BGM_Ref.current.currentTime = 60
         }
 
-        frameref.current = frameref.current + 1
+
+        if (frameref.current > 100) {
+            frameref.current = frameref.current - 1
+        }
+        else {
+            frameref.current = frameref.current + 1
+        }
         setFrame(frameref.current)
         requestAnimationFrame(playloop)
         GameLogic(dt)
@@ -646,9 +776,11 @@ const Local = () => {
             </div>
 
 
-            <div className="absolute z-[200] w-[75px] h-[125px] bg-white" style={{
+            <div className="absolute z-[200] bg-white" style={{
                 left: `${Player1.current.data.PositionHorizontal}px`,
-                bottom: `${Player1.current.data.PositionVertical}px`
+                bottom: `${Player1.current.data.PositionVertical}px`,
+                width: `${Player1.current.data.width}px`,
+                height: `${Player1.current.data.height}px`
             }} >
             </div>
             <div className="absolute z-[200] w-[25px] h-[25px] bg-white" style={{
@@ -657,7 +789,7 @@ const Local = () => {
             }}>
             </div>
             <div className="absolute z-[200] w-[10px] h-[10px] bg-red-500" style={{
-                left: `${Player1.current.Projectile.PositionHorizontal + Player1.current.data.PositionHorizontal + 25}px`,
+                left: `${Player1.current.Projectile.PositionHorizontal}px`,
                 bottom: `${Player1.current.Projectile.PositionVertical}px`
             }}>
             </div>
@@ -674,9 +806,11 @@ const Local = () => {
 
 
 
-            <div className="absolute z-[200] w-[75px] h-[125px] bg-white" style={{
+            <div className="absolute z-[200] bg-white" style={{
                 left: `${Player2.current.data.PositionHorizontal}px`,
-                bottom: `${Player2.current.data.PositionVertical}px`
+                bottom: `${Player2.current.data.PositionVertical}px`,
+                width: `${Player2.current.data.width}px`,
+                height: `${Player2.current.data.height}px`
             }} >
             </div>
             <div className="absolute z-[200] w-[25px] h-[25px] bg-white" style={{
@@ -684,7 +818,7 @@ const Local = () => {
                 bottom: `${Player2.current.data.PositionVertical + 125}px`
             }}></div>
             <div className="absolute z-[200] w-[10px] h-[10px] bg-red-500" style={{
-                left: `${Player2.current.Projectile.PositionHorizontal + Player2.current.data.PositionHorizontal + 25}px`,
+                left: `${Player2.current.Projectile.PositionHorizontal}px`,
                 bottom: `${Player2.current.Projectile.PositionVertical}px`
             }}>
             </div>

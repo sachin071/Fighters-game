@@ -10,12 +10,12 @@ import { clearData, recallData } from "../../functions/UserDataHandling";
 
 const Local = () => {
 
-    const userData = useRef({})
-    userData.current = recallData()
-    console.log(userData.current)
-    setTimeout(() => {
-        clearData()
-    }, 1000)
+    // const userData = useRef({})
+    // userData.current = recallData()
+    // console.log(userData.current)
+    // setTimeout(() => {
+    //     clearData()
+    // }, 1000)
 
 
 
