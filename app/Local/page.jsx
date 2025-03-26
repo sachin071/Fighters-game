@@ -397,7 +397,7 @@ const Local = () => {
     function handleP1MovesetRefresh(dt) {
         if (p1Moves.current.isInitiated) {
             p1movesTiming = p1movesTiming + dt
-            if (p1movesTiming >= 300) {
+            if (p1movesTiming >= 200) {
                 p1movesTiming = 0
                 HandleP1Moveset(dt)
                 p1Moves.current.moves = []
@@ -413,7 +413,7 @@ const Local = () => {
     function handleP2MovesetRefresh(dt) {
         if (p2Moves.current.isInitiated) {
             p2MovesTiming = p2MovesTiming + dt
-            if (p2MovesTiming >= 300) {
+            if (p2MovesTiming >= 200) {
                 p2MovesTiming = 0
                 HandleP2Moveset(dt)
                 p2Moves.current.moves = []
@@ -650,7 +650,7 @@ const Local = () => {
             if (Player2.current.Projectile.P_facing == -1) {
                 if ((Player1.current.data.PositionHorizontal <= Player2.current.Projectile.PositionHorizontal) && ((Player1.current.data.PositionHorizontal + Player1.current.data.width + 10) >= Player2.current.Projectile.PositionHorizontal)) {
                     if ((Player2.current.Projectile.PositionVertical >= Player1.current.data.PositionVertical) && (Player2.current.Projectile.PositionVertical <= (Player1.current.data.PositionVertical + Player1.current.data.height + 10))) {
-                        Player1.current.health = Player1.current.health - 7.5
+                        Player1.current.health = Math.max(Player1.current.health - 7.5)
                         Player2.current.Projectile.isHitting = true
                         Player2.current.Projectile.isActive = false
                     }
@@ -659,7 +659,7 @@ const Local = () => {
             else if (Player2.current.Projectile.P_facing == 1) {
                 if ((Player1.current.data.PositionHorizontal <= (Player2.current.Projectile.PositionHorizontal + 10)) && ((Player1.current.data.PositionHorizontal + Player1.current.data.width) >= Player2.current.Projectile.PositionHorizontal)) {
                     if ((Player2.current.Projectile.PositionVertical >= Player1.current.data.PositionVertical) && (Player2.current.Projectile.PositionVertical <= (Player1.current.data.PositionVertical + Player1.current.data.height + 10))) {
-                        Player1.current.health = Player1.current.health - 7.5
+                        Player1.current.health = Math.max(Player1.current.health - 7.5)
                         Player2.current.Projectile.isHitting = true
                         Player2.current.Projectile.isActive = false
                     }
@@ -674,7 +674,7 @@ const Local = () => {
             if (Player1.current.Projectile.P_facing == -1) {
                 if ((Player2.current.data.PositionHorizontal <= Player1.current.Projectile.PositionHorizontal) && ((Player2.current.data.PositionHorizontal + Player2.current.data.width + 10) >= Player1.current.Projectile.PositionHorizontal)) {
                     if ((Player1.current.Projectile.PositionVertical >= Player2.current.data.PositionVertical) && (Player1.current.Projectile.PositionVertical <= (Player2.current.data.PositionVertical + Player2.current.data.height + 10))) {
-                        Player2.current.health = Player2.current.health - 7.5
+                        Player2.current.health = Math.max(Player2.current.health - 7.5)
                         Player1.current.Projectile.isHitting = true
                         Player1.current.Projectile.isActive = false
                     }
@@ -683,7 +683,7 @@ const Local = () => {
             else if (Player1.current.Projectile.P_facing == 1) {
                 if ((Player2.current.data.PositionHorizontal <= (Player1.current.Projectile.PositionHorizontal + 10)) && ((Player2.current.data.PositionHorizontal + Player2.current.data.width) >= Player1.current.Projectile.PositionHorizontal)) {
                     if ((Player1.current.Projectile.PositionVertical >= Player2.current.data.PositionVertical) && (Player1.current.Projectile.PositionVertical <= (Player2.current.data.PositionVertical + Player2.current.data.height + 10))) {
-                        Player2.current.health = Player2.current.health - 7.5
+                        Player2.current.health = Math.max(Player2.current.health - 7.5)
                         Player1.current.Projectile.isHitting = true
                         Player1.current.Projectile.isActive = false
                     }
@@ -758,15 +758,15 @@ const Local = () => {
     return (
         <div className="bg-stone-950 w-screen h-screen object-cover flex">
             <div className="fixed w-[45%] h-[25px] bg-gradient-to-t from-red-500 via-red-600 to-red-400 left-[2%] top-[25px] rounded-md overflow-hidden">
-                <div className="h-full absolute left-0 bg-gradient-to-t from-green-600 via-green-600 to-green-400 rounded-sm" style={{ width: `${Player1.current.health}%` }}>
-
+                <div className="h-full absolute left-0 bg-gradient-to-t from-green-600 via-green-600 to-green-400 rounded-sm" style={{ width: `${Math.max(Player1.current.health, 0)}%` }}>
                 </div>
             </div>
+
             <div className="fixed w-[45%] h-[25px] bg-gradient-to-t from-red-500 via-red-600 to-red-400 right-[2%] top-[25px] rounded-md overflow-hidden">
-                <div className=" absolute right-0 bg-gradient-to-t from-green-600 via-green-600 to-green-400 h-full rounded-sm" style={{ width: `${Player2.current.health}%` }}>
-
+                <div className=" absolute right-0 bg-gradient-to-t from-green-600 via-green-600 to-green-400 h-full rounded-sm" style={{ width: `${Math.max(Player2.current.health, 0)}%` }}>
                 </div>
             </div>
+
             <div className="bg-zinc-50 fixed h-[50px] w-full bottom-[0px] ">
             </div>
             <div className="flex  bg-transparent w-[100px] h-[35px] p-auto m-auto z-100 mt-[20px] text-3xl justify-center font-extrabold text-white">
