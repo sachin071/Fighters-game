@@ -512,6 +512,7 @@ const Local = () => {
                         Player1.current.StateImg = "projectile"
                         Player1.current.Projectile.isActive = true
                         Player1.current.Projectile.P_facing = Player1.current.facing
+                        Player1.current.Projectile.isHitting = false
                         console.log('l Pressed')
                         break
                     }
@@ -595,6 +596,7 @@ const Local = () => {
                     {
                         Player2.current.StateImg = "projectile"
                         Player2.current.Projectile.isActive = true
+                        Player2.current.Projectile.isHitting = false
                         Player2.current.Projectile.P_facing = Player2.current.facing
                         console.log('6 Pressed')
                         break
@@ -646,9 +648,8 @@ const Local = () => {
     function isP1HitWithProjectile() {
         if (!Player2.current.Projectile.isHitting && Player2.current.Projectile.isActive) {
             if (Player2.current.Projectile.P_facing == -1) {
-                if ((Player1.current.data.PositionHorizontal <= Player2.current.Projectile.PositionHorizontal) && ((Player1.current.data.PositionHorizontal + Player1.current.data.height + 10) >= Player2.current.Projectile.PositionHorizontal)) {
+                if ((Player1.current.data.PositionHorizontal <= Player2.current.Projectile.PositionHorizontal) && ((Player1.current.data.PositionHorizontal + Player1.current.data.width + 10) >= Player2.current.Projectile.PositionHorizontal)) {
                     if ((Player2.current.Projectile.PositionVertical >= Player1.current.data.PositionVertical) && (Player2.current.Projectile.PositionVertical <= (Player1.current.data.PositionVertical + Player1.current.data.height + 10))) {
-                        alert("Player1 is hit")
                         Player1.current.health = Player1.current.health - 7.5
                         Player2.current.Projectile.isHitting = true
                         Player2.current.Projectile.isActive = false
@@ -656,9 +657,8 @@ const Local = () => {
                 }
             }
             else if (Player2.current.Projectile.P_facing == 1) {
-                if ((Player1.current.data.PositionHorizontal <= (Player2.current.Projectile.PositionHorizontal + 10)) && ((Player1.current.data.PositionHorizontal + Player1.current.data.height) >= Player2.current.Projectile.PositionHorizontal)) {
+                if ((Player1.current.data.PositionHorizontal <= (Player2.current.Projectile.PositionHorizontal + 10)) && ((Player1.current.data.PositionHorizontal + Player1.current.data.width) >= Player2.current.Projectile.PositionHorizontal)) {
                     if ((Player2.current.Projectile.PositionVertical >= Player1.current.data.PositionVertical) && (Player2.current.Projectile.PositionVertical <= (Player1.current.data.PositionVertical + Player1.current.data.height + 10))) {
-                        alert("Player1 is hit")
                         Player1.current.health = Player1.current.health - 7.5
                         Player2.current.Projectile.isHitting = true
                         Player2.current.Projectile.isActive = false
@@ -672,9 +672,8 @@ const Local = () => {
     function isP2HitWithProjectile() {
         if (!Player1.current.Projectile.isHitting && Player1.current.Projectile.isActive) {
             if (Player1.current.Projectile.P_facing == -1) {
-                if ((Player2.current.data.PositionHorizontal <= Player1.current.Projectile.PositionHorizontal) && ((Player2.current.data.PositionHorizontal + Player2.current.data.height + 10) >= Player1.current.Projectile.PositionHorizontal)) {
+                if ((Player2.current.data.PositionHorizontal <= Player1.current.Projectile.PositionHorizontal) && ((Player2.current.data.PositionHorizontal + Player2.current.data.width + 10) >= Player1.current.Projectile.PositionHorizontal)) {
                     if ((Player1.current.Projectile.PositionVertical >= Player2.current.data.PositionVertical) && (Player1.current.Projectile.PositionVertical <= (Player2.current.data.PositionVertical + Player2.current.data.height + 10))) {
-                        alert("Player2 is hit")
                         Player2.current.health = Player2.current.health - 7.5
                         Player1.current.Projectile.isHitting = true
                         Player1.current.Projectile.isActive = false
@@ -682,9 +681,8 @@ const Local = () => {
                 }
             }
             else if (Player1.current.Projectile.P_facing == 1) {
-                if ((Player2.current.data.PositionHorizontal <= (Player1.current.Projectile.PositionHorizontal + 10)) && ((Player2.current.data.PositionHorizontal + Player2.current.data.height) >= Player1.current.Projectile.PositionHorizontal)) {
+                if ((Player2.current.data.PositionHorizontal <= (Player1.current.Projectile.PositionHorizontal + 10)) && ((Player2.current.data.PositionHorizontal + Player2.current.data.width) >= Player1.current.Projectile.PositionHorizontal)) {
                     if ((Player1.current.Projectile.PositionVertical >= Player2.current.data.PositionVertical) && (Player1.current.Projectile.PositionVertical <= (Player2.current.data.PositionVertical + Player2.current.data.height + 10))) {
-                        alert("Player2 is hit")
                         Player2.current.health = Player2.current.health - 7.5
                         Player1.current.Projectile.isHitting = true
                         Player1.current.Projectile.isActive = false
