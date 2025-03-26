@@ -109,8 +109,9 @@ const Local = () => {
             P2Details.current.selected = true
             localStorage.setItem("P2CharIndex", P2Details.current.selectionIndex)
             if (P1Details.current.selected && P2Details.current.selected) {
-                localStorage.setItem("Bgm_Timer", bgm.current.currentTime)
                 setTimeout(() => {
+                    localStorage.setItem("last_utx", Date.now().toString())
+                    localStorage.setItem("Bgm_Timer", bgm.current.currentTime)
                     router.push("/arenaSelect")
                 }, 800)
             }

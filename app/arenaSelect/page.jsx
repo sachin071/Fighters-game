@@ -57,6 +57,8 @@ export default function Home() {
         const currTime = Date.now()
         const td = currTime - parseInt(lastTime, 10)
         const playtime = parseFloat(localStorage.getItem("Bgm_Timer")) + td / 1000
+        console.log(playtime)
+        console.log(td)
         bgm.current.currentTime = playtime
         addEventListener('keydown', handleKeyDown)
         return () => {
