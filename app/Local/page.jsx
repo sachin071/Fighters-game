@@ -160,7 +160,7 @@ const Local = () => {
         health: 100,
         player: "",
         playerImage: 0,
-        StateImg: "",
+        StateImg: "idle",
         isOnGround: true,
         facing: 1,
         data: {
@@ -196,7 +196,7 @@ const Local = () => {
         health: 100,
         player: "",
         playerImage: 0,
-        StateImg: "",
+        StateImg: "idle",
         isOnGround: true,
         facing: -1,
         data: {
@@ -538,6 +538,10 @@ const Local = () => {
                     move = moveSet
                 }
             })
+            if (move == '') {
+                p1Moves.current.moves = [p1Moves.current.moves[p1Moves.current.moves.length - 1]]
+                HandleP1Moveset(dt)
+            }
             executeMove(move)
 
         }
@@ -617,12 +621,16 @@ const Local = () => {
         else if (p2Moves.current.moves.length > 1) {
             var move = ''
             possibleMovesets.current.map((moveSet) => {
-                if (moveSet == p2Moves.current.moves.join('')) {
+                if (moveSet.replace('i', '8').replace('j', '4').replace('k', '2').replace('l', '6') == p2Moves.current.moves.join('')) {
                     p2Moves.current.isInitiated = false
                     p2Moves.current.moves = []
                     move = moveSet
                 }
             })
+            if (move == '') {
+                p2Moves.current.moves = [p2Moves.current.moves[p2Moves.current.moves.length - 1]]
+                HandleP1Moveset(dt)
+            }
             executeMove(move)
 
         }
@@ -652,6 +660,7 @@ const Local = () => {
                     if ((Player2.current.Projectile.PositionVertical >= Player1.current.data.PositionVertical) && (Player2.current.Projectile.PositionVertical <= (Player1.current.data.PositionVertical + Player1.current.data.height + 10))) {
                         Player1.current.health = Math.max(Player1.current.health - 7.5)
                         Player2.current.Projectile.isHitting = true
+                        Player2.current.StateImg = "idle"
                         Player2.current.Projectile.isActive = false
                     }
                 }
@@ -661,6 +670,7 @@ const Local = () => {
                     if ((Player2.current.Projectile.PositionVertical >= Player1.current.data.PositionVertical) && (Player2.current.Projectile.PositionVertical <= (Player1.current.data.PositionVertical + Player1.current.data.height + 10))) {
                         Player1.current.health = Math.max(Player1.current.health - 7.5)
                         Player2.current.Projectile.isHitting = true
+                        Player2.current.StateImg = "idle"
                         Player2.current.Projectile.isActive = false
                     }
                 }
@@ -676,6 +686,7 @@ const Local = () => {
                     if ((Player1.current.Projectile.PositionVertical >= Player2.current.data.PositionVertical) && (Player1.current.Projectile.PositionVertical <= (Player2.current.data.PositionVertical + Player2.current.data.height + 10))) {
                         Player2.current.health = Math.max(Player2.current.health - 7.5)
                         Player1.current.Projectile.isHitting = true
+                        Player1.current.StateImg = "idle"
                         Player1.current.Projectile.isActive = false
                     }
                 }
@@ -685,6 +696,7 @@ const Local = () => {
                     if ((Player1.current.Projectile.PositionVertical >= Player2.current.data.PositionVertical) && (Player1.current.Projectile.PositionVertical <= (Player2.current.data.PositionVertical + Player2.current.data.height + 10))) {
                         Player2.current.health = Math.max(Player2.current.health - 7.5)
                         Player1.current.Projectile.isHitting = true
+                        Player1.current.StateImg = "idle"
                         Player1.current.Projectile.isActive = false
                     }
                 }
