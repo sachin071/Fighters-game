@@ -290,6 +290,7 @@ const Local = () => {
             <img src={'/PlayerSelect/Essentials/VS.png'} className="w-[8%] fixed left-[46%] bottom-[calc(10%+250px)]" />
             <audio src={'/PlayerSelect/Audio/Player_Select_BGM.mp3'} ref={bgm} loop />
             <audio src={'/PlayerSelect/Audio/PlayerChange.wav'} ref={playerChange} />
+            <div hidden={true} className="fixed w-full h-[30%] bottom-[35%] flex justify-center items-center bg-[#00000044]"></div>
         </div>
     );
 
