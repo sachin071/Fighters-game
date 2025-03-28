@@ -183,7 +183,8 @@ const Local = () => {
             isActive: false,
             P_facing: 1,
             PositionHorizontal: 0,
-            PositionVertical: 75
+            PositionVertical: 75,
+            chs: false
         },
         Kick_1: {
             isActive: false,
@@ -222,7 +223,8 @@ const Local = () => {
             isActive: false,
             P_facing: -1,
             PositionHorizontal: 0,
-            PositionVertical: 75
+            PositionVertical: 75,
+            chs: false
         },
         Kick_1: {
             isActive: false,
@@ -724,11 +726,99 @@ const Local = () => {
 
     // code for projectile hit check
 
+    // code for clashing check
 
     function isClashing() {
+        if ((Player1.current.Punch_1.PositionHorizontal + 10 >= Player2.current.Punch_1.PositionHorizontal) && (Player1.current.Punch_1.PositionHorizontal <= Player2.current.Punch_1.PositionHorizontal + 10) && (Player1.current.Punch_1.PositionVertical >= Player2.current.Punch_1.PositionVertical - 10) && (Player1.current.Punch_1.PositionVertical <= Player2.current.Punch_1.PositionVertical + 10)) {
+            if (Player1.current.Punch_1.isActive && Player2.current.Punch_1.isActive) {
+                handleClash('punch', 'punch')
+            }
 
+        }
+        if ((Player1.current.Punch_1.PositionHorizontal + 10 >= Player2.current.Kick_1.PositionHorizontal) && (Player1.current.Punch_1.PositionHorizontal <= Player2.current.Kick_1.PositionHorizontal + 10) && (Player1.current.Punch_1.PositionVertical >= Player2.current.Kick_1.PositionVertical - 10) && (Player1.current.Punch_1.PositionVertical <= Player2.current.Kick_1.PositionVertical + 10)) {
+            if (Player1.current.Punch_1.isActive && Player2.current.Kick_1.isActive) {
+                handleClash('punch', 'kick')
+            }
+        }
+        if ((Player1.current.Punch_1.PositionHorizontal + 10 >= Player2.current.Projectile.PositionHorizontal) && (Player1.current.Punch_1.PositionHorizontal <= Player2.current.Projectile.PositionHorizontal + 10) && (Player1.current.Punch_1.PositionVertical >= Player2.current.Projectile.PositionVertical - 10) && (Player1.current.Punch_1.PositionVertical <= Player2.current.Projectile.PositionVertical + 10)) {
+            if (Player1.current.Punch_1.isActive && Player2.current.Projectile.isActive) {
+                handleClash('punch', 'projectile')
+            }
+        }
+
+
+
+        if ((Player1.current.Kick_1.PositionHorizontal + 10 >= Player2.current.Punch_1.PositionHorizontal) && (Player1.current.Kick_1.PositionHorizontal <= Player2.current.Punch_1.PositionHorizontal + 10) && (Player1.current.Kick_1.PositionVertical >= Player2.current.Punch_1.PositionVertical - 10) && (Player1.current.Kick_1.PositionVertical <= Player2.current.Punch_1.PositionVertical + 10)) {
+            if (Player1.current.Kick_1.isActive && Player2.current.Punch_1.isActive) {
+                handleClash('kick', 'punch')
+            }
+        }
+        if ((Player1.current.Kick_1.PositionHorizontal + 10 >= Player2.current.Kick_1.PositionHorizontal) && (Player1.current.Kick_1.PositionHorizontal <= Player2.current.Kick_1.PositionHorizontal + 10) && (Player1.current.Kick_1.PositionVertical >= Player2.current.Kick_1.PositionVertical - 10) && (Player1.current.Kick_1.PositionVertical <= Player2.current.Kick_1.PositionVertical + 10)) {
+            if (Player1.current.Kick_1.isActive && Player2.current.Kick_1.isActive) {
+                handleClash('kick', 'kick')
+            }
+        }
+        if ((Player1.current.Kick_1.PositionHorizontal + 10 >= Player2.current.Projectile.PositionHorizontal) && (Player1.current.Kick_1.PositionHorizontal <= Player2.current.Projectile.PositionHorizontal + 10) && (Player1.current.Kick_1.PositionVertical >= Player2.current.Projectile.PositionVertical - 10) && (Player1.current.Kick_1.PositionVertical <= Player2.current.Projectile.PositionVertical + 10)) {
+            if (Player1.current.Kick_1.isActive && Player2.current.Projectile.isActive) {
+                handleClash('kick', 'projectile')
+            }
+        }
+
+
+
+        if ((Player1.current.Projectile.PositionHorizontal + 10 >= Player2.current.Punch_1.PositionHorizontal) && (Player1.current.Projectile.PositionHorizontal <= Player2.current.Punch_1.PositionHorizontal + 10) && (Player1.current.Projectile.PositionVertical >= Player2.current.Punch_1.PositionVertical - 10) && (Player1.current.Projectile.PositionVertical <= Player2.current.Punch_1.PositionVertical + 10)) {
+            if (Player1.current.Projectile.isActive && Player2.current.Punch_1.isActive) {
+                handleClash('projectile', 'punch')
+            }
+        }
+
+        if ((Player1.current.Projectile.PositionHorizontal + 10 >= Player2.current.Kick_1.PositionHorizontal) && (Player1.current.Projectile.PositionHorizontal <= Player2.current.Kick_1.PositionHorizontal + 10) && (Player1.current.Projectile.PositionVertical >= Player2.current.Kick_1.PositionVertical - 10) && (Player1.current.Projectile.PositionVertical <= Player2.current.Kick_1.PositionVertical + 10)) {
+
+            if (Player1.current.Projectile.isActive && Player2.current.Kick_1.isActive) {
+                handleClash('projectile', 'kick')
+            }
+        }
+        if ((Player1.current.Projectile.PositionHorizontal + 10 >= Player2.current.Projectile.PositionHorizontal) && (Player1.current.Projectile.PositionHorizontal <= Player2.current.Projectile.PositionHorizontal + 10) && (Player1.current.Projectile.PositionVertical >= Player2.current.Projectile.PositionVertical - 10) && (Player1.current.Projectile.PositionVertical <= Player2.current.Projectile.PositionVertical + 10)) {
+            if (Player1.current.Projectile.isActive && Player2.current.Projectile.isActive) {
+                handleClash('projectile', 'projectile')
+            }
+        }
     }
 
+    // code for clashing check
+
+    function handleClash(P1Data, P2Data) {
+        if (P1Data == 'projectile' && P2Data == 'projectile') {
+            Player1.current.Projectile.isActive = false
+            Player2.current.Projectile.isActive = false
+        }
+        if (P1Data == 'projectile' && (P2Data == 'punch' || P2Data == 'kick')) {
+            Player1.current.Projectile.P_facing = Player1.current.Projectile.P_facing * -1
+            Player1.current.Projectile.chs = true
+        }
+        if ((P1Data == 'punch' || P1Data == 'kick') && P2Data == 'projectile') {
+            Player2.current.Projectile.P_facing = Player2.current.Projectile.P_facing * -1
+            Player2.current.Projectile.chs = true
+        }
+    }
+
+    function ActiveChsCheck() {
+        if (Player1.current.Projectile.isActive && Player1.current.Projectile.chs) {
+
+        }
+        if (Player2.current.Projectile.isActive && Player1.current.Projectile.chs) {
+
+        }
+    }
+
+    function ActiveChsHitCheck() {
+        if (Player1.current.Projectile.isActive) {
+
+        }
+        if (Player2.current.Projectile.isActive) {
+
+        }
+    }
 
 
     function GameLogic(dt) {
@@ -741,6 +831,8 @@ const Local = () => {
         handleP2Projectile(dt)
         handleFacing()
         isClashing()
+        ActiveChsCheck()
+        ActiveChsHitCheck()
         isP1HitWithProjectile()  // added functions for checking projectile hit
         isP2HitWithProjectile()
 
@@ -761,12 +853,14 @@ const Local = () => {
             BGM_Ref.current.currentTime = 60
         }
 
-
+        var frameDiff = 1
         if (frameref.current > 100) {
-            frameref.current = frameref.current - 1
+            frameDiff = -1
+            frameref.current = frameref.current + frameDiff
         }
-        else {
-            frameref.current = frameref.current + 1
+        else if (frameref.current <= 0) {
+            frameDiff = 1
+            frameref.current = frameref.current + frameDiff
         }
         setFrame(frameref.current)
         requestAnimationFrame(playloop)
@@ -821,13 +915,13 @@ const Local = () => {
             }}>
             </div>
             <div className="absolute z-[200] w-[10px] h-[10px] bg-red-500" style={{
-                left: `${Player1.current.Punch_1.PositionHorizontal + Player1.current.data.PositionHorizontal + 25}px`,
-                bottom: `${Player1.current.Punch_1.PositionVertical + Player1.current.data.PositionVertical}px`
+                left: `${Player1.current.Punch_1.PositionHorizontal}px`,
+                bottom: `${Player1.current.Punch_1.PositionVertical}px`
             }}>
             </div>
             <div className="absolute z-[200] w-[10px] h-[10px] bg-red-500" style={{
-                left: `${Player1.current.Kick_1.PositionHorizontal + Player1.current.data.PositionHorizontal + 25}px`,
-                bottom: `${Player1.current.Kick_1.PositionVertical + Player1.current.data.PositionVertical}px`
+                left: `${Player1.current.Kick_1.PositionHorizontal}px`,
+                bottom: `${Player1.current.Kick_1.PositionVertical}px`
             }}>
             </div>
 
@@ -850,13 +944,13 @@ const Local = () => {
             }}>
             </div>
             <div className="absolute z-[200] w-[10px] h-[10px] bg-red-500" style={{
-                left: `${Player2.current.Punch_1.PositionHorizontal + Player2.current.data.PositionHorizontal + 25}px`,
-                bottom: `${Player2.current.Punch_1.PositionVertical + Player2.current.data.PositionVertical}px`
+                left: `${Player2.current.Punch_1.PositionHorizontal}px`,
+                bottom: `${Player2.current.Punch_1.PositionVertical}px`
             }}>
             </div>
             <div className="absolute z-[200] w-[10px] h-[10px] bg-red-500" style={{
-                left: `${Player2.current.Kick_1.PositionHorizontal + Player2.current.data.PositionHorizontal + 25}px`,
-                bottom: `${Player2.current.Kick_1.PositionVertical + Player2.current.data.PositionVertical}px`
+                left: `${Player2.current.Kick_1.PositionHorizontal}px`,
+                bottom: `${Player2.current.Kick_1.PositionVertical}px`
             }}>
             </div>
 
