@@ -68,53 +68,13 @@ export default function Home() {
 
     const Arenas = useRef([
         {
-            name: "Coming Soon",
-            imgUrl: "/ArenaSelect/Unknown_Arena.png",
+            name: "Chinatown",
+            imgUrl: "/ArenaSelect/ChinaTown.gif",
             nameUrl: "/ArenaSelect/Unknown_Arena_Name.png",
         },
         {
-            name: "Coming Soon",
-            imgUrl: "/ArenaSelect/Unknown_Arena.png",
-            nameUrl: "/ArenaSelect/Unknown_Arena_Name.png",
-        },
-        {
-            name: "Chambers",
-            imgUrl: "/ArenaSelect/Chamber_Of_Vampires.gif",
-            nameUrl: "/ArenaSelect/Name/Chamber_Of_Vampires_Name.png",
-        },
-        {
-            name: "Colloseum",
-            imgUrl: "/ArenaSelect/Coloseum.gif",
-            nameUrl: "/ArenaSelect/Name/Coloseum.png",
-        },
-        {
-            name: "Ferry",
-            imgUrl: "/ArenaSelect/Ferry.gif",
-            nameUrl: "/ArenaSelect/Name/Ferry.png",
-        },
-        {
-            name: "Waterfall",
-            imgUrl: "/ArenaSelect/WaterFall.gif",
-            nameUrl: "/ArenaSelect/Name/WaterFall.png",
-        },
-        {
-            name: "Coming Soon",
-            imgUrl: "/ArenaSelect/Unknown_Arena.png",
-            nameUrl: "/ArenaSelect/Unknown_Arena_Name.png",
-        },
-        {
-            name: "Coming Soon",
-            imgUrl: "/ArenaSelect/Unknown_Arena.png",
-            nameUrl: "/ArenaSelect/Unknown_Arena_Name.png",
-        },
-        {
-            name: "Coming Soon",
-            imgUrl: "/ArenaSelect/Unknown_Arena.png",
-            nameUrl: "/ArenaSelect/Unknown_Arena_Name.png",
-        },
-        {
-            name: "Coming Soon",
-            imgUrl: "/ArenaSelect/Unknown_Arena.png",
+            name: "Fallen Castle",
+            imgUrl: "/ArenaSelect/Fallen_Castle.gif",
             nameUrl: "/ArenaSelect/Unknown_Arena_Name.png",
         },
         {
@@ -138,23 +98,28 @@ export default function Home() {
             nameUrl: "/ArenaSelect/Name/WaterFall.png",
         },
         {
-            name: "Coming Soon",
-            imgUrl: "/ArenaSelect/Unknown_Arena.png",
+            name: "Mars",
+            imgUrl: "/ArenaSelect/Mars.gif",
             nameUrl: "/ArenaSelect/Unknown_Arena_Name.png",
         },
         {
-            name: "Coming Soon",
-            imgUrl: "/ArenaSelect/Unknown_Arena.png",
+            name: "Tournament",
+            imgUrl: "/ArenaSelect/Tournament.gif",
             nameUrl: "/ArenaSelect/Unknown_Arena_Name.png",
         },
         {
-            name: "Coming Soon",
-            imgUrl: "/ArenaSelect/Unknown_Arena.png",
+            name: "Warzone",
+            imgUrl: "/ArenaSelect/Warzone.gif",
             nameUrl: "/ArenaSelect/Unknown_Arena_Name.png",
         },
         {
-            name: "Coming Soon",
-            imgUrl: "/ArenaSelect/Unknown_Arena.png",
+            name: "Chinatown",
+            imgUrl: "/ArenaSelect/ChinaTown.gif",
+            nameUrl: "/ArenaSelect/Unknown_Arena_Name.png",
+        },
+        {
+            name: "Fallen Castle",
+            imgUrl: "/ArenaSelect/Fallen_Castle.gif",
             nameUrl: "/ArenaSelect/Unknown_Arena_Name.png",
         },
         {
@@ -178,13 +143,63 @@ export default function Home() {
             nameUrl: "/ArenaSelect/Name/WaterFall.png",
         },
         {
-            name: "Coming Soon",
-            imgUrl: "/ArenaSelect/Unknown_Arena.png",
+            name: "Mars",
+            imgUrl: "/ArenaSelect/Mars.gif",
             nameUrl: "/ArenaSelect/Unknown_Arena_Name.png",
         },
         {
-            name: "Coming Soon",
-            imgUrl: "/ArenaSelect/Unknown_Arena.png",
+            name: "Tournament",
+            imgUrl: "/ArenaSelect/Tournament.gif",
+            nameUrl: "/ArenaSelect/Unknown_Arena_Name.png",
+        },
+        {
+            name: "Warzone",
+            imgUrl: "/ArenaSelect/Warzone.gif",
+            nameUrl: "/ArenaSelect/Unknown_Arena_Name.png",
+        },
+        {
+            name: "Chinatown",
+            imgUrl: "/ArenaSelect/ChinaTown.gif",
+            nameUrl: "/ArenaSelect/Unknown_Arena_Name.png",
+        },
+        {
+            name: "Fallen Castle",
+            imgUrl: "/ArenaSelect/Fallen_Castle.gif",
+            nameUrl: "/ArenaSelect/Unknown_Arena_Name.png",
+        },
+        {
+            name: "Chambers",
+            imgUrl: "/ArenaSelect/Chamber_Of_Vampires.gif",
+            nameUrl: "/ArenaSelect/Name/Chamber_Of_Vampires_Name.png",
+        },
+        {
+            name: "Colloseum",
+            imgUrl: "/ArenaSelect/Coloseum.gif",
+            nameUrl: "/ArenaSelect/Name/Coloseum.png",
+        },
+        {
+            name: "Ferry",
+            imgUrl: "/ArenaSelect/Ferry.gif",
+            nameUrl: "/ArenaSelect/Name/Ferry.png",
+        },
+        {
+            name: "Waterfall",
+            imgUrl: "/ArenaSelect/WaterFall.gif",
+            nameUrl: "/ArenaSelect/Name/WaterFall.png",
+        },
+        {
+            name: "Mars",
+            imgUrl: "/ArenaSelect/Mars.gif",
+            nameUrl: "/ArenaSelect/Unknown_Arena_Name.png",
+        },
+        {
+            name: "Tournament",
+            imgUrl: "/ArenaSelect/Tournament.gif",
+            nameUrl: "/ArenaSelect/Unknown_Arena_Name.png",
+        },
+        {
+            name: "Warzone",
+            imgUrl: "/ArenaSelect/Warzone.gif",
             nameUrl: "/ArenaSelect/Unknown_Arena_Name.png",
         },
     ])
