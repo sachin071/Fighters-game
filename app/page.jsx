@@ -14,6 +14,8 @@ export default function Home() {
     username: ""
   })
 
+  const ValidationMode = useRef('')
+
 
   useEffect(() => {
     if (window.innerHeight > window.innerWidth) {
@@ -23,7 +25,7 @@ export default function Home() {
       router.push('/Auth')
     }
     if (localStorage.getItem("token")) {
-      console.log("function working")
+
       handleValidation()
 
     }
@@ -32,16 +34,22 @@ export default function Home() {
 
   async function handleValidation() {
     const token = localStorage.getItem("token")
-    const res = await fetch('http://192.168.1.198:2000/login/Validate', { method: "POST", headers: { 'Accept': '*/*', 'Content-type': 'application/json' }, body: JSON.stringify({ "token": token }) })
-    const data = await res.json()
-    console.log(data)
-    if (data.status == "Invalid token") {
-      router.push('/Auth')
+    if (token == "Offline_Mode") {
+      ValidationMode.current = "Offline_Mode"
     }
     else {
-      userData.current.name = data.name
-      userData.current.username = data.username
+      const res = await fetch('http://192.168.1.198:2000/login/Validate', { method: "POST", headers: { 'Accept': '*/*', 'Content-type': 'application/json' }, body: JSON.stringify({ "token": token }) })
+      const data = await res.json()
+      console.log(data)
+      if (data.status == "Invalid token") {
+        router.push('/Auth')
+      }
+      else {
+        userData.current.name = data.name
+        userData.current.username = data.username
+      }
     }
+
 
   }
 
@@ -131,8 +139,15 @@ export default function Home() {
         setTimeout(() => { router.push('/playerSelect'); saveData(userData.current.name, userData.current.username) }, 800)
       }
       if (modeIndexRef.current == 5) {
-        localStorage.setItem("mode", 'ol')
-        setTimeout(() => { router.push('/Online/onlineSelect'); saveData(userData.current.name, userData.current.username) }, 800)
+        if (ValidationMode.current == "Offline_Mode") {
+          alert("Mode Unvailable Please Login to Continue in Online Mode")
+          localStorage.removeItem('token')
+          router.push('/Auth')
+        }
+        else {
+          localStorage.setItem("mode", 'ol')
+          setTimeout(() => { router.push('/Online/onlineSelect'); saveData(userData.current.name, userData.current.username) }, 800)
+        }
       }
       if (modeIndexRef.current == 6) {
         localStorage.setItem("mode", 'sp')

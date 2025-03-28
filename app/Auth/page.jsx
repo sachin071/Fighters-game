@@ -46,12 +46,18 @@ const LoginPage = () => {
                     }
                 </form>
             </div>
-            <div className="flex m-auto h-[50px] mt-[5px] rounded-lg border-[2px] border-zinc-700 w-[400px]">
+            <div className="flex m-auto h-[50px] mt-[5px] mb-[5px] rounded-lg border-[2px] border-zinc-700 w-[400px]">
                 <div className="flex m-auto text-blue-600 cursor-pointer" onClick={() => { router.push('/Auth/signup') }}>
-                    dont have an account ? Sign Up
+                    dont have an account ? Sign Up.
+                </div>
+
+            </div>
+            <div className="flex m-auto h-[50px] mt-[5px] rounded-lg border-[2px] border-zinc-700 w-[400px]">
+                <div className="flex m-auto text-blue-600 cursor-pointer" onClick={() => { localStorage.setItem('token', "Offline_Mode"); router.push('/') }}>
+                    Continue Offline.
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 

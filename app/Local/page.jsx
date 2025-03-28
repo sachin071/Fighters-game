@@ -173,6 +173,7 @@ const Local = () => {
             height: 125
         },
         Punch_1: {
+            isActive: false,
             isHitting: false,
             PositionHorizontal: 0,
             PositionVertical: 0
@@ -185,6 +186,7 @@ const Local = () => {
             PositionVertical: 75
         },
         Kick_1: {
+            isActive: false,
             isHitting: false,
             PositionHorizontal: 0,
             PositionVertical: 0
@@ -210,6 +212,7 @@ const Local = () => {
         },
 
         Punch_1: {
+            isActive: false,
             isHitting: false,
             PositionHorizontal: 0,
             PositionVertical: 0
@@ -222,6 +225,7 @@ const Local = () => {
             PositionVertical: 75
         },
         Kick_1: {
+            isActive: false,
             isHitting: false,
             PositionHorizontal: 0,
             PositionVertical: 0
@@ -428,21 +432,25 @@ const Local = () => {
 
     function handlePlayer1Movement(dt) {
         if (keyStats.current.a) {
-            if (Player1.current.data.PositionHorizontal <= 0) {
-                Player1.current.data.PositionHorizontal = 0
+            if (!(Player1.current.Punch_1.isActive || Player1.current.Kick_1.isActive)) {
+                if (Player1.current.data.PositionHorizontal <= 0) {
+                    Player1.current.data.PositionHorizontal = 0
+                }
+                else {
+                    Player1.current.data.PositionHorizontal = Player1.current.data.PositionHorizontal - 400 * (dt / 1000)
+                }
             }
-            else {
-                Player1.current.data.PositionHorizontal = Player1.current.data.PositionHorizontal - 400 * (dt / 1000)
-            }
+
 
         }
         if (keyStats.current.d) {
-
-            if (Player1.current.data.PositionHorizontal >= windowWidth.current - 75) {
-                Player1.current.data.PositionHorizontal = windowWidth.current - 75
-            }
-            else {
-                Player1.current.data.PositionHorizontal = Player1.current.data.PositionHorizontal + 400 * (dt / 1000)
+            if (!(Player1.current.Punch_1.isActive || Player1.current.Kick_1.isActive)) {
+                if (Player1.current.data.PositionHorizontal >= windowWidth.current - 75) {
+                    Player1.current.data.PositionHorizontal = windowWidth.current - 75
+                }
+                else {
+                    Player1.current.data.PositionHorizontal = Player1.current.data.PositionHorizontal + 400 * (dt / 1000)
+                }
             }
         }
         // if(keyStats.current.w){
@@ -456,22 +464,27 @@ const Local = () => {
     function handlePlayer2Movement(dt) {
 
         if (keyStats.current.left) {
-            if (Player2.current.data.PositionHorizontal <= 0) {
-                Player2.current.data.PositionHorizontal = 0
-            }
-            else {
-                Player2.current.data.PositionHorizontal = Player2.current.data.PositionHorizontal - 400 * (dt / 1000)
+            if (!(Player2.current.Punch_1.isActive || Player2.current.Kick_1.isActive)) {
+                if (Player2.current.data.PositionHorizontal <= 0) {
+                    Player2.current.data.PositionHorizontal = 0
+                }
+                else {
+                    Player2.current.data.PositionHorizontal = Player2.current.data.PositionHorizontal - 400 * (dt / 1000)
+                }
             }
 
         }
         if (keyStats.current.right) {
 
-            if (Player2.current.data.PositionHorizontal >= windowWidth.current - 75) {
-                Player2.current.data.PositionHorizontal = windowWidth.current - 75
+            if (!(Player2.current.Punch_1.isActive || Player2.current.Kick_1.isActive)) {
+                if (Player2.current.data.PositionHorizontal >= windowWidth.current - 75) {
+                    Player2.current.data.PositionHorizontal = windowWidth.current - 75
+                }
+                else {
+                    Player2.current.data.PositionHorizontal = Player2.current.data.PositionHorizontal + 400 * (dt / 1000)
+                }
             }
-            else {
-                Player2.current.data.PositionHorizontal = Player2.current.data.PositionHorizontal + 400 * (dt / 1000)
-            }
+
         }
         // if(keyStats.current.up){
         //     Player1.current.data.PositionHorizontal = Player1.current.data.PositionHorizontal + 400 *(dt/1000)
@@ -497,6 +510,8 @@ const Local = () => {
                 case 'j':
                     {
                         Player1.current.StateImg = "punch"
+                        Player1.current.Punch_1.isActive = true
+                        Player1.current.Punch_1.isHitting = false
                         console.log('j Pressed')
                         break
                     }
@@ -548,7 +563,7 @@ const Local = () => {
     }
 
     function handleP1Projectile(dt) {
-        if (Player1.current.Projectile.isActive) {
+        if (Player1.current.Projectile.isActive && !Player1.current.Kick_1.isActive && !Player1.current.Punch_1.isActive) {
             Player1.current.Projectile.PositionHorizontal = Player1.current.Projectile.PositionHorizontal + (Player1.current.Projectile.P_facing * 1100) * dt / 1000
             if ((Player1.current.Projectile.PositionHorizontal < -25) || (Player1.current.Projectile.PositionHorizontal >= window.innerWidth + 25)) {
                 Player1.current.Projectile.PositionHorizontal = Player1.current.data.PositionHorizontal + 25
@@ -564,7 +579,7 @@ const Local = () => {
     }
 
     function handleP2Projectile(dt) {
-        if (Player2.current.Projectile.isActive) {
+        if (Player2.current.Projectile.isActive && !Player2.current.Kick_1.isActive && !Player2.current.Punch_1.isActive) {
             Player2.current.Projectile.PositionHorizontal = Player2.current.Projectile.PositionHorizontal + (Player2.current.Projectile.P_facing * 1100) * dt / 1000
             if ((Player2.current.Projectile.PositionHorizontal < -25) || (Player2.current.Projectile.PositionHorizontal >= window.innerWidth + 25)) {
                 Player2.current.Projectile.PositionHorizontal = Player2.current.data.PositionHorizontal + 25
@@ -586,6 +601,8 @@ const Local = () => {
                 case '4':
                     {
                         Player2.current.StateImg = "punch"
+                        Player2.current.Punch_1.isActive = true
+                        Player2.current.Punch_1.isHitting = false
                         console.log('4 Pressed')
                         break
                     }

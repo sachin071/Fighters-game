@@ -187,18 +187,17 @@ const Local = () => {
                 showcase: "/PlayerSelect/Showcases/Unknown_Showcase.png",
                 image: "/PlayerSelect/Unknown_Player.png",
                 name_img: '/PlayerSelect/PlayerNames/Unknown_Name.png'
+            }, {
+                name: "Baba Ramdev",
+                showcase: "/PlayerSelect/Showcases/Baba_Ramdev.png",
+                image: "/PlayerSelect/Baba_Ramdev.png",
+                name_img: '/PlayerSelect/PlayerNames/Baba_Ramdev.png'
             },
             {
                 name: "Coming Soon",
                 showcase: "/PlayerSelect/Showcases/Unknown_Showcase.png",
                 image: "/PlayerSelect/Unknown_Player.png",
                 name_img: '/PlayerSelect/PlayerNames/Unknown_Name.png'
-            },
-            {
-                name: "Baba Ramdev",
-                showcase: "/PlayerSelect/Showcases/Baba_Ramdev.png",
-                image: "/PlayerSelect/Baba_Ramdev.png",
-                name_img: '/PlayerSelect/PlayerNames/Baba_Ramdev.png'
             },
             {
                 name: "Balkrishna",
@@ -249,21 +248,21 @@ const Local = () => {
     )
 
     return (
-        <div className="bg-stone-950 w-screen h-screen flex flex-col">
+        <div className="bg-stone-950 w-screen h-screen flex flex-col overflow-hidden">
             <img src={'/PlayerSelect/Images/Background.gif'} className="fixed w-screen object-cover" />
-            <div className="fixed w-[30%] h-[80%] bottom-[calc(10%+100px)] left-[10%] bg-gradient-to-t from-blue-600 via-[#0000ff52] to-transparent  ">
+            <div className="fixed w-[30%] h-[80%] bottom-[calc(10%+100px)] left-[10%] bg-gradient-to-t from-blue-600 via-[#0000ff52] to-transparent overflow-hidden  ">
                 <img src={Characters.current[P1Details.current.selectionIndex].showcase} alt={Characters.current[P1Details.current.selectionIndex].name} className="object-cover w-full absolute bottom-0 " />
+                {(P1DetailsState.selected == true) && <div className="absolute w-full h-[30%] bottom-[5%] flex justify-center font-extrabold text-3xl items-center bg-[#00000044]">
+                    Selected
+                </div>}
                 <img src={Characters.current[P1Details.current.selectionIndex].name_img} alt="Character_Name" className=" absolute left-0 bottom-8 h-[75px]" />
-                {P1Details.current.selected && <div className="fixed w-full h-[30%] bottom-[35%] flex justify-center items-center bg-[#00000044]">
-                    Selected
-                </div>}
             </div>
-            <div className="fixed w-[30%] h-[80%] bottom-[calc(10%+100px)] right-[10%] bg-gradient-to-t from-green-600 via-[#00ff0052] to-transparent  ">
+            <div className="fixed w-[30%] h-[80%] bottom-[calc(10%+100px)] right-[10%] bg-gradient-to-t from-green-600 via-[#00ff0052] to-transparent overflow-hidden ">
                 <img src={Characters.current[P2Details.current.selectionIndex].showcase} alt={Characters.current[P2Details.current.selectionIndex].name} className="object-cover w-full absolute bottom-0  scale-x-[-1]" />
-                <img src={Characters.current[P2Details.current.selectionIndex].name_img} alt="Character_Name" className="absolute right-0 bottom-8 h-[75px]" />
-                {P2Details.current.selected && <div className="fixed w-full h-[30%] bottom-[35%] flex justify-center items-center bg-[#00000044]">
+                {(P2DetailsState.selected == true) && <div className="absolute w-full h-[30%] bottom-[5%] flex justify-center items-center font-extrabold text-3xl bg-[#00000044]">
                     Selected
                 </div>}
+                <img src={Characters.current[P2Details.current.selectionIndex].name_img} alt="Character_Name" className="absolute right-0 bottom-8 h-[75px] " />
             </div>
             <img src={'/PlayerSelect/Images/TopCornerUIElement.png'} className="fixed w-[25px] left-0 top-0 object-cover" />
             <img src={'/PlayerSelect/Images/TopCornerUIElement.png'} className="fixed w-[25px] right-0 top-0 -scale-x-100 object-cover" />
@@ -290,7 +289,10 @@ const Local = () => {
             <img src={'/PlayerSelect/Essentials/VS.png'} className="w-[8%] fixed left-[46%] bottom-[calc(10%+250px)]" />
             <audio src={'/PlayerSelect/Audio/Player_Select_BGM.mp3'} ref={bgm} loop />
             <audio src={'/PlayerSelect/Audio/PlayerChange.wav'} ref={playerChange} />
-            <div hidden={true} className="fixed w-full h-[30%] bottom-[35%] flex justify-center items-center bg-[#00000044]"></div>
+
+            <div className="absolute w-full h-[0%] bottom-[0%] top-[100%] flex justify-center font-extrabold items-center bg-[#00000044]">
+
+            </div>
         </div>
     );
 
