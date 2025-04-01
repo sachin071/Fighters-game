@@ -440,7 +440,12 @@ const Local = () => {
                     Player1.current.data.PositionHorizontal = 0
                 }
                 else {
-                    Player1.current.data.PositionHorizontal = Player1.current.data.PositionHorizontal - 400 * (dt / 1000)
+                    if (keyStats.current.s) {
+                        Player1.current.data.PositionHorizontal = Player1.current.data.PositionHorizontal - 250 * (dt / 1000)
+                    }
+                    else {
+                        Player1.current.data.PositionHorizontal = Player1.current.data.PositionHorizontal - 400 * (dt / 1000)
+                    }
                 }
             }
 
@@ -452,16 +457,24 @@ const Local = () => {
                     Player1.current.data.PositionHorizontal = windowWidth.current - 75
                 }
                 else {
-                    Player1.current.data.PositionHorizontal = Player1.current.data.PositionHorizontal + 400 * (dt / 1000)
+                    if (keyStats.current.s) {
+                        Player1.current.data.PositionHorizontal = Player1.current.data.PositionHorizontal + 250 * (dt / 1000)
+                    }
+                    else {
+                        Player1.current.data.PositionHorizontal = Player1.current.data.PositionHorizontal + 400 * (dt / 1000)
+                    }
                 }
             }
         }
         // if(keyStats.current.w){
         //     Player2.current.data.PositionHorizontal = Player2.current.data.PositionHorizontal + 400 *(dt/1000)
         // }
-        // if(keyStats.current.s){
-        //     Player2.current.data.PositionHorizontal = Player2.current.data.PositionHorizontal - 400 *(dt/1000)
-        // }
+        if (keyStats.current.s) {
+            Player1.current.data.height = 75
+        }
+        if (!keyStats.current.s) {
+            Player1.current.data.height = 125
+        }
     }
 
     function handlePlayer2Movement(dt) {
@@ -472,7 +485,12 @@ const Local = () => {
                     Player2.current.data.PositionHorizontal = 0
                 }
                 else {
-                    Player2.current.data.PositionHorizontal = Player2.current.data.PositionHorizontal - 400 * (dt / 1000)
+                    if (keyStats.current.down) {
+                        Player2.current.data.PositionHorizontal = Player2.current.data.PositionHorizontal - 250 * (dt / 1000)
+                    }
+                    else {
+                        Player2.current.data.PositionHorizontal = Player2.current.data.PositionHorizontal - 400 * (dt / 1000)
+                    }
                 }
             }
 
@@ -484,7 +502,12 @@ const Local = () => {
                     Player2.current.data.PositionHorizontal = windowWidth.current - 75
                 }
                 else {
-                    Player2.current.data.PositionHorizontal = Player2.current.data.PositionHorizontal + 400 * (dt / 1000)
+                    if (keyStats.current.down) {
+                        Player2.current.data.PositionHorizontal = Player2.current.data.PositionHorizontal + 250 * (dt / 1000)
+                    }
+                    else {
+                        Player2.current.data.PositionHorizontal = Player2.current.data.PositionHorizontal + 400 * (dt / 1000)
+                    }
                 }
             }
 
@@ -492,9 +515,12 @@ const Local = () => {
         // if(keyStats.current.up){
         //     Player1.current.data.PositionHorizontal = Player1.current.data.PositionHorizontal + 400 *(dt/1000)
         // }
-        // if(keyStats.current.down){
-        //     Player1.current.data.PositionHorizontal = Player1.current.data.PositionHorizontal - 400 *(dt/1000)
-        // }
+        if (keyStats.current.down) {
+            Player2.current.data.height = 75
+        }
+        if (!keyStats.current.down) {
+            Player2.current.data.height = 125
+        }
     }
 
     var tickTime = 0
@@ -807,7 +833,7 @@ const Local = () => {
         if (Player1.current.Projectile.isActive && Player1.current.Projectile.chs) {
 
         }
-        if (Player2.current.Projectile.isActive && Player1.current.Projectile.chs) {
+        if (Player2.current.Projectile.isActive && Player2.current.Projectile.chs) {
 
         }
     }
@@ -940,7 +966,7 @@ const Local = () => {
             </div>
             <div className="absolute z-[200] w-[25px] h-[25px] bg-white" style={{
                 left: `${Player1.current.data.PositionHorizontal + 25}px`,
-                bottom: `${Player1.current.data.PositionVertical + 125}px`
+                bottom: `${Player1.current.data.PositionVertical + Player1.current.data.height}px`
             }}>
             </div>
             <div className="absolute z-[200] w-[10px] h-[10px] bg-red-500" style={{
@@ -970,7 +996,7 @@ const Local = () => {
             </div>
             <div className="absolute z-[200] w-[25px] h-[25px] bg-white" style={{
                 left: `${Player2.current.data.PositionHorizontal + 25}px`,
-                bottom: `${Player2.current.data.PositionVertical + 125}px`
+                bottom: `${Player2.current.data.PositionVertical + Player2.current.data.height}px`
             }}></div>
             <div className="absolute z-[200] w-[10px] h-[10px] bg-red-500" style={{
                 left: `${Player2.current.Projectile.PositionHorizontal}px`,
