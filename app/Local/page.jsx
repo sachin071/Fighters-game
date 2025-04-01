@@ -69,17 +69,18 @@ const Local = () => {
                 name_img: '/PlayerSelect/PlayerNames/Unknown_Name.png'
             },
             {
-                name: "Coming Soon",
-                showcase: "/PlayerSelect/Showcases/Unknown_Showcase.png",
-                image: "/PlayerSelect/Unknown_Player.png",
-                name_img: '/PlayerSelect/PlayerNames/Unknown_Name.png'
-            },
-            {
                 name: "Baba Ramdev",
                 showcase: "/PlayerSelect/Showcases/Baba_Ramdev.png",
                 image: "/PlayerSelect/Baba_Ramdev.png",
                 name_img: '/PlayerSelect/PlayerNames/Baba_Ramdev.png'
             },
+            {
+                name: "Coming Soon",
+                showcase: "/PlayerSelect/Showcases/Unknown_Showcase.png",
+                image: "/PlayerSelect/Unknown_Player.png",
+                name_img: '/PlayerSelect/PlayerNames/Unknown_Name.png'
+            },
+
             {
                 name: "Balkrishna",
                 showcase: "/PlayerSelect/Showcases/Balkrishna.png",
@@ -157,7 +158,7 @@ const Local = () => {
 
     const Player1 = useRef({
         Round_Won: 0,
-        health: 100,
+        health: 99,
         player: "",
         playerImage: 0,
         StateImg: "idle",
@@ -839,6 +840,9 @@ const Local = () => {
 
     }
 
+    const P1ImageUrl = useRef(Characters.current[parseInt(localStorage.getItem('P1CharIndex'))].image)
+    const P2ImageUrl = useRef(Characters.current[parseInt(localStorage.getItem('P2CharIndex'))].image)
+
 
 
     useEffect(() => {
@@ -855,18 +859,14 @@ const Local = () => {
             BGM_Ref.current.currentTime = 60
         }
 
-        var frameDiff = 1
-        if (frameref.current > 100) {
-            frameDiff = -1
-            frameref.current = frameref.current + frameDiff
-        }
-        else if (frameref.current <= 0) {
-            frameDiff = 1
-            frameref.current = frameref.current + frameDiff
+        frameref.current = frameref.current + 1
+        if (frameref.current > 1000) {
+            frameref.current = frameref.current % 1000
         }
         setFrame(frameref.current)
         requestAnimationFrame(playloop)
         GameLogic(dt)
+        console.log("working")
 
     }
 
@@ -876,13 +876,17 @@ const Local = () => {
         // imgUrlRef.current = localStorage.getItem("imgUrl")
         addEventListener('keydown', (event) => { handleKeyDown(event, true) })
         addEventListener('keyup', (event) => { handleKeyUp(event, false) })
+        return () => {
+            window.removeEventListener('keydown', (event) => { handleKeyDown(event, true) });
+            window.removeEventListener('keyup', (event) => { handleKeyUp(event, true) });
+        };
 
     }, [])
 
 
     return (
         <div className="bg-stone-950 w-screen h-screen object-cover flex">
-            <div className="fixed w-[45%] h-[25px] bg-gradient-to-t from-red-500 via-red-600 to-red-400 left-[2%] top-[25px] rounded-md overflow-hidden">
+            {/* <div className="fixed w-[45%] h-[25px] bg-gradient-to-t from-red-500 via-red-600 to-red-400 left-[2%] top-[25px] rounded-md overflow-hidden">
                 <div className="h-full absolute left-0 bg-gradient-to-t from-green-600 via-green-600 to-green-400 rounded-sm" style={{ width: `${Math.max(Player1.current.health, 0)}%` }}>
                 </div>
             </div>
@@ -890,7 +894,35 @@ const Local = () => {
             <div className="fixed w-[45%] h-[25px] bg-gradient-to-t from-red-500 via-red-600 to-red-400 right-[2%] top-[25px] rounded-md overflow-hidden">
                 <div className=" absolute right-0 bg-gradient-to-t from-green-600 via-green-600 to-green-400 h-full rounded-sm" style={{ width: `${Math.max(Player2.current.health, 0)}%` }}>
                 </div>
+            </div> */}
+
+            <div className=" fixed top-[25px] left-[1%] w-[46%] h-[44px] bg-gradient-to-t from-blue-500 via-cyan-300 to-blue-500 transform skew-x-12 border-solid border-blue-800 border-[2px]">
+                <div className="m-[6px] mx-[10px] bg-gradient-to-t from-red-500 via-red-600 to-red-400 w-[calc(100%-20px)] h-[28px] border-solid border-blue-800 border-[2px]">
+                    <div className="bg-gradient-to-t from-green-600 via-green-600 to-green-400 left-0 h-[24px] " style={{ width: `${Math.max(Player1.current.health, 0)}%` }}>
+
+                    </div>
+                </div>
             </div>
+            <div className=" fixed top-[75px] left-8 w-[5%] h-[60px] bg-gradient-to-t from-blue-500 via-cyan-300 to-blue-500 transform skew-x-12 border-solid border-blue-800 border-[2px]">
+                <div className="m-[4px] mx-[4px] bg-gradient-to-t from-red-500 via-red-600 to-red-400 w-[calc(100%-8px)] h-[calc(100%-8px)] border-solid border-blue-800">
+                    <img src={`${P1ImageUrl.current}`} alt="" className="scale-x-[-1] w-full absolute bottom-[4px] left-0" />
+                </div>
+            </div>
+
+            <div className=" fixed top-[25px] right-[1%] w-[46%] h-[44px] bg-gradient-to-t from-blue-500 via-cyan-300 to-blue-500 transform -skew-x-12 border-solid border-blue-800 border-[2px]">
+                <div className="m-[6px] mx-[10px] bg-gradient-to-t from-red-500 via-red-600 to-red-400 w-[calc(100%-20px)] h-[28px] border-solid border-blue-800 border-[2px]">
+                    <div className="bg-gradient-to-t from-green-600 via-green-600 to-green-400 right-0 h-full" style={{ width: `${Math.max(Player2.current.health, 0)}%` }}>
+
+                    </div>
+                </div>
+            </div>
+
+            <div className=" fixed top-[75px] right-8 w-[5%] h-[60px] bg-gradient-to-t from-blue-500 via-cyan-300 to-blue-500 transform -skew-x-12 border-solid border-blue-800 border-[2px]">
+                <div className="m-[4px] mx-[4px] bg-gradient-to-t from-red-500 via-red-600 to-red-400 w-[calc(100%-8px)] h-[calc(100%-8px)] border-solid border-blue-800">
+                    <img src={`${P2ImageUrl.current}`} alt="" className="w-full absolute bottom-[4px] right-0" />
+                </div>
+            </div>
+
 
             <div className="bg-zinc-50 fixed h-[50px] w-full bottom-[0px] ">
             </div>
