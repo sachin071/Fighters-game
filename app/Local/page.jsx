@@ -929,11 +929,23 @@ const Local = () => {
                     </div>
                 </div>
             </div>
-            <div className=" fixed top-[75px] left-8 w-[5%] h-[60px] bg-gradient-to-t from-blue-500 via-cyan-300 to-blue-500 transform skew-x-12 border-solid border-blue-800 border-[2px]">
+            <div className=" fixed top-[75px] left-4 w-[5%] h-[60px] bg-gradient-to-t from-blue-500 via-cyan-300 to-blue-500 transform -skew-x-12 border-solid border-blue-800 border-[2px]">
                 <div className="m-[4px] mx-[4px] bg-gradient-to-t from-red-500 via-red-600 to-red-400 w-[calc(100%-8px)] h-[calc(100%-8px)] border-solid border-blue-800">
-                    <img src={`${P1ImageUrl.current}`} alt="" className="scale-x-[-1] w-full absolute bottom-[4px] left-0" />
+                    <img src={`${P1ImageUrl.current}`} alt="" className="scale-x-[-1] w-full absolute bottom-[4px] left-0 skew-x-12" />
                 </div>
             </div>
+            <div className=" fixed top-[75px] left-[calc(16px+5%+8px)] w-[2%] h-[30px] bg-gradient-to-t from-blue-500 via-cyan-300 to-blue-500 transform -skew-x-12 border-solid border-blue-800 border-[2px]">
+                <div className="m-[4px] mx-[4px] bg-gradient-to-t from-red-500 via-red-600 to-red-400 w-[calc(100%-8px)] h-[calc(100%-8px)] border-solid border-blue-800">
+                </div>
+            </div>
+            <div className=" fixed top-[75px] left-[calc(16px+7%+12px)] w-[2%] h-[30px] bg-gradient-to-t from-blue-500 via-cyan-300 to-blue-500 transform -skew-x-12 border-solid border-blue-800 border-[2px]">
+                <div className="m-[4px] mx-[4px] bg-gradient-to-t from-red-500 via-red-600 to-red-400 w-[calc(100%-8px)] h-[calc(100%-8px)] border-solid border-blue-800">
+                </div>
+            </div>
+
+
+            <img src={`${Characters.current[parseInt(localStorage.getItem('P1CharIndex'))].name_img}`} className="fixed left-[calc(10px+5%)] top-[calc(70px+30px)] h-[50px] skew-x-[15deg]" alt="" />
+
 
             <div className=" fixed top-[25px] right-[1%] w-[46%] h-[44px] bg-gradient-to-t from-blue-500 via-cyan-300 to-blue-500 transform -skew-x-12 border-solid border-blue-800 border-[2px]">
                 <div className="m-[6px] mx-[10px] bg-gradient-to-t from-red-500 via-red-600 to-red-400 w-[calc(100%-20px)] h-[28px] border-solid border-blue-800 border-[2px]">
@@ -943,11 +955,22 @@ const Local = () => {
                 </div>
             </div>
 
-            <div className=" fixed top-[75px] right-8 w-[5%] h-[60px] bg-gradient-to-t from-blue-500 via-cyan-300 to-blue-500 transform -skew-x-12 border-solid border-blue-800 border-[2px]">
+            <div className=" fixed top-[75px] right-4 w-[5%] h-[60px] bg-gradient-to-t from-blue-500 via-cyan-300 to-blue-500 transform skew-x-12 border-solid border-blue-800 border-[2px]">
                 <div className="m-[4px] mx-[4px] bg-gradient-to-t from-red-500 via-red-600 to-red-400 w-[calc(100%-8px)] h-[calc(100%-8px)] border-solid border-blue-800">
-                    <img src={`${P2ImageUrl.current}`} alt="" className="w-full absolute bottom-[4px] right-0" />
+                    <img src={`${P2ImageUrl.current}`} alt="" className="w-full absolute bottom-[4px] right-0 -skew-x-12" />
                 </div>
             </div>
+
+            <div className=" fixed top-[75px] right-[calc(16px+5%+8px)] w-[2%] h-[30px] bg-gradient-to-t from-blue-500 via-cyan-300 to-blue-500 transform skew-x-12 border-solid border-blue-800 border-[2px]">
+                <div className="m-[4px] mx-[4px] bg-gradient-to-t from-red-500 via-red-600 to-red-400 w-[calc(100%-8px)] h-[calc(100%-8px)] border-solid border-blue-800">
+                </div>
+            </div>
+            <div className=" fixed top-[75px] right-[calc(16px+7%+12px)] w-[2%] h-[30px] bg-gradient-to-t from-blue-500 via-cyan-300 to-blue-500 transform skew-x-12 border-solid border-blue-800 border-[2px]">
+                <div className="m-[4px] mx-[4px] bg-gradient-to-t from-red-500 via-red-600 to-red-400 w-[calc(100%-8px)] h-[calc(100%-8px)] border-solid border-blue-800">
+                </div>
+            </div>
+
+            <img src={`${Characters.current[parseInt(localStorage.getItem('P2CharIndex'))].name_img}`} className="fixed right-[calc(4px+5%)] top-[calc(70px+30px)] h-[50px] skew-x-[40deg]" alt="" />
 
 
             <div className="bg-zinc-50 fixed h-[50px] w-full bottom-[0px] ">
