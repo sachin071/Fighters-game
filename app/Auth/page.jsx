@@ -26,7 +26,7 @@ const LoginPage = () => {
         }
         else {
             localStorage.setItem("token", jsd.token)
-            router.push("/")
+            router.push("/Game")
         }
         console.log(jsd)
         setLoading(false)

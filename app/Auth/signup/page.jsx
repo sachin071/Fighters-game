@@ -23,7 +23,7 @@ const Signup = () => {
         var data = await response.json()
         if (data.status == 200) {
             localStorage.setItem("token", data.token)
-            router.push("/")
+            router.push("/Game")
         }
         else if (data.status == 401) {
             alert(data.message)

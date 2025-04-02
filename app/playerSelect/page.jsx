@@ -129,7 +129,7 @@ const Local = () => {
 
         if (event.keyCode == 27) {
             localStorage.removeItem("mode")
-            router.push("/")
+            router.push("/Game")
         }
 
 
