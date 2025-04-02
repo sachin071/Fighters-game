@@ -11,8 +11,22 @@ const Loading = () => {
         animation()
         if (isEverythingFineCheck()) {
             setTimeout(() => {
-                router.push('/Local')
+                if (localStorage.getItem('mode') == "lc") {
+                    router.push("/Local")
+                }
+                if (localStorage.getItem('mode') == "ol") {
+                    router.push("/Online")
+                }
+                if (localStorage.getItem('mode') == "pr") {
+                    router.push("/Practice")
+                }
+                if (localStorage.getItem('mode') == "sp") {
+                    router.push("/Single")
+                }
             }, 2000)
+        }
+        else {
+            alert('Change in Local Data Detected')
         }
     })
 

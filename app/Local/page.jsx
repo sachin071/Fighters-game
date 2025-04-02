@@ -157,7 +157,7 @@ const Local = () => {
 
 
     const Player1 = useRef({
-        Round_Won: 2,
+        Round_Won: 0,
         health: 100,
         player: "",
         playerImage: 0,
@@ -898,7 +898,6 @@ const Local = () => {
         setFrame(frameref.current)
         requestAnimationFrame(playloop)
         GameLogic(dt)
-        console.log("working")
 
     }
 
@@ -993,6 +992,10 @@ const Local = () => {
                 height: `${Player1.current.data.height}px`
             }} >
             </div>
+            <div className="fixed z-[100] bottom-[40px] bg-[#00000033] h-[20px] w-[80px] rounded-[100%]" style={{
+                left: `${Player1.current.data.PositionHorizontal - 2.5}px`
+            }}>
+            </div>
             <div className="absolute z-[200] w-[25px] h-[25px] bg-white" style={{
                 left: `${Player1.current.data.PositionHorizontal + 25}px`,
                 bottom: `${Player1.current.data.PositionVertical + Player1.current.data.height}px`
@@ -1023,6 +1026,9 @@ const Local = () => {
                 height: `${Player2.current.data.height}px`
             }} >
             </div>
+            <div className="fixed z-[100] bottom-[40px] bg-[#00000033] h-[20px] w-[80px] rounded-[100%]" style={{
+                left: `${Player2.current.data.PositionHorizontal - 2.5}px`
+            }}></div>
             <div className="absolute z-[200] w-[25px] h-[25px] bg-white" style={{
                 left: `${Player2.current.data.PositionHorizontal + 25}px`,
                 bottom: `${Player2.current.data.PositionVertical + Player2.current.data.height}px`

@@ -33,18 +33,7 @@ export default function Home() {
             if (event.keyCode == 13) {
                 localStorage.setItem("imgUrl", Arenas.current[ArenaIndex.current.index].imgUrl)
                 localStorage.setItem("name", Arenas.current[ArenaIndex.current.index].name)
-                if (localStorage.getItem('mode') == "lc") {
-                    router.push("/Local")
-                }
-                if (localStorage.getItem('mode') == "ol") {
-                    router.push("/Online")
-                }
-                if (localStorage.getItem('mode') == "pr") {
-                    router.push("/Practice")
-                }
-                if (localStorage.getItem('mode') == "sp") {
-                    router.push("/Single")
-                }
+                router.push('/loading')
             }
         }
         setArena({ ...ArenaIndex.current })
