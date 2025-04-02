@@ -157,8 +157,8 @@ const Local = () => {
 
 
     const Player1 = useRef({
-        Round_Won: 0,
-        health: 99,
+        Round_Won: 2,
+        health: 100,
         player: "",
         playerImage: 0,
         StateImg: "idle",
@@ -864,6 +864,12 @@ const Local = () => {
         isP2HitWithProjectile()
 
 
+
+
+
+
+
+
     }
 
     const P1ImageUrl = useRef(Characters.current[parseInt(localStorage.getItem('P1CharIndex'))].image)
@@ -935,11 +941,11 @@ const Local = () => {
                 </div>
             </div>
             <div className=" fixed top-[75px] left-[calc(16px+5%+8px)] w-[2%] h-[30px] bg-gradient-to-t from-blue-500 via-cyan-300 to-blue-500 transform -skew-x-12 border-solid border-blue-800 border-[2px]">
-                <div className="m-[4px] mx-[4px] bg-gradient-to-t from-red-500 via-red-600 to-red-400 w-[calc(100%-8px)] h-[calc(100%-8px)] border-solid border-blue-800">
+                <div className={`m-[4px] mx-[4px] bg-gradient-to-t ${Player1.current.Round_Won >= 1 ? 'from-green-500 via-green-600 to-green-400' : 'from-red-500 via-red-600 to-red-400'} w-[calc(100%-8px)] h-[calc(100%-8px)] border-solid border-blue-800`}>
                 </div>
             </div>
             <div className=" fixed top-[75px] left-[calc(16px+7%+12px)] w-[2%] h-[30px] bg-gradient-to-t from-blue-500 via-cyan-300 to-blue-500 transform -skew-x-12 border-solid border-blue-800 border-[2px]">
-                <div className="m-[4px] mx-[4px] bg-gradient-to-t from-red-500 via-red-600 to-red-400 w-[calc(100%-8px)] h-[calc(100%-8px)] border-solid border-blue-800">
+                <div className={`m-[4px] mx-[4px] bg-gradient-to-t ${Player1.current.Round_Won >= 2 ? 'from-green-500 via-green-600 to-green-400' : 'from-red-500 via-red-600 to-red-400'} w-[calc(100%-8px)] h-[calc(100%-8px)] border-solid border-blue-800`}>
                 </div>
             </div>
 

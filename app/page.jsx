@@ -19,7 +19,6 @@ const Landing = () => {
   }
 
 
-
   return (
     <div className='flex w-screen h-screen justify-center bg-zinc-950 text-white font-extrabold text-3xl'>
 
