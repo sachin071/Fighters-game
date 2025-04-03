@@ -23,7 +23,7 @@ const Loading = () => {
                 if (localStorage.getItem('mode') == "sp") {
                     router.push("/Single")
                 }
-            }, 2000)
+            }, 5000)
         }
         else {
             alert('Change in Local Data Detected')
@@ -49,11 +49,11 @@ const Loading = () => {
     return (
         <div className="w-screen h-screen bg-black overflow-hidden" >
 
-            <div className="w-[200px] h-[30px] absolute bottom-8 right-8 rounded-[100%] bg-[#ffffff13]">
+            <div className="w-[200px] h-[30px] absolute bottom-8 left-8 rounded-[100%] bg-[#ffffff13]">
 
             </div>
-            <div className="w-[200px] h-[200px] absolute bottom-8 right-8">
-                <img src="/ModeSelect/Logo.png" alt="None" className="w-[200px] absolute bottom-0 right-0" />
+            <div className="w-[200px] h-[200px] absolute bottom-8 left-8">
+                <img src="/ModeSelect/Logo.png" alt="None" className="w-[200px] absolute bottom-0 left-0" />
             </div>
             <div>
 

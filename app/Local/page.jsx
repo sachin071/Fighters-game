@@ -1,6 +1,6 @@
 'use client';
 
-import React from "react";
+import React, { useReducer } from "react";
 import { useRef, useState, useEffect } from "react";
 
 
@@ -432,95 +432,158 @@ const Local = () => {
         }
     }
 
+    const gravity = useRef(300)
+
 
     function handlePlayer1Movement(dt) {
-        if (keyStats.current.a) {
+        if (keyStats.current.a && !(keyStats.current.w || Player1.current.data.PositionVertical - 50 > 0)) {
             if (!(Player1.current.Punch_1.isActive || Player1.current.Kick_1.isActive)) {
-                if (Player1.current.data.PositionHorizontal <= 0) {
-                    Player1.current.data.PositionHorizontal = 0
+
+
+                if (keyStats.current.s) {
+                    Player1.current.data.PositionHorizontal = Player1.current.data.PositionHorizontal - 250 * (dt / 1000)
                 }
                 else {
-                    if (keyStats.current.s) {
-                        Player1.current.data.PositionHorizontal = Player1.current.data.PositionHorizontal - 250 * (dt / 1000)
-                    }
-                    else {
-                        Player1.current.data.PositionHorizontal = Player1.current.data.PositionHorizontal - 400 * (dt / 1000)
-                    }
+                    Player1.current.data.PositionHorizontal = Player1.current.data.PositionHorizontal - 400 * (dt / 1000)
                 }
+
             }
 
 
         }
-        if (keyStats.current.d) {
+        if (keyStats.current.d && !(keyStats.current.w || Player1.current.data.PositionVertical - 50 > 0)) {
             if (!(Player1.current.Punch_1.isActive || Player1.current.Kick_1.isActive)) {
-                if (Player1.current.data.PositionHorizontal >= windowWidth.current - 75) {
-                    Player1.current.data.PositionHorizontal = windowWidth.current - 75
+
+
+                if (keyStats.current.s) {
+                    Player1.current.data.PositionHorizontal = Player1.current.data.PositionHorizontal + 250 * (dt / 1000)
                 }
                 else {
-                    if (keyStats.current.s) {
-                        Player1.current.data.PositionHorizontal = Player1.current.data.PositionHorizontal + 250 * (dt / 1000)
-                    }
-                    else {
-                        Player1.current.data.PositionHorizontal = Player1.current.data.PositionHorizontal + 400 * (dt / 1000)
-                    }
+                    Player1.current.data.PositionHorizontal = Player1.current.data.PositionHorizontal + 400 * (dt / 1000)
                 }
+
             }
         }
-        // if(keyStats.current.w){
-        //     Player2.current.data.PositionHorizontal = Player2.current.data.PositionHorizontal + 400 *(dt/1000)
-        // }
+
+        if (keyStats.current.w) {
+            if (Player1.current.data.PositionVertical <= 50) {
+                Player1.current.data.VelocityVertical = 1200
+                if (keyStats.current.a) {
+                    Player1.current.data.VelocityHorizontal = -400
+                }
+                if (keyStats.current.d) {
+                    Player1.current.data.VelocityHorizontal = 400
+                }
+            }
+
+        }
+
         if (keyStats.current.s) {
             Player1.current.data.height = 75
         }
         if (!keyStats.current.s) {
             Player1.current.data.height = 125
         }
+
+
+        Player1.current.data.PositionVertical = Player1.current.data.PositionVertical + (Player1.current.data.VelocityVertical * dt / 1000)
+        Player1.current.data.VelocityVertical = Player1.current.data.VelocityVertical - (gravity.current * dt / 100)
+
+        if (!(Player1.current.data.VelocityHorizontal == 0)) {
+            Player1.current.data.PositionHorizontal = Player1.current.data.PositionHorizontal + (Player1.current.data.VelocityHorizontal * dt / 1000)
+        }
+
+        if (Player1.current.data.PositionVertical <= 50) {
+            Player1.current.data.PositionVertical = 50
+            Player1.current.data.VelocityHorizontal = 0
+            Player1.current.data.VelocityVertical = 0
+        }
+
+        if (Player1.current.data.PositionHorizontal <= 0) {
+            Player1.current.data.PositionHorizontal = 0
+        }
+
+        if (Player1.current.data.PositionHorizontal >= windowWidth.current - Player1.current.data.width) {
+            Player1.current.data.PositionHorizontal = windowWidth.current - Player1.current.data.width
+        }
     }
+
+
 
     function handlePlayer2Movement(dt) {
 
-        if (keyStats.current.left) {
+        if (keyStats.current.left && !(keyStats.current.up || Player2.current.data.PositionVertical - 50 > 0)) {
             if (!(Player2.current.Punch_1.isActive || Player2.current.Kick_1.isActive)) {
-                if (Player2.current.data.PositionHorizontal <= 0) {
-                    Player2.current.data.PositionHorizontal = 0
+
+
+                if (keyStats.current.down) {
+                    Player2.current.data.PositionHorizontal = Player2.current.data.PositionHorizontal - 250 * (dt / 1000)
                 }
                 else {
-                    if (keyStats.current.down) {
-                        Player2.current.data.PositionHorizontal = Player2.current.data.PositionHorizontal - 250 * (dt / 1000)
-                    }
-                    else {
-                        Player2.current.data.PositionHorizontal = Player2.current.data.PositionHorizontal - 400 * (dt / 1000)
-                    }
+                    Player2.current.data.PositionHorizontal = Player2.current.data.PositionHorizontal - 400 * (dt / 1000)
+                }
+
+            }
+
+        }
+        if (keyStats.current.right && !(keyStats.current.up || Player2.current.data.PositionVertical - 50 > 0)) {
+
+            if (!(Player2.current.Punch_1.isActive || Player2.current.Kick_1.isActive)) {
+
+                if (keyStats.current.down) {
+                    Player2.current.data.PositionHorizontal = Player2.current.data.PositionHorizontal + 250 * (dt / 1000)
+                }
+                else {
+                    Player2.current.data.PositionHorizontal = Player2.current.data.PositionHorizontal + 400 * (dt / 1000)
+                }
+
+            }
+
+        }
+        if (keyStats.current.up) {
+            if (Player2.current.data.PositionVertical <= 50) {
+                Player2.current.data.VelocityVertical = 1200
+                if (keyStats.current.left) {
+                    Player2.current.data.VelocityHorizontal = -400
+                }
+                if (keyStats.current.right) {
+                    Player2.current.data.VelocityHorizontal = 400
                 }
             }
 
         }
-        if (keyStats.current.right) {
-
-            if (!(Player2.current.Punch_1.isActive || Player2.current.Kick_1.isActive)) {
-                if (Player2.current.data.PositionHorizontal >= windowWidth.current - 75) {
-                    Player2.current.data.PositionHorizontal = windowWidth.current - 75
-                }
-                else {
-                    if (keyStats.current.down) {
-                        Player2.current.data.PositionHorizontal = Player2.current.data.PositionHorizontal + 250 * (dt / 1000)
-                    }
-                    else {
-                        Player2.current.data.PositionHorizontal = Player2.current.data.PositionHorizontal + 400 * (dt / 1000)
-                    }
-                }
-            }
-
-        }
-        // if(keyStats.current.up){
-        //     Player1.current.data.PositionHorizontal = Player1.current.data.PositionHorizontal + 400 *(dt/1000)
-        // }
         if (keyStats.current.down) {
             Player2.current.data.height = 75
         }
         if (!keyStats.current.down) {
             Player2.current.data.height = 125
         }
+
+
+
+
+
+        Player2.current.data.PositionVertical = Player2.current.data.PositionVertical + (Player2.current.data.VelocityVertical * dt / 1000)
+        Player2.current.data.VelocityVertical = Player2.current.data.VelocityVertical - (gravity.current * dt / 100)
+
+        if (!(Player2.current.data.VelocityHorizontal == 0)) {
+            Player2.current.data.PositionHorizontal = Player2.current.data.PositionHorizontal + (Player2.current.data.VelocityHorizontal * dt / 1000)
+        }
+
+        if (Player2.current.data.PositionVertical <= 50) {
+            Player2.current.data.PositionVertical = 50
+            Player2.current.data.VelocityHorizontal = 0
+            Player2.current.data.VelocityVertical = 0
+        }
+
+        if (Player2.current.data.PositionHorizontal <= 0) {
+            Player2.current.data.PositionHorizontal = 0
+        }
+
+        if (Player2.current.data.PositionHorizontal >= windowWidth.current - Player2.current.data.width) {
+            Player2.current.data.PositionHorizontal = windowWidth.current - Player2.current.data.width
+        }
+
     }
 
     var tickTime = 0
