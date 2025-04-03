@@ -209,7 +209,7 @@ export default function Home() {
 
             <audio ref={change} src={'/ModeSelect/Change.mp3'} />
             <audio ref={Selection} src={'/ModeSelect/Selected.mp3'} />
-            <audio src={'/ModeSelect/Opening.mp3'} ref={Bgm} />
+            <audio src={'/ModeSelect/Opening.mp3'} ref={Bgm} loop />
         </div>
     );
 }

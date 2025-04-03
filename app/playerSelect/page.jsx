@@ -48,6 +48,7 @@ const Local = () => {
     useEffect(() => {
         bgm.current.play();
         bgm.current.volume = 0.2;
+        bgm.current.currentTime = 12.4
     }, [])
 
     const P2Details = useRef({
