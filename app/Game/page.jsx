@@ -14,6 +14,8 @@ export default function Home() {
         username: ""
     })
 
+    const Bgm = useRef(false)
+
     const ValidationMode = useRef('')
 
 
@@ -29,6 +31,11 @@ export default function Home() {
             handleValidation()
 
         }
+
+        Bgm.current.play()
+        Bgm.current.volume = 0.05
+        Selection.current.volume = 0.1
+        change.current.volume = 0.1
 
     }, [])
 
@@ -202,6 +209,7 @@ export default function Home() {
 
             <audio ref={change} src={'/ModeSelect/Change.mp3'} />
             <audio ref={Selection} src={'/ModeSelect/Selected.mp3'} />
+            <audio src={'/ModeSelect/Opening.mp3'} ref={Bgm} />
         </div>
     );
 }

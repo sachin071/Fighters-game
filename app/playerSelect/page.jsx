@@ -61,7 +61,7 @@ const Local = () => {
     function handleChangeAudio() {
         playerChange.current.currentTime = 0;
         playerChange.current.play();
-        playerChange.current.volume = 0.2;
+        playerChange.current.volume = 0.1;
     }
 
     function handleKeyDown(event) {

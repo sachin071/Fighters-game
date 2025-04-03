@@ -238,7 +238,7 @@ const Local = () => {
 
     useEffect(() => {
         BGM_Ref.current.play();
-        BGM_Ref.current.volume = 0.2;
+        BGM_Ref.current.volume = 0.1;
         BGM_Ref.current.currentTime = 60
         Player1.current.player = Characters.current[parseInt(localStorage.getItem("P1CharIndex"))].name
         Player2.current.player = Characters.current[parseInt(localStorage.getItem("P2CharIndex"))].name
