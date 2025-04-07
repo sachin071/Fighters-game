@@ -4,8 +4,6 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import { useRef, useState, useEffect } from "react";
 import { setTimeout } from "timers";
-import { routingSuccess } from "../../functions/RoutingHandling";
-import { clearData, recallData } from "../../functions/UserDataHandling";
 
 
 const Local = () => {

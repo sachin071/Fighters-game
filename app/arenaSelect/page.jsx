@@ -1,13 +1,12 @@
 'use client';
 import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { recallData } from "../../functions/UserDataHandling"
 
 
 export default function Home() {
 
     const router = useRouter();
-    const userData = recallData()
+
 
     const ArenaIndex = useRef({
         Selected: false,
