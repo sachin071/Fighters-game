@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useReducer } from "react";
+import React from "react";
 import { useRef, useState, useEffect } from "react";
 
 
@@ -16,6 +16,48 @@ const Local = () => {
         windowWidth.current = window.innerWidth
         Player2.current.data.PositionHorizontal = window.innerWidth - 175
     }, [])
+
+    const AnimationMaxFramesData = useRef(
+        {
+            punch: {
+                maxFrame: 12
+            },
+            kick: {
+                maxFrame: 14
+            },
+            projectile: {
+                maxFrame: 10
+            },
+            ultimate: {
+                maxFrame: 30
+            },
+            uppercut: {
+                maxFrame: 16
+            },
+            backHook: {
+                maxFrame: 14
+            },
+            lowerCut: {
+                maxFrame: 16
+            },
+            sweepKick: {
+                maxFrame: 16
+            },
+            backKick: {
+                maxFrame: 16
+            },
+            sweepPunch: {
+                maxFrame: 16
+            },
+            running: {
+
+            }
+
+
+
+
+        }
+    )
 
     const p1Moves = useRef({
         isInitiated: false,
@@ -586,14 +628,6 @@ const Local = () => {
 
     }
 
-    var tickTime = 0
-
-    function handleGameTick(dt) {
-        tickTime = tickTime + dt
-        if (tickTime >= 50) {
-            tickTime = tickTime % 50
-        }
-    }
 
     function HandleP1Moveset(dt) {
 
@@ -627,7 +661,6 @@ const Local = () => {
                 case 'i':
                     {
                         Player1.current.StateImg = "ultimate"
-                        console.log('i Pressed')
                         break
                     }
 
@@ -784,7 +817,34 @@ const Local = () => {
                     }
                 }
             }
+            if (Player1.current.Projectile.chs) {
+                if (Player1.current.Projectile.P_facing == -1) {
+                    if ((Player1.current.data.PositionHorizontal <= Player1.current.Projectile.PositionHorizontal) && ((Player1.current.data.PositionHorizontal + Player1.current.data.width + 10) >= Player1.current.Projectile.PositionHorizontal)) {
+                        if ((Player1.current.Projectile.PositionVertical >= Player1.current.data.PositionVertical) && (Player1.current.Projectile.PositionVertical <= (Player1.current.data.PositionVertical + Player1.current.data.height + 10))) {
+                            Player1.current.health = Math.max(Player1.current.health - 7.5)
+                            Player1.current.Projectile.isHitting = true
+                            Player1.current.StateImg = "idle"
+                            Player1.current.Projectile.isActive = false
+                        }
+                    }
+                }
+                else if (Player1.current.Projectile.P_facing == 1) {
+                    if ((Player1.current.data.PositionHorizontal <= (Player1.current.Projectile.PositionHorizontal + 10)) && ((Player1.current.data.PositionHorizontal + Player1.current.data.width) >= Player1.current.Projectile.PositionHorizontal)) {
+                        if ((Player1.current.Projectile.PositionVertical >= Player1.current.data.PositionVertical) && (Player1.current.Projectile.PositionVertical <= (Player1.current.data.PositionVertical + Player1.current.data.height + 10))) {
+                            Player1.current.health = Math.max(Player1.current.health - 7.5)
+                            Player1.current.Projectile.isHitting = true
+                            Player1.current.StateImg = "idle"
+                            Player1.current.Projectile.isActive = false
+                        }
+                    }
+                }
+
+            }
         }
+
+        // can hit self projectile check 
+
+
 
     }
 
@@ -810,7 +870,30 @@ const Local = () => {
                     }
                 }
             }
+            if (Player2.current.Projectile.chs) {
+                if (Player2.current.Projectile.P_facing == -1) {
+                    if ((Player2.current.data.PositionHorizontal <= Player2.current.Projectile.PositionHorizontal) && ((Player2.current.data.PositionHorizontal + Player2.current.data.width + 10) >= Player2.current.Projectile.PositionHorizontal)) {
+                        if ((Player2.current.Projectile.PositionVertical >= Player2.current.data.PositionVertical) && (Player2.current.Projectile.PositionVertical <= (Player2.current.data.PositionVertical + Player2.current.data.height + 10))) {
+                            Player2.current.health = Math.max(Player2.current.health - 7.5)
+                            Player2.current.Projectile.isHitting = true
+                            Player2.current.StateImg = "idle"
+                            Player2.current.Projectile.isActive = false
+                        }
+                    }
+                }
+                else if (Player2.current.Projectile.P_facing == 1) {
+                    if ((Player2.current.data.PositionHorizontal <= (Player2.current.Projectile.PositionHorizontal + 10)) && ((Player2.current.data.PositionHorizontal + Player2.current.data.width) >= Player2.current.Projectile.PositionHorizontal)) {
+                        if ((Player2.current.Projectile.PositionVertical >= Player2.current.data.PositionVertical) && (Player2.current.Projectile.PositionVertical <= (Player2.current.data.PositionVertical + Player2.current.data.height + 10))) {
+                            Player2.current.health = Math.max(Player2.current.health - 7.5)
+                            Player2.current.Projectile.isHitting = true
+                            Player2.current.StateImg = "idle"
+                            Player2.current.Projectile.isActive = false
+                        }
+                    }
+                }
+            }
         }
+
     }
 
 
@@ -892,22 +975,41 @@ const Local = () => {
         }
     }
 
-    function ActiveChsCheck() {
-        if (Player1.current.Projectile.isActive && Player1.current.Projectile.chs) {
+    var P1tickTime = 0
 
+    function handlePlayer1Animation(dt) {
+        P1tickTime = P1tickTime + dt
+        if (P1tickTime >= 50) {
+            P1tickTime = P1tickTime % 50
         }
-        if (Player2.current.Projectile.isActive && Player2.current.Projectile.chs) {
+    }
+
+    var P2tickTime = 0
+
+    function handlePlayer2Animation(dt) {
+        P2tickTime = P2tickTime + dt
+        if (P2tickTime >= 50) {
+            P2tickTime = P2tickTime % 50
 
         }
     }
 
-    function ActiveChsHitCheck() {
-        if (Player1.current.Projectile.isActive) {
+
+    function handlePlayer1Moves(dt) {
+
+    }
+    function handlePlayer2Moves(dt) {
+
+    }
+
+    function handlePlayer1Ultimate(dt) {
+        if (Player1.current.StateImg == "ultimate") {
 
         }
-        if (Player2.current.Projectile.isActive) {
+    }
 
-        }
+    function handlePlayer2Ultimate(dt) {
+
     }
 
 
@@ -921,10 +1023,12 @@ const Local = () => {
         handleP2Projectile(dt)
         handleFacing()
         isClashing()
-        ActiveChsCheck()
-        ActiveChsHitCheck()
         isP1HitWithProjectile()  // added functions for checking projectile hit
         isP2HitWithProjectile()
+        handlePlayer1Moves(dt)
+        handlePlayer1Ultimate(dt)
+        HandlePlayer2Moves(dt)
+        handlePlayer2Ultimate(dt)
 
 
 
@@ -980,15 +1084,7 @@ const Local = () => {
 
     return (
         <div className="bg-stone-950 w-screen h-screen object-cover flex">
-            {/* <div className="fixed w-[45%] h-[25px] bg-gradient-to-t from-red-500 via-red-600 to-red-400 left-[2%] top-[25px] rounded-md overflow-hidden">
-                <div className="h-full absolute left-0 bg-gradient-to-t from-green-600 via-green-600 to-green-400 rounded-sm" style={{ width: `${Math.max(Player1.current.health, 0)}%` }}>
-                </div>
-            </div>
 
-            <div className="fixed w-[45%] h-[25px] bg-gradient-to-t from-red-500 via-red-600 to-red-400 right-[2%] top-[25px] rounded-md overflow-hidden">
-                <div className=" absolute right-0 bg-gradient-to-t from-green-600 via-green-600 to-green-400 h-full rounded-sm" style={{ width: `${Math.max(Player2.current.health, 0)}%` }}>
-                </div>
-            </div> */}
 
             <div className=" fixed top-[25px] left-[1%] w-[46%] h-[44px] bg-gradient-to-t from-blue-500 via-cyan-300 to-blue-500 transform skew-x-12 border-solid border-blue-800 border-[2px]">
                 <div className="m-[6px] mx-[10px] bg-gradient-to-t from-red-500 via-red-600 to-red-400 w-[calc(100%-20px)] h-[28px] border-solid border-blue-800 border-[2px]">
