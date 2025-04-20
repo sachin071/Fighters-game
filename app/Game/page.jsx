@@ -261,8 +261,12 @@ export default function Home() {
                     modes.current.map((item, index) => {
                         if ((index >= modeIndexRef.current - 1) && (index <= modeIndexRef.current + 1)) {
                             if (index == modeIndexRef.current) {
-                                return (<div key={index}> <div className="h-[8px] bg-gradient-to-r from-[#ffffff11] via-white to-[#ffffff11] w-[70%] mx-auto"></div> <div
-                                    className="bg-gradient-to-r from-transparent via-zinc-100 to-transparent w-[70%] mx-auto  "><div className="z-[100] text-center text-5xl font-bold m-auto text-rose-600">{item.name}</div></div> <div className="h-[8px] bg-gradient-to-r from-[#ffffff11] via-white to-[#ffffff11] w-[70%] mx-auto"></div> </div>)
+                                return (<div key={index}> <div className="h-[8px] bg-gradient-to-r from-[#ffffff11] via-white to-[#ffffff11] w-[70%] mx-auto"></div> 
+                                <div className="bg-gradient-to-r from-transparent via-zinc-100 to-transparent w-[70%] mx-auto  ">
+                                    <div className="z-[100] text-center text-5xl font-bold m-auto text-rose-600">{item.name}</div>
+                                    </div> 
+                                    <div className="h-[8px] bg-gradient-to-r from-[#ffffff11] via-white to-[#ffffff11] w-[70%] mx-auto"></div> 
+                                </div>)
                             }
                             else {
                                 return (<div className="z-[100] text-center text-3xl font-bold opacity-[70%] m-auto text-orange-600" key={index}>{item.name}</div>)
