@@ -45,8 +45,6 @@ export default function Home() {
         const currTime = Date.now()
         const td = currTime - parseInt(lastTime, 10)
         const playtime = parseFloat(localStorage.getItem("Bgm_Timer")) + td / 1000
-        console.log(playtime)
-        console.log(td)
         bgm.current.currentTime = playtime
         addEventListener('keydown', handleKeyDown)
         return () => {
@@ -194,8 +192,8 @@ export default function Home() {
 
     return (
         <div className="w-screen h-screen bg-zinc-700 flex">
-            <div className=" fixed w-full h-full bg-blue-500 object-cover flex">
-                <img src={Arenas.current[ArenaIndex.current.index].imgUrl} className="flex h-full items-center justify-center " alt="" />
+            <div className=" fixed w-full h-full bg-black object-cover flex">
+                <img src={Arenas.current[ArenaIndex.current.index].imgUrl} className="h-auto w-full object-contain fixed bottom-[0px]" alt="" />
             </div>
             <div className="h-[100px] fixed z-[5] w-[90%] bg-red-500 left-[5%] bottom-[12%] flex flex-row items-center justify-center">
                 {
@@ -231,6 +229,7 @@ export default function Home() {
                     })
                 }
             </div>
+
             <audio src={'/PlayerSelect/Audio/Player_Select_BGM.mp3'} ref={bgm} loop />
         </div>
     );

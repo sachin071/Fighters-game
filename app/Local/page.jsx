@@ -1,12 +1,27 @@
 'use client';
-
 import React from "react";
 import { useRef, useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 
 
 
 const Local = () => {
+    // const router = useRouter()
+    // var haveGameRerouted = false
+    // function handleResizing(){
+    //     if(!haveGameRerouted){
+    //         haveGameRerouted = true
+    //         router.push('/Game')
+    //     }
+    //     }
+        
+    //     useEffect(()=>{
+    //       addEventListener('resize', ()=>{handleResizing()})
+    //       return ()=>{
+    //         removeEventListener('resize', ()=>{handleResizing()} )
+    //       }
+    //     })
 
     const BGM_Ref = useRef(false);
     const frameref = useRef(0)
@@ -507,7 +522,7 @@ const Local = () => {
             }
         }
 
-        if (keyStats.current.w) {
+        if (keyStats.current.w && !(Player1.current.Punch_1.isActive || Player1.current.Kick_1.isActive)) {
             if (Player1.current.data.PositionVertical <= 50) {
                 Player1.current.data.VelocityVertical = 1200
                 if (keyStats.current.a) {
@@ -520,7 +535,7 @@ const Local = () => {
 
         }
 
-        if (keyStats.current.s) {
+        if (keyStats.current.s && !(Player1.current.Punch_1.isActive || Player1.current.Kick_1.isActive) ) {
             Player1.current.data.height = 75
         }
         if (!keyStats.current.s) {
@@ -554,7 +569,7 @@ const Local = () => {
 
     function handlePlayer2Movement(dt) {
 
-        if (keyStats.current.left && !(keyStats.current.up || Player2.current.data.PositionVertical - 50 > 0)) {
+        if (keyStats.current.left  &&  !(keyStats.current.up || Player2.current.data.PositionVertical - 50 > 0)) {
             if (!(Player2.current.Punch_1.isActive || Player2.current.Kick_1.isActive)) {
 
 
@@ -568,7 +583,7 @@ const Local = () => {
             }
 
         }
-        if (keyStats.current.right && !(keyStats.current.up || Player2.current.data.PositionVertical - 50 > 0)) {
+        if (keyStats.current.right  && !(keyStats.current.up || Player2.current.data.PositionVertical - 50 > 0)) {
 
             if (!(Player2.current.Punch_1.isActive || Player2.current.Kick_1.isActive)) {
 
@@ -582,7 +597,7 @@ const Local = () => {
             }
 
         }
-        if (keyStats.current.up) {
+        if (keyStats.current.up && !(Player2.current.Punch_1.isActive || Player2.current.Kick_1.isActive)) {
             if (Player2.current.data.PositionVertical <= 50) {
                 Player2.current.data.VelocityVertical = 1200
                 if (keyStats.current.left) {
@@ -594,7 +609,7 @@ const Local = () => {
             }
 
         }
-        if (keyStats.current.down) {
+        if (keyStats.current.down && !(Player2.current.Punch_1.isActive || Player2.current.Kick_1.isActive)) {
             Player2.current.data.height = 75
         }
         if (!keyStats.current.down) {
@@ -976,11 +991,22 @@ const Local = () => {
     }
 
     var P1tickTime = 0
-
     function handlePlayer1Animation(dt) {
         P1tickTime = P1tickTime + dt
         if (P1tickTime >= 50) {
             P1tickTime = P1tickTime % 50
+            if(!(Player1.current.StateImg == "idle") && Player1.current.playerImage >= AnimationMaxFramesData.current[Player1.current.StateImg].maxFrame){
+                Player1.current.StateImg = "idle"
+                Player1.current.playerImage = 0
+                Player1.current.Kick_1.isActive = false
+                Player1.current.Kick_1.isHitting = false
+                Player1.current.Punch_1.isActive = false
+                Player1.current.Punch_1.isHitting= false
+            }
+            if(Player1.current.StateImg != "idle"){
+                Player1.current.playerImage = Player1.current.playerImage + 1
+            }
+            
         }
     }
 
@@ -990,7 +1016,17 @@ const Local = () => {
         P2tickTime = P2tickTime + dt
         if (P2tickTime >= 50) {
             P2tickTime = P2tickTime % 50
-
+            if(!(Player2.current.StateImg == "idle") && Player2.current.playerImage >= AnimationMaxFramesData.current[Player2.current.StateImg].maxFrame){
+                Player2.current.StateImg = "idle"
+                Player2.current.playerImage = 0
+                Player2.current.Kick_1.isActive = false
+                Player2.current.Kick_1.isHitting = false
+                Player2.current.Punch_1.isActive = false
+                Player2.current.Punch_1.isHitting= false
+            }
+            if(Player2.current.StateImg != "idle"){
+                Player2.current.playerImage = Player1.current.playerImage + 1
+            }
         }
     }
 
@@ -1027,9 +1063,10 @@ const Local = () => {
         isP2HitWithProjectile()
         handlePlayer1Moves(dt)
         handlePlayer1Ultimate(dt)
-        HandlePlayer2Moves(dt)
+        handlePlayer2Moves(dt)
         handlePlayer2Ultimate(dt)
-
+        handlePlayer1Animation(dt)
+        handlePlayer2Animation(dt)
 
 
 
@@ -1084,65 +1121,6 @@ const Local = () => {
 
     return (
         <div className="bg-stone-950 w-screen h-screen object-cover flex">
-
-
-            <div className=" fixed top-[25px] left-[1%] w-[46%] h-[44px] bg-gradient-to-t from-blue-500 via-cyan-300 to-blue-500 transform skew-x-12 border-solid border-blue-800 border-[2px]">
-                <div className="m-[6px] mx-[10px] bg-gradient-to-t from-red-500 via-red-600 to-red-400 w-[calc(100%-20px)] h-[28px] border-solid border-blue-800 border-[2px]">
-                    <div className="bg-gradient-to-t from-green-600 via-green-600 to-green-400 left-0 h-[24px] " style={{ width: `${Math.max(Player1.current.health, 0)}%` }}>
-
-                    </div>
-                </div>
-            </div>
-            <div className=" fixed top-[75px] left-4 w-[5%] h-[60px] bg-gradient-to-t from-blue-500 via-cyan-300 to-blue-500 transform -skew-x-12 border-solid border-blue-800 border-[2px]">
-                <div className="m-[4px] mx-[4px] bg-gradient-to-t from-red-500 via-red-600 to-red-400 w-[calc(100%-8px)] h-[calc(100%-8px)] border-solid border-blue-800">
-                    <img src={`${P1ImageUrl.current}`} alt="" className="scale-x-[-1] w-full absolute bottom-[4px] left-0 skew-x-12" />
-                </div>
-            </div>
-            <div className=" fixed top-[75px] left-[calc(16px+5%+8px)] w-[2%] h-[30px] bg-gradient-to-t from-blue-500 via-cyan-300 to-blue-500 transform -skew-x-12 border-solid border-blue-800 border-[2px]">
-                <div className={`m-[4px] mx-[4px] bg-gradient-to-t ${Player1.current.Round_Won >= 1 ? 'from-green-500 via-green-600 to-green-400' : 'from-red-500 via-red-600 to-red-400'} w-[calc(100%-8px)] h-[calc(100%-8px)] border-solid border-blue-800`}>
-                </div>
-            </div>
-            <div className=" fixed top-[75px] left-[calc(16px+7%+12px)] w-[2%] h-[30px] bg-gradient-to-t from-blue-500 via-cyan-300 to-blue-500 transform -skew-x-12 border-solid border-blue-800 border-[2px]">
-                <div className={`m-[4px] mx-[4px] bg-gradient-to-t ${Player1.current.Round_Won >= 2 ? 'from-green-500 via-green-600 to-green-400' : 'from-red-500 via-red-600 to-red-400'} w-[calc(100%-8px)] h-[calc(100%-8px)] border-solid border-blue-800`}>
-                </div>
-            </div>
-
-
-            <img src={`${Characters.current[parseInt(localStorage.getItem('P1CharIndex'))].name_img}`} className="fixed left-[calc(10px+5%)] top-[calc(70px+30px)] h-[50px] skew-x-[15deg]" alt="" />
-
-
-            <div className=" fixed top-[25px] right-[1%] w-[46%] h-[44px] bg-gradient-to-t from-blue-500 via-cyan-300 to-blue-500 transform -skew-x-12 border-solid border-blue-800 border-[2px]">
-                <div className="m-[6px] mx-[10px] bg-gradient-to-t from-red-500 via-red-600 to-red-400 w-[calc(100%-20px)] h-[28px] border-solid border-blue-800 border-[2px]">
-                    <div className="bg-gradient-to-t from-green-600 via-green-600 to-green-400 right-0 h-full" style={{ width: `${Math.max(Player2.current.health, 0)}%` }}>
-
-                    </div>
-                </div>
-            </div>
-
-            <div className=" fixed top-[75px] right-4 w-[5%] h-[60px] bg-gradient-to-t from-blue-500 via-cyan-300 to-blue-500 transform skew-x-12 border-solid border-blue-800 border-[2px]">
-                <div className="m-[4px] mx-[4px] bg-gradient-to-t from-red-500 via-red-600 to-red-400 w-[calc(100%-8px)] h-[calc(100%-8px)] border-solid border-blue-800">
-                    <img src={`${P2ImageUrl.current}`} alt="" className="w-full absolute bottom-[4px] right-0 -skew-x-12" />
-                </div>
-            </div>
-
-            <div className=" fixed top-[75px] right-[calc(16px+5%+8px)] w-[2%] h-[30px] bg-gradient-to-t from-blue-500 via-cyan-300 to-blue-500 transform skew-x-12 border-solid border-blue-800 border-[2px]">
-                <div className="m-[4px] mx-[4px] bg-gradient-to-t from-red-500 via-red-600 to-red-400 w-[calc(100%-8px)] h-[calc(100%-8px)] border-solid border-blue-800">
-                </div>
-            </div>
-            <div className=" fixed top-[75px] right-[calc(16px+7%+12px)] w-[2%] h-[30px] bg-gradient-to-t from-blue-500 via-cyan-300 to-blue-500 transform skew-x-12 border-solid border-blue-800 border-[2px]">
-                <div className="m-[4px] mx-[4px] bg-gradient-to-t from-red-500 via-red-600 to-red-400 w-[calc(100%-8px)] h-[calc(100%-8px)] border-solid border-blue-800">
-                </div>
-            </div>
-
-            <img src={`${Characters.current[parseInt(localStorage.getItem('P2CharIndex'))].name_img}`} className="fixed right-[calc(4px+5%)] top-[calc(70px+30px)] h-[50px] skew-x-[40deg]" alt="" />
-
-
-            <div className="bg-zinc-50 fixed h-[50px] w-full bottom-[0px] ">
-            </div>
-            <div className="flex  bg-transparent w-[100px] h-[35px] p-auto m-auto z-100 mt-[20px] text-3xl justify-center font-extrabold text-white">
-                {`${time.current}`}
-            </div>
-
 
             <div className="absolute z-[200] bg-white" style={{
                 left: `${Player1.current.data.PositionHorizontal}px`,
@@ -1213,7 +1191,62 @@ const Local = () => {
             <div className="absolute z-[200] bg-white">
 
             </div>
-            {/* <img src={localStorage.getItem("imgUrl")} alt="arena Image" className="flex" /> */}
+            <img src={localStorage.getItem("imgUrl")}  className="h-auto w-full object-contain fixed bottom-[0px] -z-100" alt="arena Image" />
+
+            <div className=" fixed top-[25px] left-[1%] w-[46%] h-[44px] bg-gradient-to-t from-blue-500 via-cyan-300 to-blue-500 transform skew-x-12 border-solid border-blue-800 border-[2px]">
+                <div className="m-[6px] mx-[10px] bg-gradient-to-t from-red-500 via-red-600 to-red-400 w-[calc(100%-20px)] h-[28px] border-solid border-blue-800 border-[2px]">
+                    <div className="bg-gradient-to-t from-green-600 via-green-600 to-green-400 left-0 h-[24px] " style={{ width: `${Math.max(Player1.current.health, 0)}%` }}>
+
+                    </div>
+                </div>
+            </div>
+            <div className=" fixed top-[75px] left-4 w-[5%] h-[60px] bg-gradient-to-t from-blue-500 via-cyan-300 to-blue-500 transform -skew-x-12 border-solid border-blue-800 border-[2px]">
+                <div className="m-[4px] mx-[4px] bg-gradient-to-t from-red-500 via-red-600 to-red-400 w-[calc(100%-8px)] h-[calc(100%-8px)] border-solid border-blue-800">
+                    <img src={`${P1ImageUrl.current}`} alt="" className="scale-x-[-1] w-full absolute bottom-[4px] left-0 skew-x-12" />
+                </div>
+            </div>
+            <div className=" fixed top-[75px] left-[calc(16px+5%+8px)] w-[2%] h-[30px] bg-gradient-to-t from-blue-500 via-cyan-300 to-blue-500 transform -skew-x-12 border-solid border-blue-800 border-[2px]">
+                <div className={`m-[4px] mx-[4px] bg-gradient-to-t ${Player1.current.Round_Won >= 1 ? 'from-green-500 via-green-600 to-green-400' : 'from-red-500 via-red-600 to-red-400'} w-[calc(100%-8px)] h-[calc(100%-8px)] border-solid border-blue-800`}>
+                </div>
+            </div>
+            <div className=" fixed top-[75px] left-[calc(16px+7%+12px)] w-[2%] h-[30px] bg-gradient-to-t from-blue-500 via-cyan-300 to-blue-500 transform -skew-x-12 border-solid border-blue-800 border-[2px]">
+                <div className={`m-[4px] mx-[4px] bg-gradient-to-t ${Player1.current.Round_Won >= 2 ? 'from-green-500 via-green-600 to-green-400' : 'from-red-500 via-red-600 to-red-400'} w-[calc(100%-8px)] h-[calc(100%-8px)] border-solid border-blue-800`}>
+                </div>
+            </div>
+
+
+            <img src={`${Characters.current[parseInt(localStorage.getItem('P1CharIndex'))].name_img}`} className="fixed left-[calc(10px+5%)] top-[calc(70px+30px)] h-[50px] skew-x-[15deg]" alt="" />
+
+
+            <div className=" fixed top-[25px] right-[1%] w-[46%] h-[44px] bg-gradient-to-t from-blue-500 via-cyan-300 to-blue-500 transform -skew-x-12 border-solid border-blue-800 border-[2px]">
+                <div className="m-[6px] mx-[10px] bg-gradient-to-t from-red-500 via-red-600 to-red-400 w-[calc(100%-20px)] h-[28px] border-solid border-blue-800 border-[2px]">
+                    <div className="bg-gradient-to-t from-green-600 via-green-600 to-green-400 right-0 h-full" style={{ width: `${Math.max(Player2.current.health, 0)}%` }}>
+
+                    </div>
+                </div>
+            </div>
+
+            <div className=" fixed top-[75px] right-4 w-[5%] h-[60px] bg-gradient-to-t from-blue-500 via-cyan-300 to-blue-500 transform skew-x-12 border-solid border-blue-800 border-[2px]">
+                <div className="m-[4px] mx-[4px] bg-gradient-to-t from-red-500 via-red-600 to-red-400 w-[calc(100%-8px)] h-[calc(100%-8px)] border-solid border-blue-800">
+                    <img src={`${P2ImageUrl.current}`} alt="" className="w-full absolute bottom-[4px] right-0 -skew-x-12" />
+                </div>
+            </div>
+
+            <div className=" fixed top-[75px] right-[calc(16px+5%+8px)] w-[2%] h-[30px] bg-gradient-to-t from-blue-500 via-cyan-300 to-blue-500 transform skew-x-12 border-solid border-blue-800 border-[2px]">
+                <div className="m-[4px] mx-[4px] bg-gradient-to-t from-red-500 via-red-600 to-red-400 w-[calc(100%-8px)] h-[calc(100%-8px)] border-solid border-blue-800">
+                </div>
+            </div>
+            <div className=" fixed top-[75px] right-[calc(16px+7%+12px)] w-[2%] h-[30px] bg-gradient-to-t from-blue-500 via-cyan-300 to-blue-500 transform skew-x-12 border-solid border-blue-800 border-[2px]">
+                <div className="m-[4px] mx-[4px] bg-gradient-to-t from-red-500 via-red-600 to-red-400 w-[calc(100%-8px)] h-[calc(100%-8px)] border-solid border-blue-800">
+                </div>
+            </div>
+
+            <img src={`${Characters.current[parseInt(localStorage.getItem('P2CharIndex'))].name_img}`} className="fixed right-[calc(4px+5%)] top-[calc(70px+30px)] h-[50px] skew-x-[40deg]" alt="" />
+
+
+            <div className="flex  bg-transparent w-[100px] h-[35px] p-auto m-auto z-100 mt-[20px] text-3xl justify-center font-extrabold text-white">
+                {`${time.current}`}
+            </div>
             <audio src={'/Gameplay/OverDrive.mp3'} ref={BGM_Ref} loop />
         </div>
     );

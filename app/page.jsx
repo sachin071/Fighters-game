@@ -8,6 +8,9 @@ const Landing = () => {
   const router = useRouter()
 
   useEffect(() => {
+    const token = localStorage.getItem("token")
+    localStorage.clear()
+    localStorage.setItem("token" , token)
     addEventListener('keydown', () => { handleRouting() })
     return () => {
       removeEventListener('keydown', () => { handleRouting() })

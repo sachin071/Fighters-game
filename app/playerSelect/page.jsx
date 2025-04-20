@@ -143,7 +143,7 @@ const Local = () => {
         return () => {
             removeEventListener('keydown', handleKeyDown)
         }
-    })
+    },[])
 
 
 
