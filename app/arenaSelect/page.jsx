@@ -230,7 +230,7 @@ export default function Home() {
                 }
             </div>
 
-            <audio src={'/PlayerSelect/Audio/Player_Select_BGM.mp3'} ref={bgm} loop />
+            <audio src={`${localStorage.getItem('genre')}/PlayerSelect/Player_Select_BGM.mp3`} ref={bgm} loop />
         </div>
     );
 }

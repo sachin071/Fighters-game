@@ -9,8 +9,10 @@ const Landing = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token")
+    const genre = localStorage.getItem('genre')
     localStorage.clear()
     localStorage.setItem("token" , token)
+    localStorage.setItem('genre',genre)
     addEventListener('keydown', () => { handleRouting() })
     return () => {
       removeEventListener('keydown', () => { handleRouting() })

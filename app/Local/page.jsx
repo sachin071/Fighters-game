@@ -1247,7 +1247,7 @@ const Local = () => {
             <div className="flex  bg-transparent w-[100px] h-[35px] p-auto m-auto z-100 mt-[20px] text-3xl justify-center font-extrabold text-white">
                 {`${time.current}`}
             </div>
-            <audio src={'/Gameplay/OverDrive.mp3'} ref={BGM_Ref} loop />
+            <audio src={`/${localStorage.getItem('genre')}/Gameplay/OverDrive.mp3`} ref={BGM_Ref} loop />
         </div>
     );
 

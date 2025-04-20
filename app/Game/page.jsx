@@ -18,7 +18,8 @@ export default function Home() {
 
     const ValidationMode = useRef('')
 
-
+    const musicIndex = useRef(0)
+    const [musicIndexState , setMusicIndex] = useState(musicIndex.current)
     useEffect(() => {
         if (window.innerHeight > window.innerWidth) {
             alert("The game isnt designed for the mobile Devices and is unplayable please try refraining from playing")
@@ -33,9 +34,34 @@ export default function Home() {
         }
 
         Bgm.current.play()
-        Bgm.current.volume = 0.05
+        Bgm.current.volume = 0.1
         Selection.current.volume = 0.1
         change.current.volume = 0.1
+
+        var item = localStorage.getItem('genre')
+        if(!localStorage.getItem('genre')){
+            musicIndex.current = 0
+            localStorage.setItem('genre' , musicData.current[musicIndex.current])
+            Bgm.current.src = `${localStorage.getItem('genre')}/ModeSelect/Opening.mp3`
+            Bgm.current.load()
+            Bgm.current.onloadeddata = () => {
+                Bgm.current.currentTime = 0;
+                Bgm.current.play()
+            };
+        }
+        if(item == "Metal"){
+            musicIndex.current = 0
+            
+        }
+        else if(item == "Jazz"){
+            musicIndex.current = 1
+        }
+        else if(item == "lowfi"){
+            musicIndex.current = 2
+        }
+
+        setMusicIndex(musicIndex.current)
+        
 
     }, [])
 
@@ -59,6 +85,9 @@ export default function Home() {
 
 
     }
+
+
+    const musicData = useRef(["Metal" , "Jazz" , "lowfi"])
 
 
 
@@ -139,6 +168,44 @@ export default function Home() {
             modeIndexRef.current = newIndex
         }
 
+        if (event.keyCode == 65) { //a
+            Bgm.current.pause()
+            musicIndex.current = musicIndex.current -1
+            setMusicIndex(musicIndex.current)
+            if(musicIndex.current < 0){
+                musicIndex.current = 2
+            }
+            if(musicIndex.current > 2){
+                musicIndex.current = 0
+            }
+            localStorage.setItem('genre' , musicData.current[musicIndex.current])
+            Bgm.current.src = `${localStorage.getItem('genre')}/ModeSelect/Opening.mp3`
+            Bgm.current.load()
+            Bgm.current.onloadeddata = () => {
+                Bgm.current.currentTime = 0;
+                Bgm.current.play()
+            };
+        }
+
+        if (event.keyCode == 68) { //d
+            Bgm.current.pause()
+            musicIndex.current = musicIndex.current + 1
+            setMusicIndex(musicIndex.current)
+            if(musicIndex.current < 0){
+                musicIndex.current = 2
+            }
+            if(musicIndex.current > 2){
+                musicIndex.current = 0
+            }
+            localStorage.setItem('genre' , musicData.current[musicIndex.current])
+            Bgm.current.src = `${localStorage.getItem('genre')}/ModeSelect/Opening.mp3`
+            Bgm.current.load()
+            Bgm.current.onloadeddata = () => {
+                Bgm.current.currentTime = 0;
+                Bgm.current.play()
+            };
+        }
+
         if (event.keyCode == 13) {
             Selection.current.play()
             if (modeIndexRef.current == 4) {
@@ -209,7 +276,7 @@ export default function Home() {
 
             <audio ref={change} src={'/ModeSelect/Change.mp3'} />
             <audio ref={Selection} src={'/ModeSelect/Selected.mp3'} />
-            <audio src={'/ModeSelect/Opening.mp3'} ref={Bgm} loop />
+            <audio src={`/${localStorage.getItem('genre')}/ModeSelect/Opening.mp3`} ref={Bgm} loop />
         </div>
     );
 }
