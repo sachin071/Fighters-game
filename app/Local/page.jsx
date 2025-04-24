@@ -15,7 +15,7 @@ const Local = () => {
     //         router.push('/Game')
     //     }
     //     }
-        
+
     //     useEffect(()=>{
     //       addEventListener('resize', ()=>{handleResizing()})
     //       return ()=>{
@@ -535,7 +535,7 @@ const Local = () => {
 
         }
 
-        if (keyStats.current.s && !(Player1.current.Punch_1.isActive || Player1.current.Kick_1.isActive) ) {
+        if (keyStats.current.s && !(Player1.current.Punch_1.isActive || Player1.current.Kick_1.isActive)) {
             Player1.current.data.height = 75
         }
         if (!keyStats.current.s) {
@@ -569,7 +569,7 @@ const Local = () => {
 
     function handlePlayer2Movement(dt) {
 
-        if (keyStats.current.left  &&  !(keyStats.current.up || Player2.current.data.PositionVertical - 50 > 0)) {
+        if (keyStats.current.left && !(keyStats.current.up || Player2.current.data.PositionVertical - 50 > 0)) {
             if (!(Player2.current.Punch_1.isActive || Player2.current.Kick_1.isActive)) {
 
 
@@ -583,7 +583,7 @@ const Local = () => {
             }
 
         }
-        if (keyStats.current.right  && !(keyStats.current.up || Player2.current.data.PositionVertical - 50 > 0)) {
+        if (keyStats.current.right && !(keyStats.current.up || Player2.current.data.PositionVertical - 50 > 0)) {
 
             if (!(Player2.current.Punch_1.isActive || Player2.current.Kick_1.isActive)) {
 
@@ -995,18 +995,18 @@ const Local = () => {
         P1tickTime = P1tickTime + dt
         if (P1tickTime >= 50) {
             P1tickTime = P1tickTime % 50
-            if(!(Player1.current.StateImg == "idle") && Player1.current.playerImage >= AnimationMaxFramesData.current[Player1.current.StateImg].maxFrame){
+            if (!(Player1.current.StateImg == "idle") && Player1.current.playerImage >= AnimationMaxFramesData.current[Player1.current.StateImg].maxFrame) {
                 Player1.current.StateImg = "idle"
                 Player1.current.playerImage = 0
                 Player1.current.Kick_1.isActive = false
                 Player1.current.Kick_1.isHitting = false
                 Player1.current.Punch_1.isActive = false
-                Player1.current.Punch_1.isHitting= false
+                Player1.current.Punch_1.isHitting = false
             }
-            if(Player1.current.StateImg != "idle"){
+            if (Player1.current.StateImg != "idle") {
                 Player1.current.playerImage = Player1.current.playerImage + 1
             }
-            
+
         }
     }
 
@@ -1016,15 +1016,15 @@ const Local = () => {
         P2tickTime = P2tickTime + dt
         if (P2tickTime >= 50) {
             P2tickTime = P2tickTime % 50
-            if(!(Player2.current.StateImg == "idle") && Player2.current.playerImage >= AnimationMaxFramesData.current[Player2.current.StateImg].maxFrame){
+            if (!(Player2.current.StateImg == "idle") && Player2.current.playerImage >= AnimationMaxFramesData.current[Player2.current.StateImg].maxFrame) {
                 Player2.current.StateImg = "idle"
                 Player2.current.playerImage = 0
                 Player2.current.Kick_1.isActive = false
                 Player2.current.Kick_1.isHitting = false
                 Player2.current.Punch_1.isActive = false
-                Player2.current.Punch_1.isHitting= false
+                Player2.current.Punch_1.isHitting = false
             }
-            if(Player2.current.StateImg != "idle"){
+            if (Player2.current.StateImg != "idle") {
                 Player2.current.playerImage = Player1.current.playerImage + 1
             }
         }
@@ -1045,6 +1045,14 @@ const Local = () => {
     }
 
     function handlePlayer2Ultimate(dt) {
+
+    }
+
+    function checkP1Victory() {
+
+    }
+
+    function checkP2Victory() {
 
     }
 
@@ -1191,7 +1199,7 @@ const Local = () => {
             <div className="absolute z-[200] bg-white">
 
             </div>
-            <img src={localStorage.getItem("imgUrl")}  className="h-auto w-full object-contain fixed bottom-[0px] -z-100" alt="arena Image" />
+            <img src={localStorage.getItem("imgUrl")} className="h-auto w-full object-contain fixed bottom-[0px] -z-100" alt="arena Image" />
 
             <div className=" fixed top-[25px] left-[1%] w-[46%] h-[44px] bg-gradient-to-t from-blue-500 via-cyan-300 to-blue-500 transform skew-x-12 border-solid border-blue-800 border-[2px]">
                 <div className="m-[6px] mx-[10px] bg-gradient-to-t from-red-500 via-red-600 to-red-400 w-[calc(100%-20px)] h-[28px] border-solid border-blue-800 border-[2px]">
