@@ -193,7 +193,7 @@ export default function Home() {
     return (
         <div className="w-screen h-screen bg-zinc-700 flex">
             <div className=" fixed w-full h-full bg-black object-cover flex">
-                <img src={Arenas.current[ArenaIndex.current.index].imgUrl} className=" fixed left-[0px] h-full w-full object-contain fixed bottom-[0px]" alt="" />
+                <img src={Arenas.current[ArenaIndex.current.index].imgUrl} className=" fixed left-[0px] h-full w-full object-contain bottom-[0px]" alt="" />
             </div>
             <div className="h-[100px] fixed z-[5] w-[90%] bg-red-500 left-[5%] bottom-[12%] flex flex-row items-center justify-center">
                 {

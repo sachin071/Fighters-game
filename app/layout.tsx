@@ -31,7 +31,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-hidden text-white`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-hidden text-white select-none pointer-events-none `}
       >
         {children}
       </body>

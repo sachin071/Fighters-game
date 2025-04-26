@@ -33,7 +33,7 @@ const LoginPage = () => {
     }
 
     return (
-        <div className="w-screen h-screen bg-zinc-800 flex flex-col">
+        <div className="w-screen h-screen bg-zinc-800 flex flex-col select-auto pointer-events-auto">
             <div className="m-auto flex  h-[200px] rounded-lg border-[2px] border-zinc-700 w-[400px] mb-[5px] ">
                 <form className="flex flex-col w-full h-full bg-zinc-700">
                     <input type="text" placeholder="Username" className=" w-[90%] h-[50px] flex m-auto align-middle items-center rounded-lg justify-center text-center text-black" ref={uname} />

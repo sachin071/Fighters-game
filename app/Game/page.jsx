@@ -19,7 +19,7 @@ export default function Home() {
     const ValidationMode = useRef('')
 
     const musicIndex = useRef(0)
-    const [musicIndexState , setMusicIndex] = useState(musicIndex.current)
+    const [musicIndexState, setMusicIndex] = useState(musicIndex.current)
     useEffect(() => {
         if (window.innerHeight > window.innerWidth) {
             alert("The game isnt designed for the mobile Devices and is unplayable please try refraining from playing")
@@ -39,9 +39,9 @@ export default function Home() {
         change.current.volume = 0.1
 
         var item = localStorage.getItem('genre')
-        if(!localStorage.getItem('genre')){
+        if (!localStorage.getItem('genre')) {
             musicIndex.current = 0
-            localStorage.setItem('genre' , musicData.current[musicIndex.current])
+            localStorage.setItem('genre', musicData.current[musicIndex.current])
             Bgm.current.src = `${localStorage.getItem('genre')}/ModeSelect/Opening.mp3`
             Bgm.current.load()
             Bgm.current.onloadeddata = () => {
@@ -49,19 +49,19 @@ export default function Home() {
                 Bgm.current.play()
             };
         }
-        if(item == "Metal"){
+        if (item == "Metal") {
             musicIndex.current = 0
-            
+
         }
-        else if(item == "Jazz"){
+        else if (item == "Jazz") {
             musicIndex.current = 1
         }
-        else if(item == "lowfi"){
+        else if (item == "lowfi") {
             musicIndex.current = 2
         }
 
         setMusicIndex(musicIndex.current)
-        
+
 
     }, [])
 
@@ -87,7 +87,7 @@ export default function Home() {
     }
 
 
-    const musicData = useRef(["Metal" , "Jazz" , "lowfi"])
+    const musicData = useRef(["Metal", "Jazz", "lowfi"])
 
 
 
@@ -170,15 +170,15 @@ export default function Home() {
 
         if (event.keyCode == 65) { //a
             Bgm.current.pause()
-            musicIndex.current = musicIndex.current -1
+            musicIndex.current = musicIndex.current - 1
             setMusicIndex(musicIndex.current)
-            if(musicIndex.current < 0){
+            if (musicIndex.current < 0) {
                 musicIndex.current = 2
             }
-            if(musicIndex.current > 2){
+            if (musicIndex.current > 2) {
                 musicIndex.current = 0
             }
-            localStorage.setItem('genre' , musicData.current[musicIndex.current])
+            localStorage.setItem('genre', musicData.current[musicIndex.current])
             Bgm.current.src = `${localStorage.getItem('genre')}/ModeSelect/Opening.mp3`
             Bgm.current.load()
             Bgm.current.onloadeddata = () => {
@@ -191,13 +191,13 @@ export default function Home() {
             Bgm.current.pause()
             musicIndex.current = musicIndex.current + 1
             setMusicIndex(musicIndex.current)
-            if(musicIndex.current < 0){
+            if (musicIndex.current < 0) {
                 musicIndex.current = 2
             }
-            if(musicIndex.current > 2){
+            if (musicIndex.current > 2) {
                 musicIndex.current = 0
             }
-            localStorage.setItem('genre' , musicData.current[musicIndex.current])
+            localStorage.setItem('genre', musicData.current[musicIndex.current])
             Bgm.current.src = `${localStorage.getItem('genre')}/ModeSelect/Opening.mp3`
             Bgm.current.load()
             Bgm.current.onloadeddata = () => {
@@ -261,21 +261,40 @@ export default function Home() {
                     modes.current.map((item, index) => {
                         if ((index >= modeIndexRef.current - 1) && (index <= modeIndexRef.current + 1)) {
                             if (index == modeIndexRef.current) {
-                                return (<div key={index}> <div className="h-[8px] bg-gradient-to-r from-[#ffffff11] via-white to-[#ffffff11] w-[70%] mx-auto"></div> 
-                                <div className="bg-gradient-to-r from-transparent via-zinc-100 to-transparent w-[70%] mx-auto  ">
-                                    <div className="z-[100] text-center text-5xl font-bold m-auto text-rose-600">{item.name}</div>
-                                    </div> 
-                                    <div className="h-[8px] bg-gradient-to-r from-[#ffffff11] via-white to-[#ffffff11] w-[70%] mx-auto"></div> 
+                                return (<div key={index}> <div className="h-[8px] bg-gradient-to-r from-[#ffffff11] via-white to-[#ffffff11] w-[70%] mx-auto"></div>
+                                    <div className="bg-gradient-to-r from-transparent via-zinc-100 to-transparent w-[70%] mx-auto  ">
+
+                                        <div className="z-[100] text-center text-5xl font-bold m-auto text-rose-600">{item.name}</div>
+                                    </div>
+                                    <div className="h-[8px] bg-gradient-to-r from-[#ffffff11] via-white to-[#ffffff11] w-[70%] mx-auto"></div>
                                 </div>)
                             }
                             else {
-                                return (<div className="z-[100] text-center text-3xl font-bold opacity-[70%] m-auto text-orange-600" key={index}>{item.name}</div>)
+                                return (<div className="z-[100] text-center text-3xl font-bold opacity-[70%] m-auto text-orange-600" key={index}>{item.name}
+
+                                </div>
+                                )
                             }
 
                         }
 
                     })
                 }
+
+                {/* <div className="w-full h-[15%] fixed bottom-[15%] left-[0px] z-[10]  ">
+                    <div className="absolute right-[20%] bottom-[40%] bg-gradient-to-r from-[#222222dd] via-[#444444dd] to-[#222222dd]  w-16 h-10 items-center justify-center flex font-extrabold border-solid border-[#555555ff] border-[2px] rounded-md text-zinc-500">
+                        Enter
+                    </div>
+                    <div className="absolute right-[20%] bottom-[3%] bg-gradient-to-r from-[#222222dd] via-[#444444dd] to-[#222222dd] w-8 h-8 items-center justify-center flex font-extrabold border-solid border-[#555555ff] border-[2px] rounded-md text-zinc-500" >
+                        S
+                    </div>
+
+                    <div className="absolute right-[20%] bottom-[80%] bg-gradient-to-r from-[#222222dd] via-[#444444dd] to-[#222222dd] w-8 h-8 items-center justify-center flex font-extrabold border-solid border-[#555555ff] border-[2px] rounded-md text-zinc-500">
+                        W
+                    </div>
+
+                </div> */}
+
             </div>
 
             <audio ref={change} src={'/ModeSelect/Change.mp3'} />

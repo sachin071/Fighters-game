@@ -190,8 +190,13 @@ const Local = () => {
 
 
     const possibleMovesets = useRef([
-        'jkl', 'lk', 'ddj'
+        'jkl', 'lk'
     ])
+    const possibleP2Movesets = useRef([
+        '426', '62'
+    ])
+
+
     const keyStats = useRef({
         w: false,
         s: false,
@@ -650,25 +655,33 @@ const Local = () => {
             switch (p1Moves.current.moves[0]) {
                 case 'j':
                     {
+                        if(!Player1.current.Punch_1.isActive && !Player1.current.Kick_1.isActive){
                         Player1.current.StateImg = "punch"
                         Player1.current.Punch_1.isActive = true
                         Player1.current.Punch_1.isHitting = false
                         console.log('j Pressed')
+                        }
                         break
                     }
                 case 'k':
                     {
+                        if(!Player1.current.Punch_1.isActive && !Player1.current.Kick_1.isActive){
                         Player1.current.StateImg = "kick"
+                        Player1.current.Kick_1.isActive = true
+                        Player1.current.Kick_1.isHitting = false
                         console.log('k Pressed')
+                        }
                         break
                     }
 
                 case 'l':
                     {
+                        if(!Player1.current.Punch_1.isActive && !Player1.current.Kick_1.isActive){
                         Player1.current.StateImg = "projectile"
                         Player1.current.Projectile.isActive = true
                         Player1.current.Projectile.P_facing = Player1.current.facing
                         Player1.current.Projectile.isHitting = false
+                        }
                         console.log('l Pressed')
                         break
                     }
@@ -703,7 +716,7 @@ const Local = () => {
     }
 
     function handleP1Projectile(dt) {
-        if (Player1.current.Projectile.isActive && !Player1.current.Kick_1.isActive && !Player1.current.Punch_1.isActive) {
+        if (Player1.current.Projectile.isActive ) {
             Player1.current.Projectile.PositionHorizontal = Player1.current.Projectile.PositionHorizontal + (Player1.current.Projectile.P_facing * 1100) * dt / 1000
             if ((Player1.current.Projectile.PositionHorizontal < -25) || (Player1.current.Projectile.PositionHorizontal >= window.innerWidth + 25)) {
                 Player1.current.Projectile.PositionHorizontal = Player1.current.data.PositionHorizontal + 25
@@ -719,7 +732,7 @@ const Local = () => {
     }
 
     function handleP2Projectile(dt) {
-        if (Player2.current.Projectile.isActive && !Player2.current.Kick_1.isActive && !Player2.current.Punch_1.isActive) {
+        if (Player2.current.Projectile.isActive ) {
             Player2.current.Projectile.PositionHorizontal = Player2.current.Projectile.PositionHorizontal + (Player2.current.Projectile.P_facing * 1100) * dt / 1000
             if ((Player2.current.Projectile.PositionHorizontal < -25) || (Player2.current.Projectile.PositionHorizontal >= window.innerWidth + 25)) {
                 Player2.current.Projectile.PositionHorizontal = Player2.current.data.PositionHorizontal + 25
@@ -740,26 +753,35 @@ const Local = () => {
             switch (p2Moves.current.moves[0]) {
                 case '4':
                     {
+                        if(!Player2.current.Punch_1.isActive && !Player2.current.Kick_1.isActive){
                         Player2.current.StateImg = "punch"
                         Player2.current.Punch_1.isActive = true
                         Player2.current.Punch_1.isHitting = false
                         console.log('4 Pressed')
+                        }
                         break
                     }
                 case '2':
                     {
+                        if(!Player2.current.Punch_1.isActive && !Player2.current.Kick_1.isActive){
                         Player2.current.StateImg = "kick"
+                        Player2.current.Kick_1.isActive = true
+                        Player2.current.Kick_1.isHitting = false
                         console.log('2 Pressed')
+                        }
                         break
                     }
 
                 case '6':
-                    {
-                        Player2.current.StateImg = "projectile"
-                        Player2.current.Projectile.isActive = true
-                        Player2.current.Projectile.isHitting = false
-                        Player2.current.Projectile.P_facing = Player2.current.facing
-                        console.log('6 Pressed')
+                    {   
+                        if(!Player2.current.Punch_1.isActive && !Player2.current.Kick_1.isActive){
+                            Player2.current.StateImg = "projectile"
+                            Player2.current.Projectile.isActive = true
+                            Player2.current.Projectile.isHitting = false
+                            Player2.current.Projectile.P_facing = Player2.current.facing
+                            console.log('6 Pressed')
+                        }
+                        
                         break
                     }
 
@@ -777,8 +799,8 @@ const Local = () => {
 
         else if (p2Moves.current.moves.length > 1) {
             var move = ''
-            possibleMovesets.current.map((moveSet) => {
-                if (moveSet.replace('i', '8').replace('j', '4').replace('k', '2').replace('l', '6') == p2Moves.current.moves.join('')) {
+            possibleP2Movesets.current.map((moveSet) => {
+                if (moveSet == p2Moves.current.moves.join('')) {
                     p2Moves.current.isInitiated = false
                     p2Moves.current.moves = []
                     move = moveSet
@@ -786,7 +808,7 @@ const Local = () => {
             })
             if (move == '') {
                 p2Moves.current.moves = [p2Moves.current.moves[p2Moves.current.moves.length - 1]]
-                HandleP1Moveset(dt)
+                HandleP2Moveset(dt)
             }
             executeMove(move)
 
@@ -1025,7 +1047,7 @@ const Local = () => {
                 Player2.current.Punch_1.isHitting = false
             }
             if (Player2.current.StateImg != "idle") {
-                Player2.current.playerImage = Player1.current.playerImage + 1
+                Player2.current.playerImage = Player2.current.playerImage + 1
             }
         }
     }
@@ -1045,7 +1067,9 @@ const Local = () => {
     }
 
     function handlePlayer2Ultimate(dt) {
+        if (Player2.current.StateImg == "ultimate") {
 
+        }
     }
 
     function checkP1Victory() {
@@ -1137,7 +1161,7 @@ const Local = () => {
                 height: `${Player1.current.data.height}px`
             }} >
             </div>
-            <div className="fixed z-[100] bottom-[40px] bg-[#00000033] h-[20px] w-[80px] rounded-[100%]" style={{
+            <div className="fixed z-[100] bottom-[40px] bg-[#000000aa] h-[20px] w-[80px] rounded-[100%]" style={{
                 left: `${Player1.current.data.PositionHorizontal - 2.5}px`
             }}>
             </div>
@@ -1171,7 +1195,7 @@ const Local = () => {
                 height: `${Player2.current.data.height}px`
             }} >
             </div>
-            <div className="fixed z-[100] bottom-[40px] bg-[#00000033] h-[20px] w-[80px] rounded-[100%]" style={{
+            <div className="fixed z-[100] bottom-[40px] bg-[#000000aa] h-[20px] w-[80px] rounded-[100%]" style={{
                 left: `${Player2.current.data.PositionHorizontal - 2.5}px`
             }}></div>
             <div className="absolute z-[200] w-[25px] h-[25px] bg-white" style={{
@@ -1199,7 +1223,7 @@ const Local = () => {
             <div className="absolute z-[200] bg-white">
 
             </div>
-            <img src={localStorage.getItem("imgUrl")} className="h-auto w-full object-contain fixed bottom-[0px] -z-100" alt="arena Image" />
+            <img src={localStorage.getItem("imgUrl")} className="fixed left-[0px] h-full w-full object-contain bottom-[0px] " alt="arena Image" />
 
             <div className=" fixed top-[25px] left-[1%] w-[46%] h-[44px] bg-gradient-to-t from-blue-500 via-cyan-300 to-blue-500 transform skew-x-12 border-solid border-blue-800 border-[2px]">
                 <div className="m-[6px] mx-[10px] bg-gradient-to-t from-red-500 via-red-600 to-red-400 w-[calc(100%-20px)] h-[28px] border-solid border-blue-800 border-[2px]">
@@ -1252,7 +1276,7 @@ const Local = () => {
             <img src={`${Characters.current[parseInt(localStorage.getItem('P2CharIndex'))].name_img}`} className="fixed right-[calc(4px+5%)] top-[calc(70px+30px)] h-[50px] skew-x-[40deg]" alt="" />
 
 
-            <div className="flex  bg-transparent w-[100px] h-[35px] p-auto m-auto z-100 mt-[20px] text-3xl justify-center font-extrabold text-white">
+            <div className="flex  bg-transparent w-[100px] h-[35px] p-auto m-auto z-100 mt-[20px] text-3xl justify-center font-extrabold text-white z-20">
                 {`${time.current}`}
             </div>
             <audio src={`/${localStorage.getItem('genre')}/Gameplay/OverDrive.mp3`} ref={BGM_Ref} loop />

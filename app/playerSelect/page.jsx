@@ -250,7 +250,7 @@ const Local = () => {
     )
 
     return (
-        <div className="bg-stone-950 w-screen h-screen flex flex-col overflow-hidden">
+        <div className="bg-stone-950 w-screen h-screen flex flex-col overflow-hidden ">
             <img src={'/PlayerSelect/Images/Background.gif'} className="fixed w-screen object-cover" />
             <div className="fixed w-[30%] h-[80%] bottom-[calc(10%+100px)] left-[10%] bg-gradient-to-t from-blue-600 via-[#0000ff52] to-transparent overflow-hidden  ">
                 <img src={Characters.current[P1Details.current.selectionIndex].showcase} alt={Characters.current[P1Details.current.selectionIndex].name} className="object-cover w-full absolute bottom-0 " />
