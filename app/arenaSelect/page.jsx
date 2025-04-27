@@ -22,15 +22,15 @@ export default function Home() {
     const handleKeyDown = (event) => {
         if (!ArenaIndex.current.Selected) {
             if (event.keyCode == 65) { // a
-                newindex = ((ArenaIndex.current.index - 1) % 8) + 8
+                newindex = ((ArenaIndex.current.index - 1) % 9) + 9
                 ArenaIndex.current.index = newindex
             }
             if (event.keyCode == 68) { // d
-                newindex = ((ArenaIndex.current.index + 1) % 8) + 8
+                newindex = ((ArenaIndex.current.index + 1) % 9) + 9
                 ArenaIndex.current.index = newindex
             }
             if (event.keyCode == 13) {
-                localStorage.setItem("imgUrl", Arenas.current[ArenaIndex.current.index].imgUrl)
+                localStorage.setItem("imgUrl", ArenaIndex.current.index-9)
                 localStorage.setItem("name", Arenas.current[ArenaIndex.current.index].name)
                 router.push('/loading')
             }

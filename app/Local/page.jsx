@@ -23,6 +23,7 @@ const Local = () => {
     //       }
     //     })
 
+    const imageOffset = useRef(0)
     const BGM_Ref = useRef(false);
     const frameref = useRef(0)
     const [frameState, setFrame] = useState(0)
@@ -31,6 +32,72 @@ const Local = () => {
         windowWidth.current = window.innerWidth
         Player2.current.data.PositionHorizontal = window.innerWidth - 175
     }, [])
+
+    const arenas = useRef( [{
+        name: "Chinatown",
+        imgUrl: "/ArenaSelect/ChinaTown.gif",
+        nameUrl: "/ArenaSelect/Unknown_Arena_Name.png",
+        aspect:3.1867,
+        offSet:30
+    },
+    {
+        name: "Fallen Castle",
+        imgUrl: "/ArenaSelect/Fallen_Castle.gif",
+        nameUrl: "/ArenaSelect/Unknown_Arena_Name.png",
+        aspect:2.1818,
+        offSet:20
+    },
+    {
+        name: "Chambers",
+        imgUrl: "/ArenaSelect/Chamber_Of_Vampires.gif",
+        nameUrl: "/ArenaSelect/Name/Chamber_Of_Vampires_Name.png",
+        aspect:2.1818,
+        offSet:30
+    },
+    {
+        name: "Colloseum",
+        imgUrl: "/ArenaSelect/Coloseum.gif",
+        nameUrl: "/ArenaSelect/Name/Coloseum.png",
+        aspect:2.6667,
+        offSet:70
+    },
+    {
+        name: "Ferry",
+        imgUrl: "/ArenaSelect/Ferry.gif",
+        nameUrl: "/ArenaSelect/Name/Ferry.png",
+        aspect:2.2932,
+        offSet:110
+    },
+    {
+        name: "Waterfall",
+        imgUrl: "/ArenaSelect/WaterFall.gif",
+        nameUrl: "/ArenaSelect/Name/WaterFall.png",
+        aspect:2.8214,
+        offSet:20
+    },
+    {
+        name: "Mars",
+        imgUrl: "/ArenaSelect/Mars.gif",
+        nameUrl: "/ArenaSelect/Unknown_Arena_Name.png",
+        aspect:2.9652,
+        offSet:40
+    },
+    {
+        name: "Tournament",
+        imgUrl: "/ArenaSelect/Tournament.gif",
+        nameUrl: "/ArenaSelect/Unknown_Arena_Name.png",
+        aspect:3.2,
+        offSet:60
+    },
+    {
+        name: "Warzone",
+        imgUrl: "/ArenaSelect/Warzone.gif",
+        nameUrl: "/ArenaSelect/Unknown_Arena_Name.png",
+        aspect:2.3809,
+        offSet:50
+    }])
+
+
 
     const AnimationMaxFramesData = useRef(
         {
@@ -229,7 +296,7 @@ const Local = () => {
         data: {
             isHit: false,
             PositionHorizontal: 100,
-            PositionVertical: 50,
+            PositionVertical: 0,
             VelocityVertical: 0,
             VelocityHorizontal: 0,
             width: 75,
@@ -268,7 +335,7 @@ const Local = () => {
         data: {
             isHit: false,
             PositionHorizontal: 100,
-            PositionVertical: 50,
+            PositionVertical: 0,
             VelocityVertical: 0,
             VelocityHorizontal: 0,
             width: 75,
@@ -297,11 +364,21 @@ const Local = () => {
         }
     })
 
+    const arenaIndexRef = useRef(0)
 
     useEffect(() => {
+        arenaIndexRef.current = parseInt(localStorage.getItem('imgUrl'))
         BGM_Ref.current.play();
         BGM_Ref.current.volume = 0.1;
+        if(localStorage.getItem('genre') === "Metal"){
         BGM_Ref.current.currentTime = 60
+        }
+        else if(localStorage.getItem('genre') === "Jazz"){
+            BGM_Ref.current.currentTime = 0
+        }
+        else{
+            BGM_Ref.current.currentTime = 0 
+        }
         Player1.current.player = Characters.current[parseInt(localStorage.getItem("P1CharIndex"))].name
         Player2.current.player = Characters.current[parseInt(localStorage.getItem("P2CharIndex"))].name
     }, [])
@@ -498,7 +575,7 @@ const Local = () => {
 
 
     function handlePlayer1Movement(dt) {
-        if (keyStats.current.a && !(keyStats.current.w || Player1.current.data.PositionVertical - 50 > 0)) {
+        if (keyStats.current.a && !(keyStats.current.w || Player1.current.data.PositionVertical - 0 > 0)) {
             if (!(Player1.current.Punch_1.isActive || Player1.current.Kick_1.isActive)) {
 
 
@@ -513,7 +590,7 @@ const Local = () => {
 
 
         }
-        if (keyStats.current.d && !(keyStats.current.w || Player1.current.data.PositionVertical - 50 > 0)) {
+        if (keyStats.current.d && !(keyStats.current.w || Player1.current.data.PositionVertical - 0 > 0)) {
             if (!(Player1.current.Punch_1.isActive || Player1.current.Kick_1.isActive)) {
 
 
@@ -528,7 +605,7 @@ const Local = () => {
         }
 
         if (keyStats.current.w && !(Player1.current.Punch_1.isActive || Player1.current.Kick_1.isActive)) {
-            if (Player1.current.data.PositionVertical <= 50) {
+            if (Player1.current.data.PositionVertical <= 0) {
                 Player1.current.data.VelocityVertical = 1200
                 if (keyStats.current.a) {
                     Player1.current.data.VelocityHorizontal = -400
@@ -555,8 +632,8 @@ const Local = () => {
             Player1.current.data.PositionHorizontal = Player1.current.data.PositionHorizontal + (Player1.current.data.VelocityHorizontal * dt / 1000)
         }
 
-        if (Player1.current.data.PositionVertical <= 50) {
-            Player1.current.data.PositionVertical = 50
+        if (Player1.current.data.PositionVertical <= 0) {
+            Player1.current.data.PositionVertical = 0
             Player1.current.data.VelocityHorizontal = 0
             Player1.current.data.VelocityVertical = 0
         }
@@ -574,7 +651,7 @@ const Local = () => {
 
     function handlePlayer2Movement(dt) {
 
-        if (keyStats.current.left && !(keyStats.current.up || Player2.current.data.PositionVertical - 50 > 0)) {
+        if (keyStats.current.left && !(keyStats.current.up || Player2.current.data.PositionVertical - 0 > 0)) {
             if (!(Player2.current.Punch_1.isActive || Player2.current.Kick_1.isActive)) {
 
 
@@ -588,7 +665,7 @@ const Local = () => {
             }
 
         }
-        if (keyStats.current.right && !(keyStats.current.up || Player2.current.data.PositionVertical - 50 > 0)) {
+        if (keyStats.current.right && !(keyStats.current.up || Player2.current.data.PositionVertical - 0 > 0)) {
 
             if (!(Player2.current.Punch_1.isActive || Player2.current.Kick_1.isActive)) {
 
@@ -603,7 +680,7 @@ const Local = () => {
 
         }
         if (keyStats.current.up && !(Player2.current.Punch_1.isActive || Player2.current.Kick_1.isActive)) {
-            if (Player2.current.data.PositionVertical <= 50) {
+            if (Player2.current.data.PositionVertical <= 0) {
                 Player2.current.data.VelocityVertical = 1200
                 if (keyStats.current.left) {
                     Player2.current.data.VelocityHorizontal = -400
@@ -632,8 +709,8 @@ const Local = () => {
             Player2.current.data.PositionHorizontal = Player2.current.data.PositionHorizontal + (Player2.current.data.VelocityHorizontal * dt / 1000)
         }
 
-        if (Player2.current.data.PositionVertical <= 50) {
-            Player2.current.data.PositionVertical = 50
+        if (Player2.current.data.PositionVertical <= 0) {
+            Player2.current.data.PositionVertical = 0
             Player2.current.data.VelocityHorizontal = 0
             Player2.current.data.VelocityVertical = 0
         }
@@ -1053,12 +1130,6 @@ const Local = () => {
     }
 
 
-    function handlePlayer1Moves(dt) {
-
-    }
-    function handlePlayer2Moves(dt) {
-
-    }
 
     function handlePlayer1Ultimate(dt) {
         if (Player1.current.StateImg == "ultimate") {
@@ -1072,6 +1143,31 @@ const Local = () => {
         }
     }
 
+    
+
+    function handlePlayer1PunchPosition(){
+
+    }
+
+    function handlePlayer2PunchPosition(){
+
+    }
+
+    function handlePlayer1KickPosition(){
+
+    }
+
+    function handlePlayer2KickPosition(){
+
+    }
+
+    function isP1Hit(){
+
+    }
+    function isP2Hit(){
+
+    }
+
     function checkP1Victory() {
 
     }
@@ -1080,6 +1176,11 @@ const Local = () => {
 
     }
 
+    function recheckOffsets(){
+        const arenaAspect = 1/arenas.current[arenaIndexRef.current].aspect
+        const ItemHeight = window.innerWidth * arenaAspect
+        imageOffset.current = ((window.innerHeight - ItemHeight)/2) + arenas.current[arenaIndexRef.current].offSet
+    }
 
     function GameLogic(dt) {
         handleTime(dt)
@@ -1093,12 +1194,17 @@ const Local = () => {
         isClashing()
         isP1HitWithProjectile()  // added functions for checking projectile hit
         isP2HitWithProjectile()
-        handlePlayer1Moves(dt)
         handlePlayer1Ultimate(dt)
-        handlePlayer2Moves(dt)
         handlePlayer2Ultimate(dt)
         handlePlayer1Animation(dt)
         handlePlayer2Animation(dt)
+        handlePlayer1PunchPosition()
+        handlePlayer2PunchPosition()
+        handlePlayer1KickPosition()
+        handlePlayer2KickPosition()
+        isP1Hit()
+        isP2Hit()
+        recheckOffsets()
 
 
 
@@ -1123,10 +1229,9 @@ const Local = () => {
         var currTime = Date.now()
         var dt = currTime - lastTime
         lastTime = currTime
-        if (BGM_Ref.current.currentTime < 60) {
+        if (BGM_Ref.current.currentTime < 60 && localStorage.getItem('genre') === "Metal") {
             BGM_Ref.current.currentTime = 60
         }
-
         frameref.current = frameref.current + 1
         if (frameref.current > 1000) {
             frameref.current = frameref.current % 1000
@@ -1138,7 +1243,7 @@ const Local = () => {
     }
 
 
-    const imgUrlRef = useRef("")
+    
     useEffect(() => {
         // imgUrlRef.current = localStorage.getItem("imgUrl")
         addEventListener('keydown', (event) => { handleKeyDown(event, true) })
@@ -1156,33 +1261,34 @@ const Local = () => {
 
             <div className="absolute z-[200] bg-white" style={{
                 left: `${Player1.current.data.PositionHorizontal}px`,
-                bottom: `${Player1.current.data.PositionVertical}px`,
+                bottom: `${Player1.current.data.PositionVertical + imageOffset.current}px`,
                 width: `${Player1.current.data.width}px`,
                 height: `${Player1.current.data.height}px`
             }} >
             </div>
-            <div className="fixed z-[100] bottom-[40px] bg-[#000000aa] h-[20px] w-[80px] rounded-[100%]" style={{
-                left: `${Player1.current.data.PositionHorizontal - 2.5}px`
+            <div className="fixed z-[100] bg-[#000000aa] h-[20px] w-[80px] rounded-[100%]" style={{
+                left: `${Player1.current.data.PositionHorizontal - 2.5}px`,
+                bottom:`${imageOffset.current -10}px`
             }}>
             </div>
             <div className="absolute z-[200] w-[25px] h-[25px] bg-white" style={{
                 left: `${Player1.current.data.PositionHorizontal + 25}px`,
-                bottom: `${Player1.current.data.PositionVertical + Player1.current.data.height}px`
+                bottom: `${Player1.current.data.PositionVertical + Player1.current.data.height + imageOffset.current}px`
             }}>
             </div>
             <div className="absolute z-[200] w-[10px] h-[10px] bg-red-500" style={{
                 left: `${Player1.current.Projectile.PositionHorizontal}px`,
-                bottom: `${Player1.current.Projectile.PositionVertical}px`
+                bottom: `${Player1.current.Projectile.PositionVertical + imageOffset.current}px`
             }}>
             </div>
             <div className="absolute z-[200] w-[10px] h-[10px] bg-red-500" style={{
                 left: `${Player1.current.Punch_1.PositionHorizontal}px`,
-                bottom: `${Player1.current.Punch_1.PositionVertical}px`
+                bottom: `${Player1.current.Punch_1.PositionVertical + imageOffset.current}px`
             }}>
             </div>
             <div className="absolute z-[200] w-[10px] h-[10px] bg-red-500" style={{
                 left: `${Player1.current.Kick_1.PositionHorizontal}px`,
-                bottom: `${Player1.current.Kick_1.PositionVertical}px`
+                bottom: `${Player1.current.Kick_1.PositionVertical + imageOffset.current}px`
             }}>
             </div>
 
@@ -1190,31 +1296,32 @@ const Local = () => {
 
             <div className="absolute z-[200] bg-white" style={{
                 left: `${Player2.current.data.PositionHorizontal}px`,
-                bottom: `${Player2.current.data.PositionVertical}px`,
+                bottom: `${Player2.current.data.PositionVertical + imageOffset.current}px `,
                 width: `${Player2.current.data.width}px`,
                 height: `${Player2.current.data.height}px`
             }} >
             </div>
-            <div className="fixed z-[100] bottom-[40px] bg-[#000000aa] h-[20px] w-[80px] rounded-[100%]" style={{
-                left: `${Player2.current.data.PositionHorizontal - 2.5}px`
+            <div className="fixed z-[100] bg-[#000000aa] h-[20px] w-[80px] rounded-[100%]" style={{
+                left: `${Player2.current.data.PositionHorizontal - 2.5}px`,
+                bottom:`${imageOffset.current -10}px`
             }}></div>
             <div className="absolute z-[200] w-[25px] h-[25px] bg-white" style={{
                 left: `${Player2.current.data.PositionHorizontal + 25}px`,
-                bottom: `${Player2.current.data.PositionVertical + Player2.current.data.height}px`
+                bottom: `${Player2.current.data.PositionVertical + Player2.current.data.height + imageOffset.current}px`
             }}></div>
             <div className="absolute z-[200] w-[10px] h-[10px] bg-red-500" style={{
                 left: `${Player2.current.Projectile.PositionHorizontal}px`,
-                bottom: `${Player2.current.Projectile.PositionVertical}px`
+                bottom: `${Player2.current.Projectile.PositionVertical + imageOffset.current}px`
             }}>
             </div>
             <div className="absolute z-[200] w-[10px] h-[10px] bg-red-500" style={{
                 left: `${Player2.current.Punch_1.PositionHorizontal}px`,
-                bottom: `${Player2.current.Punch_1.PositionVertical}px`
+                bottom: `${Player2.current.Punch_1.PositionVertical + imageOffset.current}px`
             }}>
             </div>
             <div className="absolute z-[200] w-[10px] h-[10px] bg-red-500" style={{
                 left: `${Player2.current.Kick_1.PositionHorizontal}px`,
-                bottom: `${Player2.current.Kick_1.PositionVertical}px`
+                bottom: `${Player2.current.Kick_1.PositionVertical + imageOffset.current}px`
             }}>
             </div>
 
@@ -1223,7 +1330,7 @@ const Local = () => {
             <div className="absolute z-[200] bg-white">
 
             </div>
-            <img src={localStorage.getItem("imgUrl")} className="fixed left-[0px] h-full w-full object-contain bottom-[0px] " alt="arena Image" />
+            <img src={`${arenas.current[arenaIndexRef.current].imgUrl}`} className="fixed left-[0px] h-full w-full object-contain bottom-[0px] " alt="arena Image" />
 
             <div className=" fixed top-[25px] left-[1%] w-[46%] h-[44px] bg-gradient-to-t from-blue-500 via-cyan-300 to-blue-500 transform skew-x-12 border-solid border-blue-800 border-[2px]">
                 <div className="m-[6px] mx-[10px] bg-gradient-to-t from-red-500 via-red-600 to-red-400 w-[calc(100%-20px)] h-[28px] border-solid border-blue-800 border-[2px]">
