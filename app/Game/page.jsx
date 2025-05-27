@@ -210,7 +210,7 @@ export default function Home() {
             Selection.current.play()
             if (modeIndexRef.current == 4) {
                 localStorage.setItem("mode", 'lc')
-                setTimeout(() => { router.push('/playerSelect'); }, 800)
+                setTimeout(() => { router.push('/playerSelect/local'); }, 800)
             }
             if (modeIndexRef.current == 5) {
                 if (ValidationMode.current == "Offline_Mode") {
@@ -220,16 +220,16 @@ export default function Home() {
                 }
                 else {
                     localStorage.setItem("mode", 'ol')
-                    setTimeout(() => { router.push('/Online/onlineSelect'); }, 800)
+                    setTimeout(() => { router.push('/playerSelect/online'); }, 800)
                 }
             }
             if (modeIndexRef.current == 6) {
                 localStorage.setItem("mode", 'sp')
-                setTimeout(() => { router.push('/playerSelect'); }, 800)
+                setTimeout(() => { router.push('/playerSelect/single'); }, 800)
             }
             if (modeIndexRef.current == 7) {
                 localStorage.setItem("mode", 'pr')
-                setTimeout(() => { router.push('/playerSelect'); }, 800)
+                setTimeout(() => { router.push('/playerSelect/practice'); }, 800)
             }
 
         }
