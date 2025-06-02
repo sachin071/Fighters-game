@@ -46,10 +46,10 @@ const Local = () => {
     useEffect(() => {
         bgm.current.play();
         bgm.current.volume = 0.2;
-        if(localStorage.getItem('genre') == "Metal"){
+        if (localStorage.getItem('genre') == "Metal") {
             bgm.current.currentTime = 12.4
         }
-        
+
     }, [])
 
     const P2Details = useRef({
@@ -146,7 +146,7 @@ const Local = () => {
         return () => {
             removeEventListener('keydown', handleKeyDown)
         }
-    },[])
+    }, [])
 
 
 
@@ -289,7 +289,7 @@ const Local = () => {
             </div>
 
             <img src={'/PlayerSelect/Essentials/VS.png'} className="w-[8%] fixed left-[46%] bottom-[calc(10%+250px)]" />
-            <audio src={`${localStorage.getItem('genre')}/PlayerSelect/Player_Select_BGM.mp3`} ref={bgm} loop />
+            <audio src={`../${localStorage.getItem('genre')}/PlayerSelect/Player_Select_BGM.mp3`} ref={bgm} loop />
             <audio src={'/PlayerSelect/Audio/PlayerChange.wav'} ref={playerChange} />
 
             <div className="absolute w-full h-[0%] bottom-[0%] top-[100%] flex justify-center font-extrabold items-center bg-[#00000044]">
