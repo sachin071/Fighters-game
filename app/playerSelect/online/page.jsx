@@ -362,7 +362,7 @@ const Local = () => {
 
 
             <img src={'/PlayerSelect/Essentials/VS.png'} className="w-[8%] fixed left-[46%] bottom-[calc(10%+250px)]" />
-            <audio src={'/PlayerSelect/Audio/Player_Select_BGM.mp3'} ref={bgm} loop />
+            <audio src={`${localStorage.getItem('genre')}/PlayerSelect/Player_Select_BGM.mp3`} ref={bgm} loop />
             <audio src={'/PlayerSelect/Audio/PlayerChange.wav'} ref={playerChange} />
         </div>
     );

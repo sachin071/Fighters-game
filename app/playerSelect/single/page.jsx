@@ -96,14 +96,15 @@ const Local = () => {
         }
 
         if (event.keyCode == 13) {
-            if (!P1Details.current.selected) {
-                P1Details.current.selected = true
-                localStorage.setItem("P1CharIndex", P1Details.current.selectionIndex)
-            }
             if (P1Details.current.selected && !P2Details.current.selected) {
                 P2Details.current.selected = true
                 localStorage.setItem("P2CharIndex", P2Details.current.selectionIndex)
             }
+            if (!P1Details.current.selected) {
+                P1Details.current.selected = true
+                localStorage.setItem("P1CharIndex", P1Details.current.selectionIndex)
+            }
+            
 
             if (P1Details.current.selected && P2Details.current.selected) {
                 setTimeout(() => {
@@ -279,7 +280,7 @@ const Local = () => {
             </div>
 
             <img src={'/PlayerSelect/Essentials/VS.png'} className="w-[8%] fixed left-[46%] bottom-[calc(10%+250px)]" />
-            <audio src={`${localStorage.getItem('genre')}/PlayerSelect/Player_Select_BGM.mp3`} ref={bgm} loop />
+            <audio src={`../${localStorage.getItem('genre')}/PlayerSelect/Player_Select_BGM.mp3`} ref={bgm} loop />
             <audio src={'/PlayerSelect/Audio/PlayerChange.wav'} ref={playerChange} />
 
             <div className="absolute w-full h-[0%] bottom-[0%] top-[100%] flex justify-center font-extrabold items-center bg-[#00000044]">
