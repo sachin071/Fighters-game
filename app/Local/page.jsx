@@ -1169,7 +1169,7 @@ const Local = () => {
     }
 
     function checkP1Victory() {
-
+        
     }
 
     function checkP2Victory() {

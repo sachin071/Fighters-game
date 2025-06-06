@@ -14,6 +14,7 @@ export default function Home() {
         username: ""
     })
 
+
     const Bgm = useRef(false)
 
     const ValidationMode = useRef('')
@@ -253,9 +254,6 @@ export default function Home() {
         <div className="w-screen h-screen bg-zinc-950 flex justify-center">
             <img src="/ModeSelect/Logo_Bg.jpg" className="fixed w-[1000px] flex" />
             <img src="/ModeSelect/Logo.png" className="h-[200px] z-[10] fixed top-[300px]" />
-            { /*<div className=" w-[60%] h-[10%] top-[32%] fixed mx-auto text-right text-6xl font-extrabold italic bg-gradient-to-t flex justify-center from-orange-500 to-orange-300 bg-clip-text text-transparent z-[200]">
-        Bharuwa Fighters
-      </div> */ }
             <div className="w-full h-[15%] fixed bottom-[15%] left-[0px] z-[10]  ">
                 {
                     modes.current.map((item, index) => {
@@ -264,15 +262,40 @@ export default function Home() {
                                 return (<div key={index}> <div className="h-[8px] bg-gradient-to-r from-[#ffffff11] via-white to-[#ffffff11] w-[70%] mx-auto"></div>
                                     <div className="bg-gradient-to-r from-transparent via-zinc-100 to-transparent w-[70%] mx-auto  ">
 
-                                        <div className="z-[100] text-center text-5xl font-bold m-auto text-rose-600">{item.name}</div>
+                                        <div className="z-[100] text-center text-5xl font-bold m-auto text-rose-600 flex flex-row items-center justify-center">
+                                            <div className="flex flex-1">
+
+                                            </div>
+                                            <div className=" flex flex-3 items-center justify-center">
+                                                {item.name}
+                                            </div>
+
+                                            <div className=" flex flex-1 justify-end ">
+                                                <div className="border-[1px] border-zinc-600 rounded-lg text-2xl mr-[50px] w-[100px] h-[40px] flex items-center justify-center bg-gradient-to-r from-[#222222ff] via-[#444444ff] to-[#222222ff] text-gray-400 ">
+                                                    Enter
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div className="h-[8px] bg-gradient-to-r from-[#ffffff11] via-white to-[#ffffff11] w-[70%] mx-auto"></div>
                                 </div>)
                             }
                             else {
-                                return (<div className="z-[100] text-center text-3xl font-bold opacity-[70%] m-auto text-orange-600" key={index}>{item.name}
+                                return (
+                                    <div className="z-[100] text-center text-3xl font-bold opacity-[70%] m-auto text-orange-600 flex flex-row items-center justify-center w-[70%]" key={index}>
+                                        <div className="flex flex-1">
 
-                                </div>
+                                        </div>
+                                        <div className=" flex flex-3 items-center justify-center">
+                                            {item.name}
+                                        </div>
+
+                                        <div className=" flex flex-1 justify-end ">
+                                            <div className="border-[1px] border-zinc-600 rounded-lg text-2xl mr-[50px] w-[40px] h-[30px] flex items-center justify-center bg-gradient-to-r from-[#222222ff] via-[#444444ff] to-[#222222ff] text-gray-400 my-[10px]">
+                                                {index > modeIndexRef.current ? "S" : "W"}
+                                            </div>
+                                        </div>
+                                    </div>
                                 )
                             }
 
@@ -281,19 +304,30 @@ export default function Home() {
                     })
                 }
 
-                {/* <div className="w-full h-[15%] fixed bottom-[15%] left-[0px] z-[10]  ">
-                    <div className="absolute right-[20%] bottom-[40%] bg-gradient-to-r from-[#222222dd] via-[#444444dd] to-[#222222dd]  w-16 h-10 items-center justify-center flex font-extrabold border-solid border-[#555555ff] border-[2px] rounded-md text-zinc-500">
-                        Enter
-                    </div>
-                    <div className="absolute right-[20%] bottom-[3%] bg-gradient-to-r from-[#222222dd] via-[#444444dd] to-[#222222dd] w-8 h-8 items-center justify-center flex font-extrabold border-solid border-[#555555ff] border-[2px] rounded-md text-zinc-500" >
-                        S
-                    </div>
 
-                    <div className="absolute right-[20%] bottom-[80%] bg-gradient-to-r from-[#222222dd] via-[#444444dd] to-[#222222dd] w-8 h-8 items-center justify-center flex font-extrabold border-solid border-[#555555ff] border-[2px] rounded-md text-zinc-500">
-                        W
-                    </div>
 
-                </div> */}
+            </div>
+            <div className="fixed right-[25px] top-[25px] flex flex-col">
+                <div className="flex flex-row">
+                    <div className="flex h-[100px] w-[50px] justify-center items-center">
+
+                        <div className="border-[1px] border-zinc-600 rounded-lg text-2xl  w-[40px] h-[30px] flex items-center justify-center bg-gradient-to-r from-[#222222ff] via-[#444444ff] to-[#222222ff] text-gray-400">
+                            A
+                        </div>
+
+                    </div>
+                    <div className="flex w-[100px] h-[100px]font-extrabold text-lg justify-center items-center">
+                        <img src={'/Music.png'} />
+                    </div>
+                    <div className="flex h-[100px] w-[50px] justify-center items-center">
+                        <div className="border-[1px] border-zinc-600 rounded-lg text-2xl  w-[40px] h-[30px] flex items-center justify-center bg-gradient-to-r from-[#222222ff] via-[#444444ff] to-[#222222ff] text-gray-400 " >
+                            D
+                        </div>
+                    </div>
+                </div>
+                <div className="flex items-center justify-center font-lg font-bold text-">
+                            {localStorage.getItem('genre').toUpperCase()}
+                </div>
 
             </div>
 
