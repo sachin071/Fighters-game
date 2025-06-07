@@ -22,6 +22,10 @@ export default function Home() {
     const musicIndex = useRef(0)
     const [musicIndexState, setMusicIndex] = useState(musicIndex.current)
     useEffect(() => {
+        const genre = localStorage.getItem('genre')
+        if (genre == 'null' || !genre || genre == null) {
+            localStorage.setItem('genre', "Metal")
+        }
         if (window.innerHeight > window.innerWidth) {
             alert("The game isnt designed for the mobile Devices and is unplayable please try refraining from playing")
         }
@@ -72,7 +76,7 @@ export default function Home() {
             ValidationMode.current = "Offline_Mode"
         }
         else {
-            const res = await fetch('http://192.168.1.198:2000/login/Validate', { method: "POST", headers: { 'Accept': '*/*', 'Content-type': 'application/json' }, body: JSON.stringify({ "token": token }) })
+            const res = await fetch('http://192.168.1.2:2000/login/Validate', { method: "POST", headers: { 'Accept': '*/*', 'Content-type': 'application/json' }, body: JSON.stringify({ "token": token }) })
             const data = await res.json()
             console.log(data)
             if (data.status == "Invalid token") {
@@ -326,7 +330,7 @@ export default function Home() {
                     </div>
                 </div>
                 <div className="flex items-center justify-center font-lg font-bold text-">
-                            {localStorage.getItem('genre').toUpperCase()}
+                    {localStorage.getItem('genre').toUpperCase()}
                 </div>
 
             </div>

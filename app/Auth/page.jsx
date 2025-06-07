@@ -17,7 +17,7 @@ const LoginPage = () => {
     async function handleLogin(event) {
         event.preventDefault();
         setLoading(true)
-        var reques = await fetch('http://192.168.1.198:2000/login/auth', { method: 'POST', headers: { 'Accept': '*/*', 'Content-type': 'application/json' }, body: JSON.stringify({ username: uname.current.value, password: pass.current.value }) })
+        var reques = await fetch(`http://192.168.1.2:2000/login/auth`, { method: 'POST', headers: { 'Accept': '*/*', 'Content-type': 'application/json' }, body: JSON.stringify({ username: uname.current.value, password: pass.current.value }) })
         const jsd = await reques.json()
         if (jsd.status == 403) {
             uname.current.value = ""

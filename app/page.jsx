@@ -10,6 +10,9 @@ const Landing = () => {
   useEffect(() => {
     const token = localStorage.getItem("token")
     const genre = localStorage.getItem('genre')
+    if(genre == 'null' || !genre || genre == null){
+      localStorage.setItem('genre' , "Metal")
+    }
     localStorage.clear()
     localStorage.setItem("token" , token)
     localStorage.setItem('genre',genre)
@@ -20,6 +23,10 @@ const Landing = () => {
   }, [])
 
   function handleRouting() {
+    const genre = localStorage.getItem('genre')
+    if(genre == 'null' || !genre || genre == null){
+      localStorage.setItem('genre' , "Metal")
+    }
     router.push('/Game')
   }
 
