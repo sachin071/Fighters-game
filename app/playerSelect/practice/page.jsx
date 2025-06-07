@@ -243,24 +243,24 @@ const Local = () => {
     return (
         <div className="bg-stone-950 w-screen h-screen flex flex-col overflow-hidden ">
             <img src={'/PlayerSelect/Images/Background.gif'} className="fixed w-screen object-cover" />
-            <div className="fixed w-[30%] h-[80%] bottom-[calc(10%+100px)] left-[10%] bg-gradient-to-t from-blue-600 via-[#0000ff52] to-transparent overflow-hidden  ">
+            <div className="fixed w-[30%] h-[80%]  left-[10%] bg-gradient-to-t from-blue-600 via-[#0000ff52] to-transparent overflow-hidden  " style={{ bottom:`${(window.innerHeight)/10 + (100/959)*window.innerHeight}px` }}>
                 <img src={Characters.current[P1Details.current.selectionIndex].showcase} alt={Characters.current[P1Details.current.selectionIndex].name} className="object-cover w-full absolute bottom-0 " />
                 {(P1DetailsState.selected == true) && <div className="absolute w-full h-[30%] bottom-[5%] flex justify-center font-extrabold text-3xl items-center bg-[#00000044]">
                     Selected
                 </div>}
-                <img src={Characters.current[P1Details.current.selectionIndex].name_img} alt="Character_Name" className=" absolute left-0 bottom-8 h-[75px]" />
+                <img src={Characters.current[P1Details.current.selectionIndex].name_img} alt="Character_Name" className=" absolute left-0 h-[75px]" style={{ bottom:`${(32/959)*window.innerHeight}px` }} />
             </div>
-            <div className="fixed w-[30%] h-[80%] bottom-[calc(10%+100px)] right-[10%] bg-gradient-to-t from-green-600 via-[#00ff0052] to-transparent overflow-hidden ">
+            <div className="fixed w-[30%] h-[80%] right-[10%] bg-gradient-to-t from-green-600 via-[#00ff0052] to-transparent overflow-hidden " style={{ bottom:`${(window.innerHeight)/10 + (100/959)*window.innerHeight}px` }}>
                 <img src={Characters.current[P2Details.current.selectionIndex].showcase} alt={Characters.current[P2Details.current.selectionIndex].name} className="object-cover w-full absolute bottom-0  scale-x-[-1]" />
                 {(P2DetailsState.selected == true) && <div className="absolute w-full h-[30%] bottom-[5%] flex justify-center items-center font-extrabold text-3xl bg-[#00000044]">
                     Selected
                 </div>}
-                <img src={Characters.current[P2Details.current.selectionIndex].name_img} alt="Character_Name" className="absolute right-0 bottom-8 h-[75px] " />
+                <img src={Characters.current[P2Details.current.selectionIndex].name_img} alt="Character_Name" className="absolute right-0 h-[75px] " style={{ bottom:`${(32/959)*window.innerHeight}px` }} />
             </div>
             <img src={'/PlayerSelect/Images/TopCornerUIElement.png'} className="fixed w-[25px] left-0 top-0 object-cover" />
             <img src={'/PlayerSelect/Images/TopCornerUIElement.png'} className="fixed w-[25px] right-0 top-0 -scale-x-100 object-cover" />
-            <img src={'/PlayerSelect/Images/UiElements.png'} className="fixed w-screen h-[1080px] left-0 bottom-0" />
-            <div className="w-[90%] h-[10%] fixed left-[5%] bottom-[100px] border-b-[5px] border-t-[5px] border-zinc-400 bg-red-500 flex">
+            <img src={'/PlayerSelect/Images/UiElements.png'} className="fixed w-screen left-0 bottom-0" style={{height: `${(1080/959)*window.innerHeight}px` }} />
+            <div className="w-[90%] h-[10%] fixed left-[5%] border-b-[5px] border-t-[5px] border-zinc-400 bg-red-500 flex" style={{ bottom:`${(100/959)*window.innerHeight}px` }}>
                 {
                     Characters.current.map((c, index) => {
                         if ((P1Details.current.selectionIndex == P2Details.current.selectionIndex) && (P1Details.current.selectionIndex == index)) {

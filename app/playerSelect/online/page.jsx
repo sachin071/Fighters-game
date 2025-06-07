@@ -4,150 +4,182 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import { useRef, useState, useEffect } from "react";
 import { setTimeout } from "timers";
-import {io} from 'socket.io-client'
+import { io } from 'socket.io-client'
 
 
 const Local = () => {
     const router = useRouter();
     const socketRef = useRef(false)
 
-    useEffect(()=>{
+    useEffect(() => {
         ValidateUser()
-        
-    },[])
 
-    
+    }, [])
+
+
 
     const PlayerRef = useRef(0)
     const GameRef = useRef("")
     const tokenRef = useRef("")
+    const WaitingRef = useRef(true)
 
-    async function ValidateUser(){
+    async function ValidateUser() {
         const token = localStorage.getItem('token')
         tokenRef.current = token
-        if( token == "null" || token  == 'Offline_Mode'){
+        if (token == "null" || token == 'Offline_Mode') {
             alert("Login Required")
             router.push('/Auth')
         }
-        const response  = await fetch('http://192.168.1.2:2000/login/Validate' , {method :"POST" , headers:{'Content-Type':"application/json"} , body:JSON.stringify({token:token})})
+        const response = await fetch('http://192.168.1.2:2000/login/Validate', { method: "POST", headers: { 'Content-Type': "application/json" }, body: JSON.stringify({ token: token }) })
         const resData = await response.json()
-        if(resData.message== "Validated"){
+        if (resData.message == "Validated") {
 
         }
-        else{
+        else {
             alert("Login Required")
-            router.push('/Auth') 
+            router.push('/Auth')
         }
 
         socketRef.current = io('192.168.1.2:20000/PlayerSelect')
-        socketRef.current.on('proceed' , (data)=>{
-        const token = localStorage.getItem("token")
-        socketRef.current.emit("Setup" , {token:token})
-    })
+        socketRef.current.on('proceed', (data) => {
+            const token = localStorage.getItem("token")
+            socketRef.current.emit("Setup", { token: token })
+        })
 
-    socketRef.current.on("ConnectionSuccess" , (data)=>{
-        localStorage.setItem('PlayerNum' , data.PlayerNum)
-        PlayerRef.current = data.PlayerNum
-        GameRef.current = data.GameData[0].game
-        localStorage.setItem('Game' , data.GameData[0].game)
-        if(data.PlayerNum == 1){
-            P1Details.current.selectionIndex = data.GameData[0].selectionIndex
-            P1Details.current.selected = data.GameData[0].Selected
-        }
-        if(data.PlayerNum == 2){
-            P1Details.current.selectionIndex = data.GameData[0].selectionIndex
-            P1Details.current.selected = data.GameData[0].Selected
-            P2Details.current.selectionIndex = data.GameData[1].selectionIndex
-            P2Details.current.selected = data.GameData[1].Selected
-        }
-        
-    })
+        socketRef.current.on("ConnectionSuccess", (data) => {
+            localStorage.setItem('PlayerNum', data.PlayerNum)
+            PlayerRef.current = data.PlayerNum
+            GameRef.current = data.GameData[0].game
+            localStorage.setItem('Game', data.GameData[0].game)
+            if (data.PlayerNum == 1) {
+                P1Details.current.selectionIndex = data.GameData[0].selectionIndex
+                P1Details.current.selected = data.GameData[0].Selected
 
-    socketRef.current.on("handled" , (data)=>{
-        
-        try{
-            if(data.length == 2){
-            P2Details.current.selected = data[1].Selected
-            P2Details.current.selectionIndex = data[1].selectionIndex
             }
-            P1Details.current.selected = data[0].Selected
-            P1Details.current.selectionIndex = data[0].selectionIndex
-            handleChangeAudio();
-        }
-        
+            if (data.PlayerNum == 2) {
+                P1Details.current.selectionIndex = data.GameData[0].selectionIndex
+                P1Details.current.selected = data.GameData[0].Selected
+                P2Details.current.selectionIndex = data.GameData[1].selectionIndex
+                P2Details.current.selected = data.GameData[1].Selected
+            }
+            setP1Details({ ...P1Details.current })
+            setP2Details({ ...P2Details.current })
+        })
 
-        catch{
 
-        }
-        setP1Details({ ...P1Details.current })
-        setP2Details({ ...P2Details.current })
-        
-    })
+        socketRef.current.on("WaitingOver", () => {
+            WaitingRef.current = false
+            setP1Details({ ...P1Details.current })
+            setP2Details({ ...P2Details.current })
+        })
+
+
+        socketRef.current.on("RelocatePlayer", (data) => {
+            localStorage.setItem('PlayerNum', data.PlayerNum)
+            PlayerRef.current = data.PlayerNum
+            WaitingRef.current = true
+            P2Details.current = { selectionIndex: 13, selected: false }
+            setP1Details({ ...P1Details.current })
+            setP2Details({ ...P2Details.current })
+        })
+
+        socketRef.current.on("PhaseComplete", () => {
+            router.push('/loading')
+        })
+
+        socketRef.current.on("handled", (data) => {
+
+            try {
+                if (data.length == 2) {
+                    P2Details.current.selected = data[1].Selected
+                    P2Details.current.selectionIndex = data[1].selectionIndex
+                }
+                P1Details.current.selected = data[0].Selected
+                P1Details.current.selectionIndex = data[0].selectionIndex
+                handleChangeAudio();
+            }
+
+
+            catch {
+
+            }
+            setP1Details({ ...P1Details.current })
+            setP2Details({ ...P2Details.current })
+
+        })
     }
 
 
     function handleKeyDown(event) {
+        var ChangeOccured = false
+        if (PlayerRef.current == 1) {
+            if (!P1Details.current.selected) {
 
-        if(PlayerRef.current ==1){
-        if (!P1Details.current.selected) {
-            if (event.keyCode == 65) { // a
-                newindex = Math.max(0, P1Details.current.selectionIndex - 1);
-                P1Details.current.selectionIndex = newindex
-                
+                if (event.keyCode == 65) { // a
+                    newindex = Math.max(0, P1Details.current.selectionIndex - 1);
+                    P1Details.current.selectionIndex = newindex
+                    ChangeOccured = true
+                }
+                if (event.keyCode == 68) { // d
+                    newindex = Math.min(14, P1Details.current.selectionIndex + 1) >= 15 ? P1Details.current.selectionIndex : Math.min(14, P1Details.current.selectionIndex + 1)
+                    P1Details.current.selectionIndex = newindex
+                    ChangeOccured = true
+                }
+
             }
-            if (event.keyCode == 68) { // d
-                newindex = Math.min(14, P1Details.current.selectionIndex + 1) >= 15 ? P1Details.current.selectionIndex : Math.min(14, P1Details.current.selectionIndex + 1)
-                P1Details.current.selectionIndex = newindex
-                
-            }
-        }    
         }
-        if(PlayerRef.current == 2){
+        if (PlayerRef.current == 2) {
             if (event.keyCode == 65) { // a
                 newindex = Math.max(0, P2Details.current.selectionIndex - 1);
                 P2Details.current.selectionIndex = newindex
-                
+                ChangeOccured = true
             }
             if (event.keyCode == 68) { // d
                 newindex = Math.min(14, P2Details.current.selectionIndex + 1) >= 15 ? P2Details.current.selectionIndex : Math.min(14, P2Details.current.selectionIndex + 1)
                 P2Details.current.selectionIndex = newindex
-                
+                ChangeOccured = true
             }
         }
-        
+
 
 
         if (event.keyCode == 13) {
             if (PlayerRef.current == 1) {
                 P1Details.current.selected = true
                 localStorage.setItem("P1CharIndex", P1Details.current.selectionIndex)
+                ChangeOccured = true
             }
-            if(PlayerRef.current == 2){
-                P1Details.current.selected = true
+            if (PlayerRef.current == 2) {
+                P2Details.current.selected = true
                 localStorage.setItem("P1CharIndex", P1Details.current.selectionIndex)
+                ChangeOccured = true
             }
-            
+
         }
 
         if (event.keyCode == 8) {
             if (PlayerRef.current == 1) {
-               P1Details.current.selected = false
+                P1Details.current.selected = false
                 localStorage.removeItem("P1CharIndex")
+                ChangeOccured = true
             }
-            if(PlayerRef.current == 2){
+            if (PlayerRef.current == 2) {
                 P2Details.current.selected = false
                 localStorage.removeItem("P2CharIndex")
+                ChangeOccured = true
+            }
+        }
+        if (ChangeOccured) {
+            if (PlayerRef.current == 1) {
+                socketRef.current.emit('change', { PlayerNum: PlayerRef.current, Game: GameRef.current, token: tokenRef.current, GameData: { ...P1Details.current } })
+            }
+
+            if (PlayerRef.current == 2) {
+                socketRef.current.emit('change', { PlayerNum: PlayerRef.current, Game: GameRef.current, token: tokenRef.current, GameData: { ...P2Details.current } })
             }
         }
 
-        if(PlayerRef.current == 1 ){
-            socketRef.current.emit('change' , {PlayerNum:PlayerRef.current ,Game:GameRef.current, token:tokenRef.current , GameData:{...P1Details.current}})
-        }
-        
-        if(PlayerRef.current == 2 ){
-            socketRef.current.emit('change' , {PlayerNum:PlayerRef.current ,Game:GameRef.current, token:tokenRef.current , GameData:{...P2Details.current}})
-        }
-        
+
         setP1Details({ ...P1Details.current })
         setP2Details({ ...P2Details.current })
 
@@ -198,7 +230,7 @@ const Local = () => {
         playerChange.current.volume = 0.1;
     }
 
-    
+
 
     useEffect(() => {
         addEventListener('keydown', handleKeyDown)
@@ -311,24 +343,27 @@ const Local = () => {
     return (
         <div className="bg-stone-950 w-screen h-screen flex flex-col overflow-hidden ">
             <img src={'/PlayerSelect/Images/Background.gif'} className="fixed w-screen object-cover" />
-            <div className="fixed w-[30%] h-[80%] bottom-[calc(10%+100px)] left-[10%] bg-gradient-to-t from-blue-600 via-[#0000ff52] to-transparent overflow-hidden  ">
+            <div className="fixed w-[30%] h-[80%]  left-[10%] bg-gradient-to-t from-blue-600 via-[#0000ff52] to-transparent overflow-hidden  " style={{ bottom:`${(window.innerHeight)/10 + (100/959)*window.innerHeight}px` }}>
                 <img src={Characters.current[P1Details.current.selectionIndex].showcase} alt={Characters.current[P1Details.current.selectionIndex].name} className="object-cover w-full absolute bottom-0 " />
                 {(P1DetailsState.selected == true) && <div className="absolute w-full h-[30%] bottom-[5%] flex justify-center font-extrabold text-3xl items-center bg-[#00000044]">
                     Selected
                 </div>}
-                <img src={Characters.current[P1Details.current.selectionIndex].name_img} alt="Character_Name" className=" absolute left-0 bottom-8 h-[75px]" />
+                <img src={Characters.current[P1Details.current.selectionIndex].name_img} alt="Character_Name" className=" absolute left-0 h-[75px]" style={{ bottom:`${(32/959)*window.innerHeight}px` }} />
             </div>
-            <div className="fixed w-[30%] h-[80%] bottom-[calc(10%+100px)] right-[10%] bg-gradient-to-t from-green-600 via-[#00ff0052] to-transparent overflow-hidden ">
+            <div className="fixed w-[30%] h-[80%] right-[10%] bg-gradient-to-t from-green-600 via-[#00ff0052] to-transparent overflow-hidden " style={{ bottom:`${(window.innerHeight)/10 + (100/959)*window.innerHeight}px` }}>
                 <img src={Characters.current[P2Details.current.selectionIndex].showcase} alt={Characters.current[P2Details.current.selectionIndex].name} className="object-cover w-full absolute bottom-0  scale-x-[-1]" />
                 {(P2DetailsState.selected == true) && <div className="absolute w-full h-[30%] bottom-[5%] flex justify-center items-center font-extrabold text-3xl bg-[#00000044]">
                     Selected
                 </div>}
-                <img src={Characters.current[P2Details.current.selectionIndex].name_img} alt="Character_Name" className="absolute right-0 bottom-8 h-[75px] " />
+                {WaitingRef.current && <div className="absolute w-full h-[30%] bottom-[5%] flex justify-center items-center font-extrabold text-3xl bg-[#00000044]">
+                    Waiting for Opponent
+                </div>}
+                <img src={Characters.current[P2Details.current.selectionIndex].name_img} alt="Character_Name" className="absolute right-0 h-[75px] " style={{ bottom:`${(32/959)*window.innerHeight}px` }} />
             </div>
             <img src={'/PlayerSelect/Images/TopCornerUIElement.png'} className="fixed w-[25px] left-0 top-0 object-cover" />
             <img src={'/PlayerSelect/Images/TopCornerUIElement.png'} className="fixed w-[25px] right-0 top-0 -scale-x-100 object-cover" />
-            <img src={'/PlayerSelect/Images/UiElements.png'} className="fixed w-screen h-[1080px] left-0 bottom-0" />
-            <div className="w-[90%] h-[10%] fixed left-[5%] bottom-[100px] border-b-[5px] border-t-[5px] border-zinc-400 bg-red-500 flex">
+            <img src={'/PlayerSelect/Images/UiElements.png'} className="fixed w-screen left-0 bottom-0" style={{height: `${(1080/959)*window.innerHeight}px` }} />
+            <div className="w-[90%] h-[10%] fixed left-[5%] border-b-[5px] border-t-[5px] border-zinc-400 bg-red-500 flex" style={{ bottom:`${(100/959)*window.innerHeight}px` }}>
                 {
                     Characters.current.map((c, index) => {
                         if ((P1Details.current.selectionIndex == P2Details.current.selectionIndex) && (P1Details.current.selectionIndex == index)) {
