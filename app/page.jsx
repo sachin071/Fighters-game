@@ -16,13 +16,18 @@ const Landing = () => {
     localStorage.clear()
     localStorage.setItem("token" , token)
     localStorage.setItem('genre',genre)
-    addEventListener('keydown', () => { handleRouting() })
-    return () => {
-      removeEventListener('keydown', () => { handleRouting() })
-    }
-  }, [])
 
-  function handleRouting() {
+    const handleKeydown = () => {
+    handleRouting();
+    };
+
+    window.addEventListener("keydown", handleKeydown);
+    return () => {
+    window.removeEventListener("keydown", handleKeydown);
+    };
+    }, [])
+
+  async function handleRouting() {
     const genre = localStorage.getItem('genre')
     if(genre == 'null' || !genre || genre == null){
       localStorage.setItem('genre' , "Metal")

@@ -78,11 +78,10 @@ const Loading = () => {
         }])
 
     async function HandleOnlineRouting(){
-        const GameRes = await fetch('http://192.168.1.2:2000/login/Map' , {method:"POST" , headers:{'Content-Type':'application/json'} , body:JSON.stringify({Game:localStorage.getItem('token')}) })
+        const GameRes = await fetch('http://192.168.1.2:2000/login/Map' , {method:"POST" , headers:{'Content-Type':'application/json'} , body:JSON.stringify({Game:localStorage.getItem('Game')}) })
         const result = await GameRes.json()
         localStorage.setItem("imgUrl", result.MapIndex)
         localStorage.setItem("name", Arenas.current[result.MapIndex].name)
-        localStorage.setItem()
         router.push("/Online")
     }
 
@@ -91,7 +90,7 @@ const Loading = () => {
             if (!(parseInt(localStorage.getItem('P1CharIndex')) <= 14) && !(parseInt(localStorage.getItem('P1CharIndex')) >= 0) && !(parseInt(localStorage.getItem('P2CharIndex')) <= 14) && !(parseInt(localStorage.getItem('P2CharIndex')) >= 0)) {
                 return false
             }
-            if (!((localStorage.getItem('mode') == 'lc') || (localStorage.getItem('mode') == 'pr') || (localStorage.getItem('mode') == 'sp')(localStorage.getItem('mode') == 'ol'))) {
+            if (!((localStorage.getItem('mode') == 'lc') || (localStorage.getItem('mode') == 'pr') || (localStorage.getItem('mode') == 'sp') || (localStorage.getItem('mode') == 'ol'))) {
                 return false
             }
         }

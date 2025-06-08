@@ -22,6 +22,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/arenaSelect/page.jsx", "app/Local/page.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/arenaSelect/page.jsx", "app/Local/page.jsx", "app/Online/page.jsx", "app/Single/page.jsx", "app/Practice/page.jsx"],
   "exclude": ["node_modules"]
 }

@@ -13,7 +13,6 @@ const Local = () => {
 
     useEffect(() => {
         ValidateUser()
-
     }, [])
 
 
@@ -93,9 +92,15 @@ const Local = () => {
                 if (data.length == 2) {
                     P2Details.current.selected = data[1].Selected
                     P2Details.current.selectionIndex = data[1].selectionIndex
+                    if(data[1].Selected){
+                        localStorage.setItem("P2CharIndex" , data[1].selectionIndex)
+                    }
                 }
                 P1Details.current.selected = data[0].Selected
                 P1Details.current.selectionIndex = data[0].selectionIndex
+                if(data[0].Selected){
+                        localStorage.setItem("P1CharIndex" , data[0].selectionIndex)
+                    }
                 handleChangeAudio();
             }
 
@@ -151,7 +156,7 @@ const Local = () => {
             }
             if (PlayerRef.current == 2) {
                 P2Details.current.selected = true
-                localStorage.setItem("P1CharIndex", P1Details.current.selectionIndex)
+                localStorage.setItem("P2CharIndex", P1Details.current.selectionIndex)
                 ChangeOccured = true
             }
 

@@ -1260,7 +1260,7 @@ const Local = () => {
 
             <div className="absolute z-[200] bg-white" style={{
                 left: `${Player1.current.data.PositionHorizontal}px`,
-                bottom: `${Player1.current.data.PositionVertical + imageOffset.current*(window.innerHeight / 959)}px`,
+                bottom: `${Player1.current.data.PositionVertical + imageOffset.current}px`,
                 width: `${Player1.current.data.width}px`,
                 height: `${Player1.current.data.height}px`
             }} >
@@ -1272,22 +1272,22 @@ const Local = () => {
             </div>
             <div className="absolute z-[200] w-[25px] h-[25px] bg-white" style={{
                 left: `${Player1.current.data.PositionHorizontal + 25}px`,
-                bottom: `${Player1.current.data.PositionVertical + Player1.current.data.height + imageOffset.current*(window.innerHeight / 959)}px`
+                bottom: `${Player1.current.data.PositionVertical + Player1.current.data.height + imageOffset.current}px`
             }}>
             </div>
             <div className="absolute z-[200] w-[10px] h-[10px] bg-red-500" style={{
                 left: `${Player1.current.Projectile.PositionHorizontal}px`,
-                bottom: `${Player1.current.Projectile.PositionVertical + imageOffset.current*(window.innerHeight / 959)}px`
+                bottom: `${Player1.current.Projectile.PositionVertical + imageOffset.current}px`
             }}>
             </div>
             <div className="absolute z-[200] w-[10px] h-[10px] bg-red-500" style={{
                 left: `${Player1.current.Punch_1.PositionHorizontal}px`,
-                bottom: `${Player1.current.Punch_1.PositionVertical + imageOffset.current*(window.innerHeight / 959)}px`
+                bottom: `${Player1.current.Punch_1.PositionVertical + imageOffset.current}px`
             }}>
             </div>
             <div className="absolute z-[200] w-[10px] h-[10px] bg-red-500" style={{
                 left: `${Player1.current.Kick_1.PositionHorizontal}px`,
-                bottom: `${Player1.current.Kick_1.PositionVertical + imageOffset.current*(window.innerHeight / 959)}px`
+                bottom: `${Player1.current.Kick_1.PositionVertical + imageOffset.current}px`
             }}>
             </div>
 
@@ -1295,7 +1295,7 @@ const Local = () => {
 
             <div className="absolute z-[200] bg-white" style={{
                 left: `${Player2.current.data.PositionHorizontal}px`,
-                bottom: `${Player2.current.data.PositionVertical + imageOffset.current*(window.innerHeight / 959)}px `,
+                bottom: `${Player2.current.data.PositionVertical + imageOffset.current}px `,
                 width: `${Player2.current.data.width}px`,
                 height: `${Player2.current.data.height}px`
             }} >
@@ -1306,21 +1306,21 @@ const Local = () => {
             }}></div>
             <div className="absolute z-[200] w-[25px] h-[25px] bg-white" style={{
                 left: `${Player2.current.data.PositionHorizontal + 25}px`,
-                bottom: `${Player2.current.data.PositionVertical + Player2.current.data.height + imageOffset.current*(window.innerHeight / 959)}px`
+                bottom: `${Player2.current.data.PositionVertical + Player2.current.data.height + imageOffset.current}px`
             }}></div>
             <div className="absolute z-[200] w-[10px] h-[10px] bg-red-500" style={{
                 left: `${Player2.current.Projectile.PositionHorizontal}px`,
-                bottom: `${Player2.current.Projectile.PositionVertical + imageOffset.current*(window.innerHeight / 959)}px`
+                bottom: `${Player2.current.Projectile.PositionVertical + imageOffset.current}px`
             }}>
             </div>
             <div className="absolute z-[200] w-[10px] h-[10px] bg-red-500" style={{
                 left: `${Player2.current.Punch_1.PositionHorizontal}px`,
-                bottom: `${Player2.current.Punch_1.PositionVertical + imageOffset.current*(window.innerHeight / 959)}px`
+                bottom: `${Player2.current.Punch_1.PositionVertical + imageOffset.current}px`
             }}>
             </div>
             <div className="absolute z-[200] w-[10px] h-[10px] bg-red-500" style={{
                 left: `${Player2.current.Kick_1.PositionHorizontal}px`,
-                bottom: `${Player2.current.Kick_1.PositionVertical + imageOffset.current*(window.innerHeight / 959)}px`
+                bottom: `${Player2.current.Kick_1.PositionVertical + imageOffset.current}px`
             }}>
             </div>
 
