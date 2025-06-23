@@ -76,7 +76,7 @@ export default function Home() {
             ValidationMode.current = "Offline_Mode"
         }
         else {
-            const res = await fetch('http://192.168.1.2:2000/login/Validate', { method: "POST", headers: { 'Accept': '*/*', 'Content-type': 'application/json' }, body: JSON.stringify({ "token": token }) })
+            const res = await fetch('http://192.168.1.198:2000/login/Validate', { method: "POST", headers: { 'Accept': '*/*', 'Content-type': 'application/json' }, body: JSON.stringify({ "token": token }) })
             const data = await res.json()
             console.log(data)
             if (data.status == "Invalid token") {

@@ -29,7 +29,7 @@ const Local = () => {
             alert("Login Required")
             router.push('/Auth')
         }
-        const response = await fetch('http://192.168.1.2:2000/login/Validate', { method: "POST", headers: { 'Content-Type': "application/json" }, body: JSON.stringify({ token: token }) })
+        const response = await fetch('http://192.168.1.198:2000/login/Validate', { method: "POST", headers: { 'Content-Type': "application/json" }, body: JSON.stringify({ token: token }) })
         const resData = await response.json()
         if (resData.message == "Validated") {
 
@@ -39,7 +39,7 @@ const Local = () => {
             router.push('/Auth')
         }
 
-        socketRef.current = io('192.168.1.2:20000/PlayerSelect')
+        socketRef.current = io('192.168.1.198:20000/PlayerSelect')
         socketRef.current.on('proceed', (data) => {
             const token = localStorage.getItem("token")
             socketRef.current.emit("Setup", { token: token })
@@ -92,15 +92,15 @@ const Local = () => {
                 if (data.length == 2) {
                     P2Details.current.selected = data[1].Selected
                     P2Details.current.selectionIndex = data[1].selectionIndex
-                    if(data[1].Selected){
-                        localStorage.setItem("P2CharIndex" , data[1].selectionIndex)
+                    if (data[1].Selected) {
+                        localStorage.setItem("P2CharIndex", data[1].selectionIndex)
                     }
                 }
                 P1Details.current.selected = data[0].Selected
                 P1Details.current.selectionIndex = data[0].selectionIndex
-                if(data[0].Selected){
-                        localStorage.setItem("P1CharIndex" , data[0].selectionIndex)
-                    }
+                if (data[0].Selected) {
+                    localStorage.setItem("P1CharIndex", data[0].selectionIndex)
+                }
                 handleChangeAudio();
             }
 
@@ -348,14 +348,14 @@ const Local = () => {
     return (
         <div className="bg-stone-950 w-screen h-screen flex flex-col overflow-hidden ">
             <img src={'/PlayerSelect/Images/Background.gif'} className="fixed w-screen object-cover" />
-            <div className="fixed w-[30%] h-[80%]  left-[10%] bg-gradient-to-t from-blue-600 via-[#0000ff52] to-transparent overflow-hidden  " style={{ bottom:`${(window.innerHeight)/10 + (100/959)*window.innerHeight}px` }}>
+            <div className="fixed w-[30%] h-[80%]  left-[10%] bg-gradient-to-t from-blue-600 via-[#0000ff52] to-transparent overflow-hidden  " style={{ bottom: `${(window.innerHeight) / 10 + (100 / 959) * window.innerHeight}px` }}>
                 <img src={Characters.current[P1Details.current.selectionIndex].showcase} alt={Characters.current[P1Details.current.selectionIndex].name} className="object-cover w-full absolute bottom-0 " />
                 {(P1DetailsState.selected == true) && <div className="absolute w-full h-[30%] bottom-[5%] flex justify-center font-extrabold text-3xl items-center bg-[#00000044]">
                     Selected
                 </div>}
-                <img src={Characters.current[P1Details.current.selectionIndex].name_img} alt="Character_Name" className=" absolute left-0 h-[75px]" style={{ bottom:`${(32/959)*window.innerHeight}px` }} />
+                <img src={Characters.current[P1Details.current.selectionIndex].name_img} alt="Character_Name" className=" absolute left-0 h-[75px]" style={{ bottom: `${(32 / 959) * window.innerHeight}px` }} />
             </div>
-            <div className="fixed w-[30%] h-[80%] right-[10%] bg-gradient-to-t from-green-600 via-[#00ff0052] to-transparent overflow-hidden " style={{ bottom:`${(window.innerHeight)/10 + (100/959)*window.innerHeight}px` }}>
+            <div className="fixed w-[30%] h-[80%] right-[10%] bg-gradient-to-t from-green-600 via-[#00ff0052] to-transparent overflow-hidden " style={{ bottom: `${(window.innerHeight) / 10 + (100 / 959) * window.innerHeight}px` }}>
                 <img src={Characters.current[P2Details.current.selectionIndex].showcase} alt={Characters.current[P2Details.current.selectionIndex].name} className="object-cover w-full absolute bottom-0  scale-x-[-1]" />
                 {(P2DetailsState.selected == true) && <div className="absolute w-full h-[30%] bottom-[5%] flex justify-center items-center font-extrabold text-3xl bg-[#00000044]">
                     Selected
@@ -363,12 +363,12 @@ const Local = () => {
                 {WaitingRef.current && <div className="absolute w-full h-[30%] bottom-[5%] flex justify-center items-center font-extrabold text-3xl bg-[#00000044]">
                     Waiting for Opponent
                 </div>}
-                <img src={Characters.current[P2Details.current.selectionIndex].name_img} alt="Character_Name" className="absolute right-0 h-[75px] " style={{ bottom:`${(32/959)*window.innerHeight}px` }} />
+                <img src={Characters.current[P2Details.current.selectionIndex].name_img} alt="Character_Name" className="absolute right-0 h-[75px] " style={{ bottom: `${(32 / 959) * window.innerHeight}px` }} />
             </div>
             <img src={'/PlayerSelect/Images/TopCornerUIElement.png'} className="fixed w-[25px] left-0 top-0 object-cover" />
             <img src={'/PlayerSelect/Images/TopCornerUIElement.png'} className="fixed w-[25px] right-0 top-0 -scale-x-100 object-cover" />
-            <img src={'/PlayerSelect/Images/UiElements.png'} className="fixed w-screen left-0 bottom-0" style={{height: `${(1080/959)*window.innerHeight}px` }} />
-            <div className="w-[90%] h-[10%] fixed left-[5%] border-b-[5px] border-t-[5px] border-zinc-400 bg-red-500 flex" style={{ bottom:`${(100/959)*window.innerHeight}px` }}>
+            <img src={'/PlayerSelect/Images/UiElements.png'} className="fixed w-screen left-0 bottom-0" style={{ height: `${(1080 / 959) * window.innerHeight}px` }} />
+            <div className="w-[90%] h-[10%] fixed left-[5%] border-b-[5px] border-t-[5px] border-zinc-400 bg-red-500 flex" style={{ bottom: `${(100 / 959) * window.innerHeight}px` }}>
                 {
                     Characters.current.map((c, index) => {
                         if ((P1Details.current.selectionIndex == P2Details.current.selectionIndex) && (P1Details.current.selectionIndex == index)) {

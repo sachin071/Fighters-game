@@ -78,7 +78,7 @@ const Loading = () => {
         }])
 
     async function HandleOnlineRouting(){
-        const GameRes = await fetch('http://192.168.1.2:2000/login/Map' , {method:"POST" , headers:{'Content-Type':'application/json'} , body:JSON.stringify({Game:localStorage.getItem('Game')}) })
+        const GameRes = await fetch('http://192.168.1.198:2000/login/Map' , {method:"POST" , headers:{'Content-Type':'application/json'} , body:JSON.stringify({Game:localStorage.getItem('Game')}) })
         const result = await GameRes.json()
         localStorage.setItem("imgUrl", result.MapIndex)
         localStorage.setItem("name", Arenas.current[result.MapIndex].name)
